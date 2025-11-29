@@ -13,6 +13,7 @@
     --blob-1: #80ffc5; /* Stronger Pastel Green */
     --blob-2: #ffa08c; /* Stronger Pastel Pink/Peach */
     --blob-3: #fffc79; /* Stronger Pastel Yellow */
+    --blob-4: #dcd3ff; /* Pastel Purple */
     --cursor-color: #151515;
     
     /* Updated Font Stack to VT323 */
@@ -35,6 +36,7 @@
     --blob-1: #2a2a35; 
     --blob-2: #3a3a45; 
     --blob-3: #1f1f25;
+    --blob-4: #4a3b55;
     --cursor-color: #e0e0e5;
     
     /* Dark Mode Noise: White/Light dust - Finer and subtler */
@@ -148,13 +150,20 @@ body.hovering .cursor-circle {
     left: 30%;
 }
 
+.blob-wrapper-4 {
+    width: 35vw;
+    height: 35vw;
+    bottom: 10%;
+    left: 10%;
+}
+
 /* Inner Blob handles Color & Floating Animation */
 .blob {
     width: 100%;
     height: 100%;
     border-radius: 50%;
     filter: blur(80px);
-    opacity: 0.6;
+    opacity: 0.7;
     position: absolute;
     top: 0;
     left: 0;
@@ -173,6 +182,11 @@ body.hovering .cursor-circle {
 .blob-inner-3 {
     background-color: var(--blob-3);
     animation: floatThree 35s infinite alternate cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.blob-inner-4 {
+    background-color: var(--blob-4);
+    animation: floatFour 40s infinite alternate-reverse cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 @keyframes floatOne {
@@ -194,6 +208,13 @@ body.hovering .cursor-circle {
     33% { transform: translate(-10vw, 10vh) scale(1.2); }
     66% { transform: translate(15vw, -15vh) scale(0.85); }
     100% { transform: translate(-5vw, 5vh) scale(1.1); }
+}
+
+@keyframes floatFour {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    33% { transform: translate(10vw, -15vh) rotate(-10deg); }
+    66% { transform: translate(-10vw, 10vh) rotate(5deg); }
+    100% { transform: translate(5vw, -20vh) rotate(-5deg); }
 }
 
 /* 
@@ -601,10 +622,10 @@ body.menu-open .menu-number { transform: translateY(0); transition-delay: 0.5s; 
 body::before {
     content: "";
     position: fixed;
-    top: -50vh; /* Move up to cover edges during movement */
-    left: -50vw;
-    width: 200vw; /* Double width */
-    height: 200vh; /* Double height */
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
     pointer-events: none;
     z-index: 9998; /* Below cursor */
     opacity: var(--noise-opacity); 
@@ -613,23 +634,18 @@ body::before {
     /* Use the theme-specific noise URL */
     background-image: var(--noise-url);
     
-    animation: noiseMove 0.2s steps(4) infinite; /* More distinct 'jumps' for film feeling */
+    animation: grain 0.5s steps(5) infinite;
 }
 
 
-/* CRT Static Animation - Rapid Jitter */
-@keyframes noiseMove {
-    0% { transform: translate(0, 0); }
-    10% { transform: translate(-2%, -2%); }
-    20% { transform: translate(2%, 2%); }
-    30% { transform: translate(-2%, 2%); }
-    40% { transform: translate(2%, -2%); }
-    50% { transform: translate(-2%, 2%); }
-    60% { transform: translate(2%, -2%); }
-    70% { transform: translate(-2%, 2%); }
-    80% { transform: translate(2%, -2%); }
-    90% { transform: translate(-2%, 2%); }
-    100% { transform: translate(0, 0); }
+/* Film Grain Animation */
+@keyframes grain {
+  0%, 100% { transform: translate(0, 0); }
+  10% { transform: translate(-5%, -10%); }
+  30% { transform: translate(3%, -5%); }
+  50% { transform: translate(-3%, 5%); }
+  70% { transform: translate(5%, 10%); }
+  90% { transform: translate(-5%, 5%); }
 }
 
 /* Updated Cursor Hover State */
