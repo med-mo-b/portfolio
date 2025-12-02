@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Moritz Bednorz | Work</title>
+    <title>Moritz Bednorz | About</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/styles/main.css">
 </head>
-<body class="page-work">
+<body class="page-about">
     
     <div class="cursor-dot"></div>
     <div class="cursor-circle"></div>
@@ -21,7 +21,7 @@
         <div class="blob-wrapper blob-wrapper-4"><div class="blob blob-inner-4"></div></div>
     </div>
 
-    <!-- FULLSCREEN MENU OVERLAY (Copy from index) -->
+    <!-- FULLSCREEN MENU OVERLAY -->
     <div class="menu-overlay">
         <nav class="menu-nav">
             <ul>
@@ -56,59 +56,48 @@
         </div>
     </header>
 
-    <main class="split-view">
-        <!-- LEFT SIDE: IMAGE PREVIEW -->
-        <div class="preview-container">
-            <div class="preview-image-wrapper">
-                <img id="preview-img" src="https://placehold.co/800x600/2a2a2a/FFF?text=Select+Project" alt="Project Preview">
+    <main class="content-container">
+        <section class="about-bio-section">
+            <h1 data-text-en="ABOUT ME" data-text-de="ÜBER MICH">ABOUT ME</h1>
+            <div class="bio-text">
+                 <p>
+                    I’m a tech enthusiast at heart with a background in Medical Informatics. Currently, I work as a Research Engineer at Fraunhofer IPA.
+                </p>
+                <p>
+                    I love figuring out how to use the latest tech. Whether it's contactless sensors or AI to solve actual problems in healthcare.
+                </p>
+                <p>
+                    For me, research isn't just about writing papers; it's about building solutions that work in the real world and help people.
+                </p>
+                <p>
+                    Want to see what I'm currently working on? Check out my website: <a href="https://moritzbednorz.com/">https://moritzbednorz.com/</a>
+                </p>
             </div>
-        </div>
+        </section>
 
-        <!-- RIGHT SIDE: PROJECT LIST -->
-        <div class="list-container">
-            
-            <div class="work-header-group">
-                <h1 class="work-main-title">WORK</h1>
-                <span class="work-count">5</span>
-            </div>
-
-            <ul class="work-list">
-                <li class="work-item">
-                    <a href="#" class="disabled-link" data-img="images/thoraxmonitor.png" data-link="https://gesundheitstechnologien.ipa.fraunhofer.de/de/unsere_projekte/thoraxmonitor.html">
-                        <span class="work-title">Thoraxmonitor</span>
-                        <span class="work-cat" data-text-en="Medical Tech" data-text-de="Medizintechnik">Medical Tech</span>
-                    </a>
-                </li>
-                <li class="work-item">
-                    <a href="#" class="disabled-link" data-img="images/TEDIAS.jpg" data-link="https://gesundheitstechnologien.ipa.fraunhofer.de/de/unsere_projekte/rag-chatbot.html">
-                        <span class="work-title">TEDIAS & AHEAD</span>
-                        <span class="work-cat" data-text-en="Medical Tech" data-text-de="Medizintechnik">Medical Tech</span>
-                    </a>
-                </li>
-                <li class="work-item">
-                    <a href="#" class="disabled-link" data-img="images/reconstruction_paper.png" data-link="https://www.mdpi.com/1424-8220/25/23/7114">
-                        <span class="work-title" data-text-en="Respiration Flow Reconstruction" data-text-de="Rekonstruktion des Atemflusses">Respiration Flow Reconstruction</span>
-                        <span class="work-cat" data-text-en="Publication" data-text-de="Publikation">Publication</span>
-                    </a>
-                </li>
-                <li class="work-item">
-                    <a href="#" class="disabled-link" data-img="images/federated_paper.webp" data-link="https://www.nature.com/articles/s41746-025-01434-3">
-                        <span class="work-title" data-text-en="Cardiac CT Federated Learning" data-text-de="Föderiertes Lernen für Kardio-CT">Cardiac CT Federated Learning</span>
-                        <span class="work-cat" data-text-en="Publication" data-text-de="Publikation">Publication</span>
-                    </a>
-                </li>
-                <li class="work-item">
-                    <a href="#" class="disabled-link" data-img="images/homelab.png">
-                        <span class="work-title" data-text-en="Home Server Setup" data-text-de="Home Server Setup">Home Server Setup</span>
-                        <span class="work-cat" data-text-en="Development" data-text-de="Entwicklung">Development</span>
-                    </a>
-                </li>
-            </ul>
-
-        </div>
+        <section class="experience-section">
+             <h2 data-text-en="EXPERIENCE" data-text-de="ERFAHRUNG">EXPERIENCE</h2>
+             <ul class="experience-list">
+                 <li>
+                     <span class="role" data-text-en="Research Engineer" data-text-de="Wissenschaftlicher Mitarbeiter">Research Engineer</span>
+                     <span class="company">Fraunhofer IPA</span>
+                     <span class="year">2024 - Present</span>
+                 </li>
+                 <li>
+                     <span class="role" data-text-en="Student Research Assistant" data-text-de="Wissenschaftliche Hilfskraft">Student Research Assistant</span>
+                     <span class="company">University Hospital Heidelberg</span>
+                     <span class="year">2023</span>
+                 </li>
+                 <li>
+                     <span class="role" data-text-en="Student Research Assistant" data-text-de="Wissenschaftliche Hilfskraft">Student Research Assistant</span>
+                     <span class="company">Fraunhofer IPA</span>
+                     <span class="year">2019 - 2024</span>
+                 </li>
+             </ul>
+        </section>
     </main>
 
-    <script src="script.js"></script>
+    <script type="module" src="/scripts/main.js"></script>
 </body>
 </html>
 
