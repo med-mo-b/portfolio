@@ -22,13 +22,13 @@
     <meta property="twitter:image" content="https://moritzbednorz.com/images/white_logo.svg">
 
     <link rel="canonical" href="https://moritzbednorz.com/">
-    <link rel="icon" type="image/svg+xml" href="/images/black_logo.svg" media="(prefers-color-scheme: light)">
-    <link rel="icon" type="image/svg+xml" href="/images/white_logo.svg" media="(prefers-color-scheme: dark)">
+    <link rel="icon" type="image/svg+xml" href="../public/images/black_logo.svg" media="(prefers-color-scheme: light)">
+    <link rel="icon" type="image/svg+xml" href="../public/images/white_logo.svg" media="(prefers-color-scheme: dark)">
     <title>Moritz Bednorz | Research Engineer & Tech Enthusiast</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/styles/style.css">
+    <link rel="stylesheet" href="./styles/style.css">
     <script>
         (function() {
             const savedTheme = localStorage.getItem('theme') || 'light';
@@ -39,39 +39,10 @@
 <body class="page-home">
     
     <!-- HEADER -->
-    <main>
-        <!-- HERO SECTION -->
-        <section class="hero">
-            <div class="hero-content">
-                <h1 class="hero-title">
-                    <span class="line">
-                        <span class="outline-text" data-text-en="HEY, I'M" data-text-de="HEY, ICH BIN">HEY, I'M</span> 
-                        <span class="filled-text">MORITZ</span>
-                    </span>
-                    <span class="line">
-                        <span class="outline-text" data-text-en="AND I'M AN" data-text-de="UND ICH BIN EIN">AND I'M AN</span> 
-                        <span class="filled-text" data-text-en="TECH ENTHUSIAST" data-text-de="TECH ENTHUSIAST">TECH ENTHUSIAST</span>
-                    </span>
-                </h1>
-
-                <div class="hero-description">
-                    <p data-text-en="Research Engineer @ Fraunhofer IPA" data-text-de="Forschungsingenieur @ Fraunhofer IPA">Research Engineer @ Fraunhofer IPA</p>
-                </div>
-
-                <div class="hero-links">
-                    <a href="work.html" class="pretty-arrow" data-text-en="research & projects" data-text-de="forschung & projekte">
-                        <span class="arrow-icon">→</span>
-                        <span class="arrow-text" data-text-en="research & projects" data-text-de="forschung & projekte">research & projects</span>
-                    </a>
-                    <a href="about.html" class="pretty-arrow" data-text-en="about me" data-text-de="über mich">
-                        <span class="arrow-icon">→</span>
-                        <span class="arrow-text" data-text-en="about me" data-text-de="über mich">about me</span>
-                    </a>
-                </div>
-            </div>
-        </section>
+    <main id="app">
+        <!-- Content wird hier dynamisch eingefügt -->
     </main>
 
-    <script type="module" src="/scripts/main.js"></script>
+    <script type="module" src="./scripts/main.js"></script>
 </body>
 </html>

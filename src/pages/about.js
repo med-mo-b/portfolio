@@ -1,36 +1,10 @@
-<!DOCTYPE html>
-<html lang="en" data-theme="light">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="About Moritz Bednorz - Research Engineer with a background in Medical Informatics from Heidelberg University, currently at Fraunhofer IPA.">
-    <meta name="keywords" content="Moritz Bednorz, About, Resume, Medical Informatics, Heidelberg University, Fraunhofer IPA, Career">
-    <meta name="author" content="Moritz Bednorz">
-    
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://moritzbednorz.com/about.html">
-    <meta property="og:title" content="About Me | Moritz Bednorz">
-    <meta property="og:description" content="My journey from Medical Informatics to Research Engineer. Developing real-world solutions for healthcare challenges.">
-    <meta property="og:image" content="https://moritzbednorz.com/images/white_logo.svg">
+/**
+ * About page content
+ * Bio and experience section
+ */
 
-    <link rel="canonical" href="https://moritzbednorz.com/about.html">
-    <link rel="icon" type="image/svg+xml" href="/images/black_logo.svg" media="(prefers-color-scheme: light)">
-    <link rel="icon" type="image/svg+xml" href="/images/white_logo.svg" media="(prefers-color-scheme: dark)">
-    <title>About Me | Moritz Bednorz</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/styles/style.css">
-    <script>
-        (function() {
-            const savedTheme = localStorage.getItem('theme') || 'light';
-            document.documentElement.setAttribute('data-theme', savedTheme);
-        })();
-    </script>
-</head>
-<body class="page-about">
-    
-    <main class="content-container">
+export const template = `
+    <div class="content-container">
         <section class="about-bio-section">
             <h1 data-text-en="ABOUT ME" data-text-de="ÜBER MICH">ABOUT ME</h1>
             <div class="bio-text">
@@ -65,9 +39,14 @@
                  </li>
              </ul>
         </section>
-    </main>
+    </div>
+`;
 
-    <script type="module" src="/scripts/main.js"></script>
-</body>
-</html>
+export function mount() {
+    // About page specific initialization if needed
+}
+
+export function unmount() {
+    // Cleanup if needed
+}
 

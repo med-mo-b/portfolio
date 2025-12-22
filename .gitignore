@@ -26,5 +26,5 @@ Thumbs.db
 *.sln
 *.swp
 
-# Vite
-.vite/
+# Bun
+bun.lockb

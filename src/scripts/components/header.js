@@ -17,13 +17,13 @@ export function injectHeader() {
     if (isDetailPage) {
          header.innerHTML = `
             <div class="logo">
-                 <a href="index.html" data-text-en="BACK" data-text-de="ZURÜCK">BACK</a>
+                 <a href="/" data-text-en="BACK" data-text-de="ZURÜCK">BACK</a>
             </div>
         `;
     } else {
         header.innerHTML = `
             <div class="logo">
-                <a href="index.html" aria-label="Back to Home">
+                <a href="/" aria-label="Back to Home">
                     <div class="logo-wrapper">
                         <svg class="logo-light" width="50" height="37" viewBox="0 0 300 220" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <defs>

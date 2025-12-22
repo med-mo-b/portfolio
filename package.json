@@ -4,12 +4,10 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
-  },
-  "devDependencies": {
-    "vite": "^7.2.6"
+    "dev": "bun scripts/dev.js",
+    "dev:hot": "bun --hot src/index.html",
+    "build": "bun scripts/build.js",
+    "preview": "bun dist/index.html"
   }
 }
 

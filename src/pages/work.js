@@ -1,36 +1,12 @@
-<!DOCTYPE html>
-<html lang="en" data-theme="light">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Portfolio of Moritz Bednorz - Projects in Medical Technology, AI, and Federated Learning including Thoraxmonitor, TEDIAS, and more.">
-    <meta name="keywords" content="Moritz Bednorz, Portfolio, Projects, Thoraxmonitor, TEDIAS, Respiration Flow, Federated Learning, Medical Tech">
-    <meta name="author" content="Moritz Bednorz">
-    
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://moritzbednorz.com/work.html">
-    <meta property="og:title" content="Work & Projects | Moritz Bednorz">
-    <meta property="og:description" content="Explore my research projects and publications in medical technology and AI.">
-    <meta property="og:image" content="https://moritzbednorz.com/images/white_logo.svg">
+/**
+ * Work page content
+ * Project list with image preview
+ */
 
-    <link rel="canonical" href="https://moritzbednorz.com/work.html">
-    <link rel="icon" type="image/svg+xml" href="/images/black_logo.svg" media="(prefers-color-scheme: light)">
-    <link rel="icon" type="image/svg+xml" href="/images/white_logo.svg" media="(prefers-color-scheme: dark)">
-    <title>Work & Projects | Moritz Bednorz</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/styles/style.css">
-    <script>
-        (function() {
-            const savedTheme = localStorage.getItem('theme') || 'light';
-            document.documentElement.setAttribute('data-theme', savedTheme);
-        })();
-    </script>
-</head>
-<body class="page-work">
-    
-    <main class="split-view">
+import { initWorkPage } from '../scripts/pages/work.js';
+
+export const template = `
+    <div class="split-view">
         <!-- LEFT SIDE: IMAGE PREVIEW -->
         <div class="preview-container">
             <div class="preview-image-wrapper">
@@ -80,9 +56,25 @@
             </ul>
 
         </div>
-    </main>
+    </div>
+`;
 
-    <script type="module" src="/scripts/main.js"></script>
-</body>
-</html>
+let workPageListeners = [];
+
+export function mount() {
+    // Initialize work page functionality
+    initWorkPage();
+    
+    // Store any event listeners for cleanup
+    // The initWorkPage function handles its own listeners, but we track them here if needed
+}
+
+export function unmount() {
+    // Cleanup work page event listeners
+    // Remove any listeners that were added in mount()
+    workPageListeners.forEach(({ element, event, handler }) => {
+        element.removeEventListener(event, handler);
+    });
+    workPageListeners = [];
+}
 

@@ -1,6 +1,6 @@
 /**
  * Main entry point
- * Initializes all components and utilities
+ * Initializes all components and utilities for SPA
  */
 
 import { injectBackgroundBlobs, initBlobInteraction } from './components/blobs.js';
@@ -10,10 +10,13 @@ import { injectMenuOverlay, initMenu } from './components/menu.js';
 import { initTheme } from './utils/theme.js';
 import { initLanguage } from './utils/language.js';
 import { initTransitions } from './utils/transitions.js';
-import { initWorkPage } from './pages/work.js';
+import { Router } from '../router.js';
+
+// Make initLanguage available globally for router to call after page changes
+window.initLanguage = initLanguage;
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Inject global components
+    // Inject global components (only once, since this is SPA)
     injectBackgroundBlobs();
     injectMenuOverlay();
     injectCursor();
@@ -31,8 +34,6 @@ document.addEventListener('DOMContentLoaded', () => {
     initLanguage();
     initTransitions();
     
-    // Initialize page-specific logic
-    if (document.body.classList.contains('page-work')) {
-        initWorkPage();
-    }
+    // Initialize router (this will handle page-specific logic via mount/unmount)
+    const router = new Router('app');
 });
