@@ -5,10 +5,10 @@
 
 /**
  * Create and display a lightbox with an image
- * @param {string} src - Image source URL
- * @param {string|null} link - Optional link to visit project
+ * @param src - Image source URL
+ * @param link - Optional link to visit project
  */
-export function createLightbox(src, link = null) {
+export function createLightbox(src: string, link: string | null = null): void {
     const lightbox = document.createElement('div');
     lightbox.className = 'lightbox';
     
@@ -39,7 +39,7 @@ export function createLightbox(src, link = null) {
         lightbox.classList.add('active');
     });
     
-    const closeLightbox = () => {
+    const closeLightbox = (): void => {
         lightbox.classList.remove('active');
         setTimeout(() => {
             lightbox.remove();
@@ -47,7 +47,9 @@ export function createLightbox(src, link = null) {
     };
     
     closeBtn.addEventListener('click', closeLightbox);
-    lightbox.addEventListener('click', (e) => {
+    lightbox.addEventListener('click', (e: MouseEvent) => {
         if (e.target === lightbox) closeLightbox();
     });
 }
+
+

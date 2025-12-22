@@ -6,7 +6,7 @@
 /**
  * Inject header into the page
  */
-export function injectHeader() {
+export function injectHeader(): void {
     if (document.querySelector('.site-header')) return;
 
     const header = document.createElement('header');
@@ -86,3 +86,5 @@ export function injectHeader() {
         document.body.prepend(header);
     }
 }
+
+

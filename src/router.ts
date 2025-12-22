@@ -3,16 +3,18 @@
  * Handles navigation without page reloads using History API
  */
 
+import type { Page, RouteHandler } from './types.js';
+
 // Route mapping
-const routes = {
-    '/': () => import('./pages/home.js'),
-    '/about': () => import('./pages/about.js'),
-    '/work': () => import('./pages/work.js'),
-    '/project-detail': () => import('./pages/project-detail.js'),
+const routes: Record<string, RouteHandler> = {
+    '/': () => import('./pages/home.ts'),
+    '/about': () => import('./pages/about.ts'),
+    '/work': () => import('./pages/work.ts'),
+    '/project-detail': () => import('./pages/project-detail.ts'),
 };
 
 // Page title mapping
-const pageTitles = {
+const pageTitles: Record<string, string> = {
     '/': 'Moritz Bednorz | Research Engineer & Tech Enthusiast',
     '/about': 'About Me | Moritz Bednorz',
     '/work': 'Work & Projects | Moritz Bednorz',
@@ -20,7 +22,7 @@ const pageTitles = {
 };
 
 // Body class mapping
-const pageClasses = {
+const pageClasses: Record<string, string> = {
     '/': 'page-home',
     '/about': 'page-about',
     '/work': 'page-work',
@@ -31,20 +33,22 @@ const pageClasses = {
  * Router class
  */
 export class Router {
-    constructor(containerId) {
+    private container: HTMLElement | null;
+    private currentPage: Page | null = null;
+
+    constructor(containerId: string) {
         this.container = document.getElementById(containerId);
         if (!this.container) {
             console.error(`Container with id "${containerId}" not found`);
             return;
         }
-        this.currentPage = null;
         this.init();
     }
 
     /**
      * Initialize router
      */
-    init() {
+    private init(): void {
         // Event delegation for link clicks
         document.addEventListener('click', this.handleLinkClick.bind(this));
         
@@ -58,8 +62,8 @@ export class Router {
     /**
      * Handle link clicks
      */
-    handleLinkClick(e) {
-        const link = e.target.closest('a');
+    private handleLinkClick(e: MouseEvent): void {
+        const link = (e.target as HTMLElement).closest('a');
         if (!link) return;
 
         const href = link.getAttribute('href');
@@ -79,14 +83,16 @@ export class Router {
     /**
      * Handle browser navigation (back/forward)
      */
-    handlePopState(e) {
+    private handlePopState(_e: PopStateEvent): void {
         this.navigate(window.location.pathname, false);
     }
 
     /**
      * Navigate to a route
      */
-    async navigate(path, pushState = true) {
+    async navigate(path: string, pushState: boolean = true): Promise<void> {
+        if (!this.container) return;
+
         // Normalize path (remove trailing slash except for root)
         const normalizedPath = path === '/' ? '/' : path.replace(/\/$/, '');
         
@@ -136,21 +142,24 @@ export class Router {
             // Store current page module
             this.currentPage = pageModule;
 
-            // Mount new page
+            // Mount new page - ensure DOM is ready
             if (typeof pageModule.mount === 'function') {
-                // Wait a tick to ensure DOM is updated
-                setTimeout(() => {
+                // Use requestAnimationFrame to ensure DOM is fully updated
+                requestAnimationFrame(() => {
                     try {
-                        pageModule.mount();
+                        pageModule.mount?.();
                     } catch (error) {
                         console.error('Error mounting page:', error);
                     }
-                }, 0);
+                });
             }
 
             // Re-initialize language utility (for data-text attributes)
+            // Use requestAnimationFrame to ensure DOM is ready
             if (window.initLanguage) {
-                window.initLanguage();
+                requestAnimationFrame(() => {
+                    window.initLanguage();
+                });
             }
 
         } catch (error) {
@@ -158,4 +167,5 @@ export class Router {
         }
     }
 }
+
 

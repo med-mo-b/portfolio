@@ -6,7 +6,7 @@
 /**
  * Inject background blobs into the page
  */
-export function injectBackgroundBlobs() {
+export function injectBackgroundBlobs(): void {
     if (document.querySelector('.background-blobs')) return; // Prevent duplicate injection
 
     const blobsContainer = document.createElement('div');
@@ -25,11 +25,12 @@ export function injectBackgroundBlobs() {
 
 /**
  * Initialize blob interaction with cursor
+ * @returns Function to interact with blobs based on cursor position
  */
-export function initBlobInteraction() {
-    const blobWrappers = document.querySelectorAll('.blob-wrapper');
+export function initBlobInteraction(): (x: number, y: number) => void {
+    const blobWrappers = document.querySelectorAll<HTMLElement>('.blob-wrapper');
     
-    return function interactWithBlobs(x, y) {
+    return function interactWithBlobs(x: number, y: number): void {
         blobWrappers.forEach((wrapper) => {
             const rect = wrapper.getBoundingClientRect();
             const centerX = rect.left + rect.width / 2;
@@ -50,3 +51,5 @@ export function initBlobInteraction() {
         });
     };
 }
+
+

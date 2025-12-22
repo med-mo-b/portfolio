@@ -12,6 +12,13 @@ import { initLanguage } from './utils/language.js';
 import { initTransitions } from './utils/transitions.js';
 import { Router } from '../router.js';
 
+// Extend Window interface to include initLanguage
+declare global {
+    interface Window {
+        initLanguage?: () => void;
+    }
+}
+
 // Make initLanguage available globally for router to call after page changes
 window.initLanguage = initLanguage;
 
@@ -37,3 +44,5 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize router (this will handle page-specific logic via mount/unmount)
     const router = new Router('app');
 });
+
+

@@ -5,7 +5,7 @@
 
 import { cp, rm } from 'fs/promises';
 
-async function build() {
+async function build(): Promise<void> {
     try {
         console.log('🧹 Cleaning dist directory...');
         // 1. Clean dist
@@ -44,4 +44,5 @@ async function build() {
 }
 
 build();
+
 

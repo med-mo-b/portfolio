@@ -3,7 +3,7 @@
  * Template for project details
  */
 
-export const template = `
+export const template: string = `
     <div class="detail-content">
         <h1>Project Title Placeholder</h1>
         <p>Details regarding the specific project will go here. This is a template.</p>
@@ -11,11 +11,12 @@ export const template = `
     </div>
 `;
 
-export function mount() {
+export function mount(): void {
     // Project detail page specific initialization if needed
 }
 
-export function unmount() {
+export function unmount(): void {
     // Cleanup if needed
 }
+
 

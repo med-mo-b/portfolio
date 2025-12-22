@@ -3,7 +3,9 @@
  * Bio and experience section
  */
 
-export const template = `
+import type { Page } from '../types.js';
+
+export const template: string = `
     <div class="content-container">
         <section class="about-bio-section">
             <h1 data-text-en="ABOUT ME" data-text-de="ÜBER MICH">ABOUT ME</h1>
@@ -42,11 +44,12 @@ export const template = `
     </div>
 `;
 
-export function mount() {
+export function mount(): void {
     // About page specific initialization if needed
 }
 
-export function unmount() {
+export function unmount(): void {
     // Cleanup if needed
 }
+
 

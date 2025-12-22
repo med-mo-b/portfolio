@@ -6,7 +6,7 @@
 /**
  * Inject menu overlay into the page
  */
-export function injectMenuOverlay() {
+export function injectMenuOverlay(): void {
     if (document.querySelector('.menu-overlay')) return; // Prevent duplicate injection
 
     const menuContainer = document.createElement('div');
@@ -39,10 +39,12 @@ export function injectMenuOverlay() {
 /**
  * Initialize menu toggle functionality
  */
-export function initMenu() {
-    const menuTrigger = document.querySelector('.menu-trigger');
+export function initMenu(): void {
+    const menuTrigger = document.querySelector<HTMLButtonElement>('.menu-trigger');
 
-    if(menuTrigger) {
+    if (menuTrigger) {
         menuTrigger.addEventListener('click', () => document.body.classList.toggle('menu-open'));
     }
 }
+
+

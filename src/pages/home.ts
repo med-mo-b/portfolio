@@ -3,7 +3,7 @@
  * Hero section with introduction
  */
 
-export const template = `
+export const template: string = `
     <section class="hero">
         <div class="hero-content">
             <h1 class="hero-title">
@@ -35,11 +35,12 @@ export const template = `
     </section>
 `;
 
-export function mount() {
+export function mount(): void {
     // Home page specific initialization if needed
 }
 
-export function unmount() {
+export function unmount(): void {
     // Cleanup if needed
 }
+
 

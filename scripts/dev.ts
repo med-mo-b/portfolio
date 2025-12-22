@@ -4,11 +4,11 @@
  * but this script provides more control if needed (e.g., custom MIME types, logging)
  */
 
-const PORT = process.env.PORT || 3000;
+const PORT: number = Number(process.env.PORT) || 3000;
 
 Bun.serve({
     port: PORT,
-    async fetch(req) {
+    async fetch(req: Request): Promise<Response> {
         const url = new URL(req.url);
         const pathname = url.pathname;
 
@@ -34,4 +34,5 @@ Bun.serve({
 
 console.log(`🚀 Dev server running at http://localhost:${PORT}`);
 console.log(`💡 Note: Bun 1.3's native "bun --hot src/index.html" also works!`);
+
 

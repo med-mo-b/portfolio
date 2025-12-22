@@ -6,23 +6,26 @@
 /**
  * Initialize page transitions for internal links
  */
-export function initTransitions() {
+export function initTransitions(): void {
     // Cursor hover state for links
-    const links = document.querySelectorAll('a, button, .work-item');
+    const links = document.querySelectorAll<HTMLElement>('a, button, .work-item');
     links.forEach(link => {
         link.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
         link.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
     });
 
     // Page transition logic
-    const internalLinks = document.querySelectorAll('a[href^="index.html"], a[href^="work.html"], a[href^="about.html"], a[href^="project-detail.html"]');
+    const internalLinks = document.querySelectorAll<HTMLAnchorElement>(
+        'a[href^="index.html"], a[href^="work.html"], a[href^="about.html"], a[href^="project-detail.html"]'
+    );
     
     internalLinks.forEach(link => {
-        link.addEventListener('click', (e) => {
+        link.addEventListener('click', (e: MouseEvent) => {
             // Only intercept if it's a normal left click and not opening in new tab
             if (e.button === 0 && !e.ctrlKey && !e.metaKey) {
                 e.preventDefault();
                 const targetUrl = link.getAttribute('href');
+                if (!targetUrl) return;
 
                 // Add exiting class to body to trigger fade out
                 document.body.classList.add('exiting');
@@ -40,3 +43,5 @@ export function initTransitions() {
         });
     });
 }
+
+
