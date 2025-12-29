@@ -1,29 +1,29 @@
 # My Website - Portfolio
 
 This is the source code repository for my personal portfolio website.
-The project is based on **Vite** for fast development and optimized production builds.
+The project is based on **Bun** for fast development and optimized production builds.
 
 ## 📂 Structure
 
 - **`src/`**: Contains the source code (HTML, JavaScript, CSS). Development happens here.
 - **`public/`**: Static files (Images, CNAME), which are copied unchanged to the build.
-- **`vite.config.js`**: Configuration file for Vite.
+- **`server.ts`**: Development server configuration with hot-reloading (HMR).
 
 ## 🚀 Development
 
 Install dependencies:
 
 ```bash
-npm install
+bun install
 ```
 
 Start the local development server:
 
 ```bash
-npm run dev
+bun run dev
 ```
 
-The site will be available at `http://localhost:5173`.
+The site will be available at `http://localhost:3000`.
 
 ## 📦 Deployment
 
@@ -37,6 +37,7 @@ Deployment is automated via **GitHub Actions**.
 
 ## 🛠 Build Scripts
 
-- `npm run dev`: Starts the dev server with hot-reloading.
-- `npm run build`: Builds the optimized version into the `dist/` folder.
-- `npm run preview`: Starts a local web server for the production build (for testing).
+- `bun run dev`: Starts the dev server with hot-reloading (HMR).
+- `bun run build`: Builds the optimized version into the `dist/` folder and copies public assets.
+- `bun run clean`: Removes the `dist/` folder.
+- `bun run preview`: Serves the production build from the `dist/` folder (for testing).

@@ -4,9 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "bun --hot src/index.html",
+    "dev": "bun --hot server.ts",
     "clean": "rm -rf dist && echo 'Done.'",
-    "build": "bun build src/index.html --outdir ./dist && echo 'Done.'",
+    "build": "bun build src/index.html --outdir ./dist && cp -r public dist/ && echo 'Done.'",
     "preview": "bun dist/index.html"
   },
   "devDependencies": {

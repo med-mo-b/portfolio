@@ -25,6 +25,7 @@ Thumbs.db
 *.njsproj
 *.sln
 *.swp
+.cursor
 
 # Bun
 bun.lockb
