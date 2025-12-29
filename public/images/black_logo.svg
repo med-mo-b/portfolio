@@ -1,0 +1,17 @@
+<svg width="300" height="220" viewBox="0 0 300 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Define the Organic Path for MO -->
+    <path id="mo-path-dark" d="M50 160 C 40 90, 90 90, 100 140 C 110 180, 140 180, 150 140 C 160 80, 210 80, 210 130 C 210 185, 270 170, 260 120 C 250 80, 195 95, 205 135" />
+    
+    <!-- Create the Hollow Mask -->
+    <mask id="hollow-mask-black">
+      <!-- Base (White = Visible) -->
+      <use href="#mo-path-dark" stroke="white" stroke-width="28" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      <!-- Inner Cutout (Black = Invisible) -->
+      <use href="#mo-path-dark" stroke="black" stroke-width="18" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    </mask>
+  </defs>
+
+  <!-- Apply the Color with the Mask -->
+  <rect x="0" y="0" width="300" height="220" fill="#151515" mask="url(#hollow-mask-black)"/>
+</svg>
