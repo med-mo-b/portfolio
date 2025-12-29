@@ -13,10 +13,8 @@
     "noEmit": true,
     "allowJs": false,
     "checkJs": false,
-    "types": ["bun-types"]
+    "types": ["bun-types"] // Bun types for Bun.serve() and Bun.file()
   },
-  "include": ["src/**/*", "scripts/**/*"],
-  "exclude": ["node_modules", "dist"]
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"] // Exclude node_modules and dist directories
 }
-
-

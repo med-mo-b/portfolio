@@ -4,13 +4,15 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "bun scripts/dev.ts",
-    "dev:hot": "bun --hot src/index.html",
-    "build": "bun scripts/build.ts",
+    "dev": "bun --hot src/index.html",
+    "clean": "rm -rf dist && echo 'Done.'",
+    "build": "bun build src/index.html --outdir ./dist && echo 'Done.'",
     "preview": "bun dist/index.html"
   },
   "devDependencies": {
-    "@types/node": "^25.0.3",
-    "typescript": "^5.9.3"
-  }
+    "@types/node": "latest",
+    "typescript": "latest",
+    "@types/bun": "latest"
+  },
+  "module": "index.ts"
 }

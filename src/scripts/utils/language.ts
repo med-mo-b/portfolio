@@ -8,24 +8,42 @@ type Language = 'en' | 'de';
 let eventDelegationSetup = false;
 
 /**
- * Initialize language from URL params or localStorage
+ * Initialize language from URL params, localStorage, or system language
  * Sets up event delegation for language switch button (only once)
+ * 
+ * Priority order:
+ * 1. URL parameter (?lang=de)
+ * 2. LocalStorage (previously saved preference)
+ * 3. System language (navigator.language)
+ * 4. Default 'en'
  */
 export function initLanguage(): void {
     const translatableElements = document.querySelectorAll<HTMLElement>('[data-text-en]');
 
-    // Check URL query param first, then localStorage, default to 'en'
-    const urlParams = new URLSearchParams(window.location.search);
-    const urlLang = urlParams.get('lang');
-    let savedLang: Language = (localStorage.getItem('lang') as Language) || 'en';
+    const supportedLanguages: Language[] = ['en', 'de'];
     
-    // If URL has ?lang=de, allow override (or just stick to saved if navigating internally)
-    // Usually URL param overrides storage for sharing purposes
-    if (urlLang === 'de') {
-        savedLang = 'de';
+    // Priority 1: Check URL query parameter
+    const urlParams = new URLSearchParams(window.location.search);
+    const urlLang = urlParams.get('lang') as Language | null;
+    
+    // Priority 2: Check localStorage
+    const savedLang = localStorage.getItem('lang') as Language | null;
+    
+    // Priority 3: Detect system language (extract first two characters, e.g., "de" from "de-DE")
+    const systemLang = navigator.language.split('-')[0] as Language;
+    
+    // Determine target language based on priority
+    let targetLang: Language = 'en'; // Priority 4: Absolute fallback
+    
+    if (urlLang && supportedLanguages.includes(urlLang)) {
+        targetLang = urlLang;
+    } else if (savedLang && supportedLanguages.includes(savedLang)) {
+        targetLang = savedLang;
+    } else if (supportedLanguages.includes(systemLang)) {
+        targetLang = systemLang; // Automatically use system language if supported
     }
 
-    setLanguage(savedLang, false); // false = don't push state on init, just replace
+    setLanguage(targetLang, false); // false = don't push state on init, just replace
 
     // Event delegation: Set up once at app initialization
     // This eliminates the need to re-initialize listeners after route changes

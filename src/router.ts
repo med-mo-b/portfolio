@@ -7,10 +7,10 @@ import type { Page, RouteHandler } from './types.js';
 
 // Route mapping
 const routes: Record<string, RouteHandler> = {
-    '/': () => import('./pages/home.ts'),
-    '/about': () => import('./pages/about.ts'),
-    '/work': () => import('./pages/work.ts'),
-    '/project-detail': () => import('./pages/project-detail.ts'),
+    '/': () => import('./pages/home.js'),
+    '/about': () => import('./pages/about.js'),
+    '/work': () => import('./pages/work.js'),
+    '/project-detail': () => import('./pages/project-detail.js'),
 };
 
 // Page title mapping
@@ -158,7 +158,7 @@ export class Router {
             // Use requestAnimationFrame to ensure DOM is ready
             if (window.initLanguage) {
                 requestAnimationFrame(() => {
-                    window.initLanguage();
+                    window.initLanguage?.();
                 });
             }
 

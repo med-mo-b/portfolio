@@ -4,52 +4,67 @@
   ========================================
 */
 :root {
-    /* LIGHT MODE (Default) */
-    --bg-color: #f0f0f5;
-    --text-primary: #2a2a2a; /* Softer Gray */
-    --text-outline: #5a5a70;
-    --text-secondary: #5a5a70;
-    --line-color: rgba(90, 90, 112, 0.2);
-    --blob-1: #80ffc5; /* Stronger Pastel Green */
-    --blob-2: #ffa08c; /* Stronger Pastel Pink/Peach */
-    --blob-3: #fffc79; /* Stronger Pastel Yellow */
-    --blob-4: #b2a0fa; /* Pastel Purple */
-    --cursor-color: #151515;
+    color-scheme: light dark;
     
-    /* Updated Font Stack to VT323 */
+    --bg-color: light-dark(#f0f0f5, #1a1a1e);
+    --text-primary: light-dark(#2a2a2a, #e0e0e5);
+    --text-outline: light-dark(#5a5a70, #e0e0e5);
+    --text-secondary: light-dark(#5a5a70, #a0a0b0);
+    --line-color: light-dark(rgba(90, 90, 112, 0.2), rgba(224, 224, 229, 0.2));
+    --blob-1: light-dark(#6bffd5e0, #164233);
+    --blob-2: light-dark(#ff9580e0, #4a2b26);
+    --blob-3: light-dark(#ffff90e0, #424018);
+    --blob-4: light-dark(#a88affe0, #2d2550);
+    --blob-5: light-dark(#80d4ffe0, #1a404a);
+    --blob-6: light-dark(#ff80bfe0, #4a1a35);
+    --blob-7: light-dark(#d4ff80e0, #2b4a1a);
+    --blob-8: light-dark(#ffb380e0, #4a321a);
+    /* --blob-1: light-dark(#80ffc5, #2a2a35);
+    --blob-2: light-dark(#ffa08c, #3a3a45);
+    --blob-3: light-dark(#fffc79, #1f1f25);
+    --blob-4: light-dark(#b2a0fa, #4a3b55); */
+    --cursor-color: light-dark(#151515, #e0e0e5);
+    
     --font-main: 'VT323', monospace;
     --text-size-hero: clamp(3rem, 6vw, 5rem);
     
-    /* Light Mode Noise: Black/Dark grit */
-    --noise-opacity: 0.6; /* Increased from 0.5 */
+
+    --noise-opacity: light-dark(0.6, 0.3);
+    --noise-blend: light-dark(multiply, screen);
+
+    --noise-url: light-dark(
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='5' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='1' fill='black'/%3E%3C/svg%3E"),
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='10' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='1'/%3E%3C/svg%3E")
+    );
+}
+
+[data-theme="light"] {
+    color-scheme: light;
+    --noise-opacity: 0.6;
     --noise-blend: multiply;
-    /* SVG with black fill/turbulence */
     --noise-url: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='5' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='1' fill='black'/%3E%3C/svg%3E");
 }
 
 [data-theme="dark"] {
-    --bg-color: #1a1a1e;
-    --text-primary: #e0e0e5;
-    --text-outline: #e0e0e5;
-    --text-secondary: #a0a0b0;
-    --line-color: rgba(224, 224, 229, 0.2);
-    --blob-1: #2a2a35; 
-    --blob-2: #3a3a45; 
-    --blob-3: #1f1f25;
-    --blob-4: #4a3b55;
-    --cursor-color: #e0e0e5;
-    
-    /* Dark Mode Noise: White/Light dust - Finer and subtler */
-    --noise-opacity: 0.3; /* Increased from 0.2 */
-    --noise-blend: screen; /* Screen or Overlay works best for white on dark */
-    /* SVG with white fill/turbulence - High frequency for fine grain */
+    color-scheme: dark;
+    --noise-opacity: 0.25;
+    --noise-blend: screen;
     --noise-url: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='10' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='1'/%3E%3C/svg%3E");
 }
 
 /* MOBILE TWEAKS */
 @media (max-width: 768px) {
-    /* Reduce noise slightly on mobile dark mode */
+    /* Reduce noise significantly on mobile (Pixeldichte/OLED-Kontrast) */
+    :root {
+        --noise-opacity: light-dark(0.6, 0.2);
+    }
+    
+    /* Also adjust for manual dark mode on mobile */
     [data-theme="dark"] {
-        --noise-opacity: 0.25; /* Slightly reduced from 0.3 */
+        --noise-opacity: 0.2;
+    }
+
+    [data-theme="light"] {
+        --noise-opacity: 0.6;
     }
 }

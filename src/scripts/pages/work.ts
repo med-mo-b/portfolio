@@ -6,11 +6,31 @@
 import { createLightbox } from '../components/lightbox.js';
 
 /**
+ * Handle image load errors with fallback
+ */
+function handleImageError(img: HTMLImageElement, fallbackSrc: string = ''): void {
+    console.warn(`Failed to load image: ${img.src}`);
+    if (fallbackSrc) {
+        img.src = fallbackSrc;
+    } else {
+        // Use placeholder if no fallback provided
+        img.src = 'https://placehold.co/800x600/2a2a2a/FFF?text=Image+Not+Found';
+    }
+}
+
+/**
  * Initialize work page image preview functionality
  */
 export function initWorkPage(): void {
     const previewImg = document.getElementById('preview-img') as HTMLImageElement | null;
     const workItems = document.querySelectorAll<HTMLAnchorElement>('.work-item a');
+
+    // Add error handler to preview image
+    if (previewImg) {
+        previewImg.addEventListener('error', () => {
+            handleImageError(previewImg);
+        });
+    }
 
     if (workItems.length > 0) {
         workItems.forEach(item => {
@@ -19,6 +39,11 @@ export function initWorkPage(): void {
                 if (window.innerWidth > 768 && previewImg) { // Check for desktop
                     const newSrc = item.getAttribute('data-img');
                     if (newSrc) {
+                        // Verify data-img attribute exists and is not empty
+                        if (!newSrc || newSrc.trim() === '') {
+                            console.warn('Empty or missing data-img attribute on work item');
+                            return;
+                        }
                         previewImg.src = newSrc;
                         previewImg.style.opacity = '1';
                         previewImg.style.transform = 'scale(1.05)';
@@ -47,8 +72,14 @@ export function initWorkPage(): void {
                         mobilePreview.className = 'mobile-preview';
                         const img = document.createElement('img');
                         const imgSrc = item.getAttribute('data-img');
-                        if (imgSrc) {
+                        if (imgSrc && imgSrc.trim() !== '') {
                             img.src = imgSrc;
+                            // Add error handler for mobile images
+                            img.addEventListener('error', () => {
+                                handleImageError(img);
+                            });
+                        } else {
+                            console.warn('Empty or missing data-img attribute on work item');
                         }
                         mobilePreview.appendChild(img);
                         item.parentElement.appendChild(mobilePreview);

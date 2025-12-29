@@ -1,6 +1,6 @@
 /* 
   ========================================
-  BACKGROUND BLOBS
+  BACKGROUND BLOBS (FLUID OPTIMIZED)
   ========================================
 */
 .background-blobs {
@@ -14,105 +14,114 @@
     pointer-events: none;
 }
 
-/* Wrapper handles Positioning & JS Interaction (Push) */
 .blob-wrapper {
     position: absolute;
+    /* Zwingt GPU-Rendering für weicheres Blurring */
+    transform: translateZ(0);
     will-change: transform;
-    transition: transform 0.1s ease-out; /* Smooth push return */
+    transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); /* Sanfterer Push-Effekt */
 }
 
-.blob-wrapper-1 {
-    width: 50vw;
-    height: 50vw;
-    min-width: 400px;
-    min-height: 400px;
-    top: -10%;
-    left: -10%;
-}
+/* Zufällige Verteilung über den Viewport */
+.blob-wrapper-1 { width: 55vw; height: 55vw; top: -15%; left: -10%; }
+.blob-wrapper-2 { width: 45vw; height: 45vw; bottom: -15%; right: -5%; }
+.blob-wrapper-3 { width: 50vw; height: 50vw; top: 15%; right: -10%; }
+.blob-wrapper-4 { width: 40vw; height: 40vw; bottom: 15%; left: -5%; }
+.blob-wrapper-5 { width: 48vw; height: 48vw; top: 40%; left: 35%; }  /* Zentrum-Fokus */
+.blob-wrapper-6 { width: 42vw; height: 42vw; top: -5%; right: 35%; }  /* Oben Mitte */
+.blob-wrapper-7 { width: 38vw; height: 38vw; bottom: 5%; left: 40%; } /* Unten Mitte */
+.blob-wrapper-8 { width: 45vw; height: 45vw; top: 25%; left: -15%; } /* Links Mitte */
 
-.blob-wrapper-2 {
-    width: 40vw;
-    height: 40vw;
-    min-width: 350px;
-    min-height: 350px;
-    bottom: -10%;
-    right: -10%;
-}
-
-.blob-wrapper-3 {
-    width: 45vw;
-    height: 45vw;
-    min-width: 380px;
-    min-height: 380px;
-    top: 30%;
-    left: 30%;
-}
-
-.blob-wrapper-4 {
-    width: 35vw;
-    height: 35vw;
-    min-width: 300px;
-    min-height: 300px;
-    bottom: 10%;
-    left: 10%;
-}
-
-/* Inner Blob handles Color & Floating Animation */
 .blob {
     width: 100%;
     height: 100%;
     border-radius: 50%;
-    filter: blur(80px);
-    opacity: 0.7;
+    filter: blur(70px); /* Reduziert für bessere VRAM-Performance */
+    opacity: 0.65;
     position: absolute;
-    top: 0;
-    left: 0;
+    /* Performance-Booster */
+    transform: translate3d(0, 0, 0); /* Hardware-Beschleunigung */
+    will-change: transform;
+    contain: layout paint; /* Sicherer als 'strict' bei Blurs, um Clipping zu vermeiden */
+    backface-visibility: hidden; /* Verhindert "eckige" Kanten beim Animieren */
 }
 
-.blob-inner-1 {
-    background-color: var(--blob-1);
-    animation: floatOne 25s infinite alternate cubic-bezier(0.4, 0, 0.2, 1);
+/* Animations-Steuerung: Unterschiedliche Dauer & Negative Delays für Zufall */
+/* Linear verhindert das Stocken am Ende, nahtloser Loop durch 0% = 100% */
+.blob-inner-1 { 
+    background-color: var(--blob-1); 
+    animation: floatComplex 23s infinite linear; 
+    animation-delay: -2s;
+}
+.blob-inner-2 { 
+    background-color: var(--blob-2); 
+    animation: floatComplex 31s infinite linear; 
+    animation-delay: -7s;
+}
+.blob-inner-3 { 
+    background-color: var(--blob-3); 
+    animation: floatComplex 19s infinite linear; 
+    animation-delay: -12s;
+}
+.blob-inner-4 { 
+    background-color: var(--blob-4); 
+    animation: floatComplex 37s infinite linear; 
+    animation-delay: -5s;
+}
+.blob-inner-5 { 
+    background-color: var(--blob-5); 
+    animation: floatComplex 29s infinite linear; 
+    animation-delay: -18s;
+}
+.blob-inner-6 { 
+    background-color: var(--blob-6); 
+    animation: floatComplex 43s infinite linear; 
+    animation-delay: -3s;
+}
+.blob-inner-7 { 
+    background-color: var(--blob-7); 
+    animation: floatComplex 27s infinite linear; 
+    animation-delay: -9s;
+}
+.blob-inner-8 { 
+    background-color: var(--blob-8); 
+    animation: floatComplex 33s infinite linear; 
+    animation-delay: -15s;
 }
 
-.blob-inner-2 {
-    background-color: var(--blob-2);
-    animation: floatTwo 30s infinite alternate-reverse cubic-bezier(0.4, 0, 0.2, 1);
+/* Nahtloser Loop-Keyframe: 0% und 100% sind identisch für flüssige Fließbewegung */
+/* 360° Rotation für organische Bewegung ohne Stocken */
+@keyframes floatComplex {
+    0% {
+        transform: translate(0, 0) rotate(0deg) scale(1);
+    }
+    33% {
+        transform: translate(12vw, -8vh) rotate(120deg) scale(1.1);
+    }
+    66% {
+        transform: translate(-8vw, 12vh) rotate(240deg) scale(0.9);
+    }
+    100% {
+        /* Zurück zum Ursprung für nahtlosen Loop */
+        transform: translate(0, 0) rotate(360deg) scale(1);
+    }
 }
 
-.blob-inner-3 {
-    background-color: var(--blob-3);
-    animation: floatThree 35s infinite alternate cubic-bezier(0.4, 0, 0.2, 1);
-}
+/* MOBILE OPTIMIZATIONS */
+@media (max-width: 768px) {
+    /* Performance-Schutz für Mobile */
+    .blob {
+        filter: blur(60px); /* Reduziert für bessere Akku/Performance */
+        opacity: 0.5; /* Etwas dezenter auf Mobile */
+    }
 
-.blob-inner-4 {
-    background-color: var(--blob-4);
-    animation: floatFour 40s infinite alternate-reverse cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-@keyframes floatOne {
-    0% { transform: translate(0, 0) scale(1); }
-    33% { transform: translate(10vw, 15vh) scale(1.1); }
-    66% { transform: translate(-5vw, 20vh) scale(0.9); }
-    100% { transform: translate(15vw, -10vh) scale(1.05); }
-}
-
-@keyframes floatTwo {
-    0% { transform: translate(0, 0) rotate(0deg); }
-    33% { transform: translate(-15vw, -10vh) rotate(10deg); }
-    66% { transform: translate(5vw, -25vh) rotate(-5deg); }
-    100% { transform: translate(-10vw, 15vh) rotate(5deg); }
-}
-
-@keyframes floatThree {
-    0% { transform: translate(0, 0) scale(1); }
-    33% { transform: translate(-10vw, 10vh) scale(1.2); }
-    66% { transform: translate(15vw, -15vh) scale(0.85); }
-    100% { transform: translate(-5vw, 5vh) scale(1.1); }
-}
-
-@keyframes floatFour {
-    0% { transform: translate(0, 0) rotate(0deg); }
-    33% { transform: translate(10vw, -15vh) rotate(-10deg); }
-    66% { transform: translate(-10vw, 10vh) rotate(5deg); }
-    100% { transform: translate(5vw, -20vh) rotate(-5deg); }
+    /* Blobs massiv vergrößern, damit sie den Screen füllen */
+    .blob-wrapper-1 { width: 120vw; height: 120vw; top: -10%; left: -20%; }
+    .blob-wrapper-2 { width: 100vw; height: 100vw; bottom: -10%; right: -20%; }
+    .blob-wrapper-3 { width: 110vw; height: 110vw; top: 15%; right: -30%; }
+    .blob-wrapper-4 { width: 90vw; height: 90vw; bottom: 10%; left: -15%; }
+    .blob-wrapper-5 { width: 100vw; height: 100vw; top: 35%; left: 0%; }
+    .blob-wrapper-6 { width: 95vw; height: 95vw; top: -5%; right: -10%; }
+    .blob-wrapper-7 { width: 85vw; height: 85vw; bottom: 5%; left: 10%; }
+    .blob-wrapper-8 { width: 100vw; height: 100vw; top: 20%; left: -25%; }
 }

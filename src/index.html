@@ -1,25 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en">
+    
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Moritz Bednorz - Research Engineer specializing in AI and Medical Technology at Fraunhofer IPA.">
     <meta name="keywords" content="Moritz Bednorz, Research Engineer, Fraunhofer IPA, Medical Informatics, AI, Healthcare Technology, Contactless Sensors">
     <meta name="author" content="Moritz Bednorz">
-    
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://moritzbednorz.com/">
-    <meta property="og:title" content="Moritz Bednorz - Research Engineer | AI & Medical Tech">
-    <meta property="og:description" content="Research Engineer at Fraunhofer IPA working on contactless sensors and AI solutions for healthcare.">
-    <meta property="og:image" content="https://moritzbednorz.com/images/white_logo.svg">
-
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://moritzbednorz.com/">
-    <meta property="twitter:title" content="Moritz Bednorz - Research Engineer | AI & Medical Tech">
-    <meta property="twitter:description" content="Research Engineer at Fraunhofer IPA working on contactless sensors and AI solutions for healthcare.">
-    <meta property="twitter:image" content="https://moritzbednorz.com/images/white_logo.svg">
 
     <link rel="canonical" href="https://moritzbednorz.com/">
     <link rel="icon" type="image/svg+xml" href="../public/images/black_logo.svg" media="(prefers-color-scheme: light)">
@@ -31,18 +18,20 @@
     <link rel="stylesheet" href="./styles/style.css">
     <script>
         (function() {
-            const savedTheme = localStorage.getItem('theme') || 'light';
-            document.documentElement.setAttribute('data-theme', savedTheme);
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme) {
+                document.documentElement.setAttribute('data-theme', savedTheme);
+            } else {
+                document.documentElement.removeAttribute('data-theme');
+            }
         })();
     </script>
 </head>
-<body class="page-home">
-    
-    <!-- HEADER -->
-    <main id="app">
-        <!-- Content wird hier dynamisch eingefügt -->
-    </main>
 
+<body class="page-home">
+    <main id="app">
+    </main>
     <script type="module" src="./scripts/main.ts"></script>
 </body>
+
 </html>
