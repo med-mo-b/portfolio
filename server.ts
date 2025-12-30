@@ -4,7 +4,11 @@ import index from "./src/index.html";
 Bun.serve({
   port: 3000,
   routes: {
+    // SPA routes - all return the bundled index.html
     "/": index,
+    "/about": index,
+    "/work": index,
+    "/project-detail": index,
   },
   async fetch(req) {
     const url = new URL(req.url);
@@ -16,8 +20,9 @@ Bun.serve({
       return new Response(publicFile);
     }
 
-    // Fallback to 404 if not found
+    // Fallback to 404 for unknown routes
     return new Response("Not Found", { status: 404 });
+
   },
   development: {
     hmr: true,

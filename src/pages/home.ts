@@ -22,11 +22,11 @@ export const template: string = `
             </div>
 
             <div class="hero-links">
-                <a href="/work" class="pretty-arrow" data-text-en="research & projects" data-text-de="forschung & projekte">
+                <a href="/work" class="pretty-arrow">
                     <span class="arrow-icon">→</span>
                     <span class="arrow-text" data-text-en="research & projects" data-text-de="forschung & projekte">research & projects</span>
                 </a>
-                <a href="/about" class="pretty-arrow" data-text-en="about me" data-text-de="über mich">
+                <a href="/about" class="pretty-arrow">
                     <span class="arrow-icon">→</span>
                     <span class="arrow-text" data-text-en="about me" data-text-de="über mich">about me</span>
                 </a>
