@@ -29,20 +29,21 @@ export function animatePageOut(container: HTMLElement): Promise<void> {
 }
 
 /**
- * Animates the new content in (Fade In + Slide Up from bottom)
+ * Animates the new content in (Fade In + Slide Down from top)
+ * Inverted direction compared to animatePageOut
  * 
  * @param container - The container element whose children should be animated in
  * @returns Promise that resolves when animation completes
  */
 export function animatePageIn(container: HTMLElement): Promise<void> {
     return new Promise((resolve) => {
-        // Set start values immediately (inverted: starts further down)
+        // Set start values immediately (inverted: starts from above)
         gsap.set(container.children, {
-            y: 50,
+            y: -50,
             opacity: 0
         });
 
-        // Animate to neutral position
+        // Animate to neutral position (slides down)
         gsap.to(container.children, {
             y: 0,
             opacity: 1,
