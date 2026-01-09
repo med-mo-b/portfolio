@@ -9,7 +9,7 @@
     left: 0;
     transform: translate(-50%, -50%);
     border-radius: 50%;
-    z-index: 9999;
+    z-index: 99999;
     pointer-events: none;
 }
 
@@ -17,30 +17,26 @@
     width: 4px;
     height: 4px;
     background-color: var(--cursor-color);
+    transition: opacity 0.3s ease;
 }
 
 .cursor-circle {
     width: 20px;
     height: 20px;
     border: 1px solid var(--cursor-color);
-    transition: width 0.2s, height 0.2s, background-color 0.2s;
+    mix-blend-mode: difference;
+    transition: transform 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
 }
 
 /* Hover State for Cursor */
 body.hovering .cursor-circle {
-    width: 40px;
-    height: 40px;
-    background-color: rgba(128,128,128, 0.1);
+    transform: translate(-50%, -50%) scale(2);
+    background-color: #ffffff;
     border-color: transparent;
 }
 
-/* Updated Cursor Hover State */
-body.hovering .cursor-circle {
-    width: 60px;
-    height: 60px;
-    background-color: rgba(128, 128, 128, 0.3);
-    border-color: transparent;
-    mix-blend-mode: difference; /* Optional: for visibility over images */
+body.hovering .cursor-dot {
+    opacity: 0;
 }
 
 /* Hide custom cursor and restore default on touch devices */

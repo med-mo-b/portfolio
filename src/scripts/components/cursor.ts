@@ -57,6 +57,38 @@ export function initCursor(interactWithBlobs?: BlobInteractionFunction): void {
             requestAnimationFrame(animateCursor);
         }
         animateCursor();
+
+        // Event listeners for interactive elements
+        const hoverSelectors = [
+            'a', 
+            'button', 
+            'input', 
+            'textarea', 
+            'label', 
+            '[data-cursor-hover]',
+            '.commit-node',      // Timeline nodes in about section
+            '.legend-item',       // Legend items in about section
+            '.event-card-close',  // Close button in event card
+            '.work-item'          // Work items (if not already covered by 'a')
+        ];
+
+        // Event Delegation für Performance - closest() nutzen für Kind-Elemente
+        document.addEventListener('mouseover', (e: MouseEvent) => {
+            const target = e.target as HTMLElement;
+            // Prüfen, ob das Element selbst ODER ein Elternteil interaktiv ist
+            const interactiveEl = target.closest(hoverSelectors.join(','));
+            if (interactiveEl) {
+                document.body.classList.add('hovering');
+            }
+        });
+
+        document.addEventListener('mouseout', (e: MouseEvent) => {
+            const target = e.target as HTMLElement;
+            const interactiveEl = target.closest(hoverSelectors.join(','));
+            if (interactiveEl) {
+                document.body.classList.remove('hovering');
+            }
+        });
     }
 }
 
