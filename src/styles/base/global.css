@@ -51,37 +51,7 @@ body::before {
 
 /* Page Transitions */
 /* Removed body opacity/fade to keep background global/static */
-
-/* Text Transitions */
-.transition-text {
-    /* Ensure block or inline-block is handled by specific elements if needed, 
-       but avoid breaking flex containers like header-controls */
-    transition: transform 0.5s ease, opacity 0.5s ease;
-    
-    /* Entry Animation State (start invisible and slightly down) */
-    opacity: 0;
-    transform: translateY(20vh);
-    animation: textEntry 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-@keyframes textEntry {
-    from {
-        opacity: 0;
-        transform: translateY(20vh);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* Exit State */
-body.exiting .transition-text {
-    transform: translateY(-20vh); /* Move UP on exit */
-    opacity: 0;
-    animation: none; /* Override entry animation */
-    transition: transform 0.5s ease, opacity 0.5s ease;
-}
+/* Page transitions are now handled by GSAP in router.ts */
 
 /* Disabled Link Style */
 a.disabled-link {

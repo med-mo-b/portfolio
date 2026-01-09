@@ -4,6 +4,7 @@
  */
 
 import type { Page, RouteHandler } from './types.js';
+import { animatePageOut, animatePageIn } from './scripts/utils/transitions.js';
 
 // Route mapping
 const routes: Record<string, RouteHandler> = {
@@ -105,6 +106,12 @@ export class Router {
             return;
         }
 
+        // 1. EXIT ANIMATION
+        // If we're already on a page, animate it out
+        if (this.currentPage) {
+            await animatePageOut(this.container);
+        }
+
         // Unmount current page
         if (this.currentPage && typeof this.currentPage.unmount === 'function') {
             try {
@@ -131,9 +138,17 @@ export class Router {
         try {
             const pageModule = await routeHandler();
             
+            // 2. CONTENT SWAP
             // Render template
             if (pageModule.template) {
                 this.container.innerHTML = pageModule.template;
+                
+                // FOUC-Vermeidung: Sofort verstecken, damit kein Frame "blitzt"
+                // bevor GSAP greift
+                const children = this.container.children;
+                for (let i = 0; i < children.length; i++) {
+                    (children[i] as HTMLElement).style.opacity = '0';
+                }
             } else {
                 console.error('Page module does not export template');
                 return;
@@ -141,6 +156,11 @@ export class Router {
 
             // Store current page module
             this.currentPage = pageModule;
+
+            // 3. SCROLL
+            // Scroll immediately after swap, before enter animation
+            // Prevents user from seeing new page at old scroll level
+            window.scrollTo(0, 0);
 
             // Mount new page - ensure DOM is ready
             if (typeof pageModule.mount === 'function') {
@@ -161,6 +181,14 @@ export class Router {
                     window.initLanguage?.();
                 });
             }
+
+            // 4. ENTER ANIMATION
+            // Use requestAnimationFrame to ensure DOM is fully rendered
+            requestAnimationFrame(() => {
+                if (this.container) {
+                    animatePageIn(this.container);
+                }
+            });
 
         } catch (error) {
             console.error('Error loading page:', error);

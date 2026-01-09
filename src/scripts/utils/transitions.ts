@@ -1,10 +1,63 @@
 /**
  * Page transition utilities
- * Handles page transitions and cursor hover states
+ * Handles page transitions with GSAP and cursor hover states
  */
 
+import gsap from 'gsap';
+
 /**
- * Initialize page transitions for internal links
+ * Animates the current content out (Fade Out + Slide Up)
+ * Returns a promise that resolves when the animation is complete.
+ * 
+ * @param container - The container element whose children should be animated out
+ * @returns Promise that resolves when animation completes
+ */
+export function animatePageOut(container: HTMLElement): Promise<void> {
+    // If container is empty, resolve immediately
+    if (!container.firstElementChild) return Promise.resolve();
+
+    return new Promise((resolve) => {
+        gsap.to(container.children, {
+            y: -50,          // Move up
+            opacity: 0,      // Fade out
+            duration: 0.4,
+            ease: 'power2.in',
+            stagger: 0.05,   // Nice effect: elements exit slightly offset
+            onComplete: () => resolve()
+        });
+    });
+}
+
+/**
+ * Animates the new content in (Fade In + Slide Up from bottom)
+ * 
+ * @param container - The container element whose children should be animated in
+ * @returns Promise that resolves when animation completes
+ */
+export function animatePageIn(container: HTMLElement): Promise<void> {
+    return new Promise((resolve) => {
+        // Set start values immediately (inverted: starts further down)
+        gsap.set(container.children, {
+            y: 50,
+            opacity: 0
+        });
+
+        // Animate to neutral position
+        gsap.to(container.children, {
+            y: 0,
+            opacity: 1,
+            duration: 0.6,
+            ease: 'power2.out',
+            stagger: 0.05,
+            clearProps: 'all', // Important: Removes inline styles after animation
+            onComplete: () => resolve()
+        });
+    });
+}
+
+/**
+ * Initialize page transitions
+ * Handles cursor hover states for interactive elements
  */
 export function initTransitions(): void {
     // Cursor hover state for links
@@ -13,37 +66,4 @@ export function initTransitions(): void {
         link.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
         link.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
     });
-
-    // Page transition logic
-    const internalLinks = document.querySelectorAll<HTMLAnchorElement>(
-        'a[href^="index.html"], a[href^="work.html"], a[href^="about.html"], a[href^="project-detail.html"]'
-    );
-    
-    internalLinks.forEach(link => {
-        link.addEventListener('click', (e: MouseEvent) => {
-            // Only intercept if it's a normal left click and not opening in new tab
-            if (e.button === 0 && !e.ctrlKey && !e.metaKey) {
-                e.preventDefault();
-                const targetUrl = link.getAttribute('href');
-                if (!targetUrl) return;
-
-                // Add exiting class to body to trigger fade out
-                document.body.classList.add('exiting');
-                
-                // Special case: if clicking a menu link, add exiting-menu class too
-                if (link.classList.contains('menu-link')) {
-                    document.body.classList.add('exiting-menu');
-                }
-
-                // Wait for animation to finish before navigating
-                setTimeout(() => {
-                    window.location.href = targetUrl;
-                }, 500); // Match the CSS transition time (0.5s)
-            }
-        });
-    });
 }
-
-
-
-
