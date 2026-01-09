@@ -50,7 +50,7 @@
 .pretty-arrow {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: calc(0.5rem + 2px);
     font-size: 1.3rem;
     color: var(--text-primary);
     position: relative;
@@ -75,7 +75,19 @@
     transform-origin: left;
 }
 
+/* Arrow Icon Animation */
+@keyframes arrowPulse {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    50% {
+        transform: translateX(5px);
+    }
+}
+
 .arrow-icon {
+    will-change: transform;
+    animation: arrowPulse 1.5s ease-in-out infinite;
     transition: transform 0.3s ease;
 }
 
