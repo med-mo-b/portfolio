@@ -50,42 +50,42 @@
 /* Linear verhindert das Stocken am Ende, nahtloser Loop durch 0% = 100% */
 .blob-inner-1 { 
     background-color: var(--blob-1); 
-    animation: floatComplex 23s infinite linear; 
+    animation: floatComplex 18.4s infinite linear; 
     animation-delay: -2s;
 }
 .blob-inner-2 { 
     background-color: var(--blob-2); 
-    animation: floatComplex 31s infinite linear; 
+    animation: floatComplex 24.8s infinite linear; 
     animation-delay: -7s;
 }
 .blob-inner-3 { 
     background-color: var(--blob-3); 
-    animation: floatComplex 19s infinite linear; 
+    animation: floatComplex 15.2s infinite linear; 
     animation-delay: -12s;
 }
 .blob-inner-4 { 
     background-color: var(--blob-4); 
-    animation: floatComplex 37s infinite linear; 
+    animation: floatComplex 29.6s infinite linear; 
     animation-delay: -5s;
 }
 .blob-inner-5 { 
     background-color: var(--blob-5); 
-    animation: floatComplex 29s infinite linear; 
+    animation: floatComplex 23.2s infinite linear; 
     animation-delay: -18s;
 }
 .blob-inner-6 { 
     background-color: var(--blob-6); 
-    animation: floatComplex 43s infinite linear; 
+    animation: floatComplex 34.4s infinite linear; 
     animation-delay: -3s;
 }
 .blob-inner-7 { 
     background-color: var(--blob-7); 
-    animation: floatComplex 27s infinite linear; 
+    animation: floatComplex 21.6s infinite linear; 
     animation-delay: -9s;
 }
 .blob-inner-8 { 
     background-color: var(--blob-8); 
-    animation: floatComplex 33s infinite linear; 
+    animation: floatComplex 26.4s infinite linear; 
     animation-delay: -15s;
 }
 
@@ -111,7 +111,7 @@
 @media (max-width: 768px) {
     /* Performance-Schutz für Mobile */
     .blob {
-        filter: blur(60px); /* Reduziert für bessere Akku/Performance */
+        filter: blur(40px); /* Reduziert für bessere Akku/Performance */
         opacity: 0.5; /* Etwas dezenter auf Mobile */
     }
 
