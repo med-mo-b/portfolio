@@ -43,7 +43,7 @@
 }
 
 .bio-text p {
-    font-size: 1.1rem;
+    font-size: 1.25rem;
     line-height: 1.6;
     color: var(--text-secondary);
     margin-bottom: 1rem;
@@ -250,14 +250,14 @@
 
 .commit-node .commit-title {
     font-family: var(--font-main);
-    font-size: 14px;
+    font-size: 18px;
     fill: var(--text-secondary);
     transition: fill 0.2s ease;
 }
 
 .commit-node .year-label {
     font-family: var(--font-main);
-    font-size: 11px;
+    font-size: 14px;
     fill: var(--text-secondary);
     opacity: 1;
     transition: opacity 0.2s ease;
