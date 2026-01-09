@@ -135,8 +135,8 @@ function renderTimeline(): void {
         ? sortedEvents.filter(e => e.branch === activeBranchFilter)
         : sortedEvents;
     
-    const ROW_HEIGHT = 70;
-    const COLUMN_WIDTH = 50;
+    const ROW_HEIGHT = 90;
+    const COLUMN_WIDTH = 60;
     const LEFT_MARGIN = 50;
     const RIGHT_MARGIN = 200;
     const TOP_MARGIN = 30;

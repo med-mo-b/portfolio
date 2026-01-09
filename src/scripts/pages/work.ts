@@ -1,135 +1,111 @@
 /**
  * Work page specific logic
- * Handles image preview functionality
+ * Handles filtering and card expansion interactions
  */
 
-import { createLightbox } from '../components/lightbox.js';
-
 /**
- * Handle image load errors with fallback
- */
-function handleImageError(img: HTMLImageElement, fallbackSrc: string = ''): void {
-    console.warn(`Failed to load image: ${img.src}`);
-    if (fallbackSrc) {
-        img.src = fallbackSrc;
-    } else {
-        // Use placeholder if no fallback provided
-        img.src = 'https://placehold.co/800x600/2a2a2a/FFF?text=Image+Not+Found';
-    }
-}
-
-/**
- * Initialize work page image preview functionality
+ * Initialize work page functionality
  */
 export function initWorkPage(): void {
-    const previewImg = document.getElementById('preview-img') as HTMLImageElement | null;
-    const workItems = document.querySelectorAll<HTMLAnchorElement>('.work-item a');
-
-    // Add error handler to preview image
-    if (previewImg) {
-        previewImg.addEventListener('error', () => {
-            handleImageError(previewImg);
-        });
-    }
-
-    if (workItems.length > 0) {
-        workItems.forEach(item => {
-            // Desktop Hover
-            item.addEventListener('mouseenter', () => {
-                if (window.innerWidth > 768 && previewImg) { // Check for desktop
-                    const newSrc = item.getAttribute('data-img');
-                    if (newSrc) {
-                        // Verify data-img attribute exists and is not empty
-                        if (!newSrc || newSrc.trim() === '') {
-                            console.warn('Empty or missing data-img attribute on work item');
-                            return;
-                        }
-                        previewImg.src = newSrc;
-                        previewImg.style.opacity = '1';
-                        previewImg.style.transform = 'scale(1.05)';
-                    }
+    // Setup filter functionality
+    const filterButtons = document.querySelectorAll<HTMLButtonElement>('.filter-btn');
+    const projectCards = document.querySelectorAll<HTMLElement>('.project-card');
+    const projectsGrid = document.querySelector<HTMLElement>('.projects-grid');
+    
+    filterButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            if (!projectsGrid) return;
+            
+            // Remove active class from all buttons
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            
+            // Add active class to clicked button
+            button.classList.add('active');
+            
+            // Get filter value
+            const filterValue = button.getAttribute('data-filter');
+            
+            // Collapse any expanded cards before filtering
+            projectCards.forEach(card => {
+                if (card.classList.contains('expanded')) {
+                    card.classList.remove('expanded');
                 }
             });
-            item.addEventListener('mouseleave', () => {
-                if (window.innerWidth > 768 && previewImg) { // Check for desktop
-                    previewImg.style.opacity = '0';
-                    previewImg.style.transform = 'scale(1)';
-                }
-            });
-
-            // Mobile Click Handling (Toggle Preview)
-            item.addEventListener('click', (e: MouseEvent) => {
-                if (window.innerWidth <= 768) {
-                    e.preventDefault(); // Prevent navigation on mobile too if needed, though disabled-link handles it mostly
+            
+            // Start fade-out animation
+            projectsGrid.classList.remove('grid-fade-in');
+            projectsGrid.classList.add('grid-fade-out');
+            
+            // Wait for fade-out, then update DOM
+            setTimeout(() => {
+                // Filter cards
+                projectCards.forEach(card => {
+                    const cardCategory = card.getAttribute('data-category');
                     
-                    // Find or Create Mobile Preview Container for THIS item
-                    // Check if preview already exists
-                    let mobilePreview = item.parentElement?.querySelector<HTMLDivElement>('.mobile-preview');
-                    
-                    if (!mobilePreview && item.parentElement) {
-                        // Create it
-                        mobilePreview = document.createElement('div');
-                        mobilePreview.className = 'mobile-preview';
-                        const img = document.createElement('img');
-                        const imgSrc = item.getAttribute('data-img');
-                        if (imgSrc && imgSrc.trim() !== '') {
-                            img.src = imgSrc;
-                            // Add error handler for mobile images
-                            img.addEventListener('error', () => {
-                                handleImageError(img);
-                            });
+                    if (filterValue === 'all') {
+                        card.classList.remove('hidden');
+                    } else {
+                        if (cardCategory === filterValue) {
+                            card.classList.remove('hidden');
                         } else {
-                            console.warn('Empty or missing data-img attribute on work item');
-                        }
-                        mobilePreview.appendChild(img);
-                        item.parentElement.appendChild(mobilePreview);
-                    }
-
-                    if (mobilePreview) {
-                        // Toggle Visibility
-                        if (mobilePreview.classList.contains('active')) {
-                            mobilePreview.classList.remove('active');
-                        } else {
-                            // Close others? Optional. Let's close others for cleaner UI.
-                            document.querySelectorAll('.mobile-preview').forEach(el => el.classList.remove('active'));
-                            mobilePreview.classList.add('active');
-                            
-                            // Add click listener to the image for Lightbox (Mobile)
-                            const mobileImg = mobilePreview.querySelector<HTMLImageElement>('img');
-                            if (mobileImg) {
-                                 // Remove old listeners to prevent duplicates if toggled multiple times (though recreating element avoids this, but good practice)
-                                 const newImg = mobileImg.cloneNode(true) as HTMLImageElement;
-                                 mobileImg.parentNode?.replaceChild(newImg, mobileImg);
-                                 
-                                 newImg.addEventListener('click', (ev: MouseEvent) => {
-                                     ev.stopPropagation(); // Prevent bubbling to item click
-                                     const link = item.getAttribute('data-link');
-                                     createLightbox(newImg.src, link);
-                                 });
-                            }
+                            card.classList.add('hidden');
                         }
                     }
-                } else {
-                    // Desktop Click Handling: Open Link if available
-                     const link = item.getAttribute('data-link');
-                     if (link) {
-                         window.open(link, '_blank');
-                     }
-                }
-            });
+                });
+                
+                // Start fade-in animation
+                projectsGrid.classList.remove('grid-fade-out');
+                projectsGrid.classList.add('grid-fade-in');
+                
+                // Clean up after fade-in completes
+                setTimeout(() => {
+                    projectsGrid.classList.remove('grid-fade-in');
+                }, 300);
+            }, 300);
         });
-    }
-
-    // Desktop Preview Image Click - Open Lightbox
-    if (previewImg) {
-        previewImg.addEventListener('click', () => {
-            // Only activate if visible and has valid source
-            if (previewImg.style.opacity !== '0' && previewImg.src) {
-                const activeLink = document.querySelector<HTMLAnchorElement>('.work-item a:hover')?.getAttribute('data-link');
-                createLightbox(previewImg.src, activeLink || null);
+    });
+    
+    // Setup expansion logic (Piggment effect)
+    projectCards.forEach(card => {
+        card.addEventListener('click', (e: Event) => {
+            // Prevent expansion if clicking on links
+            const target = e.target as HTMLElement;
+            if (target.tagName === 'A' || target.closest('a')) {
+                return;
+            }
+            
+            // Check if card is already expanded
+            if (card.classList.contains('expanded')) {
+                // Collapse
+                card.classList.remove('expanded');
+            } else {
+                // Collapse all other cards first
+                projectCards.forEach(otherCard => {
+                    if (otherCard !== card) {
+                        otherCard.classList.remove('expanded');
+                    }
+                });
+                
+                // Expand clicked card
+                card.classList.add('expanded');
+                
+                // Force reflow to ensure column-span works
+                void card.offsetHeight;
+                
+                // Scroll into view smoothly
+                setTimeout(() => {
+                    card.scrollIntoView({ 
+                        behavior: 'smooth', 
+                        block: 'start',
+                        inline: 'nearest'
+                    });
+                }, 150);
             }
         });
+    });
+    
+    // Re-apply language after rendering
+    if (window.initLanguage) {
+        window.initLanguage();
     }
 }
-
-
