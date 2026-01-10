@@ -6,8 +6,8 @@
   "scripts": {
     "dev": "bun --hot server.ts",
     "clean": "rm -rf dist && echo 'Done.'",
-    "build": "bun build src/index.html --outdir ./dist && cp -r public/. dist/ && echo 'Done.'",
-    "preview": "bun dist/index.html"
+    "build": "bun build index.html --outdir ./dist && cp -R public/. dist/ && echo 'Done.'",
+    "preview": "bun x serve dist"
   },
   "devDependencies": {
     "@types/node": "latest",

@@ -48,6 +48,7 @@ export function initCursor(interactWithBlobs?: BlobInteractionFunction): void {
         });
 
         function animateCursor(): void {
+            if (!cursorCircle) return;
             const dx = mouseX - cursorX;
             const dy = mouseY - cursorY;
             cursorX += dx * 0.25; 
