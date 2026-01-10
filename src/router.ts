@@ -8,10 +8,9 @@ import { animatePageOut, animatePageIn } from './lib/transitions.js';
 
 // Route mapping
 const routes: Record<string, RouteHandler> = {
-    '/': () => import('./pages/Home.js'),
-    '/about': () => import('./pages/About.js'),
-    '/work': () => import('./pages/Work.js'),
-    '/project-detail': () => import('./pages/ProjectDetail.js'),
+    '/': () => import('./pages/home.js'),
+    '/about': () => import('./pages/about.js'),
+    '/work': () => import('./pages/work.js'),
 };
 
 // Page title mapping
