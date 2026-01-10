@@ -42,6 +42,19 @@ function getPrimaryLink(project: typeof PROJECTS[0]): string | null {
 }
 
 /**
+ * Get external link for project based on current language
+ * @param project - Project object
+ * @returns URL string or null
+ */
+function getExternalLink(project: typeof PROJECTS[0]): string | null {
+    const currentLang = (localStorage.getItem('lang') as 'en' | 'de') || 'en';
+    if (currentLang === 'de' && project.links?.externalDe) {
+        return project.links.externalDe;
+    }
+    return project.links?.external || null;
+}
+
+/**
  * Generate project cards HTML
  */
 function generateProjectCards(): string {
@@ -69,29 +82,49 @@ function generateProjectCards(): string {
                 `<a href="${project.links.paper}" target="_blank" rel="noopener noreferrer" class="detail-link detail-link-paper" data-text-en="Paper" data-text-de="Paper">Paper</a>`
             );
         }
-        if (project.links?.external) {
+        const externalLink = getExternalLink(project);
+        if (externalLink) {
             linkButtons.push(
-                `<a href="${project.links.external}" target="_blank" rel="noopener noreferrer" class="detail-link detail-link-external" data-text-en="Website" data-text-de="Webseite">Website</a>`
+                `<a href="${externalLink}" target="_blank" rel="noopener noreferrer" class="detail-link detail-link-external" data-text-en="Website" data-text-de="Webseite" data-link-en="${project.links?.external || ''}" data-link-de="${project.links?.externalDe || ''}">Website</a>`
             );
         }
         const linksHtml = linkButtons.length > 0 
             ? `<div class="links-stack">${linkButtons.join('')}</div>` 
             : '';
         
-        // Variable heights based on project - can be adjusted per project
+        // Video vs Image Preview
+        const mediaPreview = project.video 
+            ? `<video src="${project.video}" autoplay ${project.audio !== true ? 'muted' : ''} loop playsinline class="card-media-video" style="width: 100%; height: 100%; object-fit: cover;"></video>`
+            : `<img src="${project.image}" alt="${project.title}" data-project-id="${project.id}">`;
+
+        // Video vs Image Expanded
+        // Use inline style for object-fit on video to ensure it's not overridden before CSS loads, 
+        // though our new CSS will enforce 'contain'
+        const mediaExpanded = project.video
+            ? `<video src="${project.video}" autoplay ${project.audio !== true ? 'muted' : ''} loop playsinline ${project.audio !== false ? 'controls' : ''} style="width: 100%; height: 100%; object-fit: contain;"></video>`
+            : `<img src="${project.image}" alt="${project.title}">`;
+
+        // Prepare background image for ambient effect
+        const bgImage = project.image ? `url('${project.image}')` : 'none';
+
+        // Variable heights based on project
         const heightClass = project.size === 'tall' ? ' tall' : project.size === 'short' ? ' short' : '';
+        
+        // Orientation class for landscape layout
+        const orientationClass = project.orientation === 'landscape' ? ' layout-landscape' : '';
+        
         return `
             <article class="project-card${heightClass}" data-project-id="${project.id}" data-category="${project.category}">
                 <div class="card-preview">
-                    <img src="${project.image}" alt="${project.title}" data-project-id="${project.id}">
+                    ${mediaPreview}
                     <div class="card-hover-info">
                         <h3 data-text-en="${project.title}" data-text-de="${project.titleDe}">${project.title}</h3>
                         <p data-text-en="${project.description}" data-text-de="${project.descriptionDe}">${project.description}</p>
                     </div>
                 </div>
-                <div class="card-expanded-details">
-                    <div class="expanded-image">
-                        <img src="${project.image}" alt="${project.title}">
+                <div class="card-expanded-details${orientationClass}">
+                    <div class="expanded-image" style="--bg-image: ${bgImage}">
+                        ${mediaExpanded}
                     </div>
                     <div class="expanded-content">
                         <div class="detail-section">
@@ -122,7 +155,6 @@ export const template: string = `
             <button class="filter-btn active" data-filter="all" data-text-en="All" data-text-de="Alle">All</button>
             <button class="filter-btn" data-filter="project" data-text-en="Projects" data-text-de="Projekte">Projects</button>
             <button class="filter-btn" data-filter="publication" data-text-en="Publications" data-text-de="Publikationen">Publications</button>
-            <button class="filter-btn" data-filter="experiment" data-text-en="Experiments" data-text-de="Experimente">Experiments</button>
         </nav>
         <div class="projects-grid">
             ${generateProjectCards()}

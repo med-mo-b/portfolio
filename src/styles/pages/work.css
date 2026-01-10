@@ -207,6 +207,18 @@
     width: 100%;
 }
 
+/* Landscape Layout (Bild über Text) */
+.project-card.expanded .card-expanded-details.layout-landscape {
+    grid-template-columns: 1fr; /* Stack vertically like mobile */
+    gap: 2rem;
+}
+
+.layout-landscape .expanded-image {
+    width: 100%;
+    max-height: 600px; /* Optional: Höhe begrenzen */
+    aspect-ratio: 16/9; /* Für konsistente Proportionen */
+}
+
 @keyframes fadeIn {
     from {
         opacity: 0;
