@@ -4,7 +4,7 @@
  */
 
 import type { Page, TimelineEvent, BranchConfig } from '../types.js';
-import { BRANCHES, TIMELINE_DATA, getSortedEvents, getBranchById } from '../scripts/data/timeline.js';
+import { BRANCHES, TIMELINE_DATA, getSortedEvents, getBranchById } from '../data/timeline.js';
 
 // State
 let selectedEvent: TimelineEvent | null = null;

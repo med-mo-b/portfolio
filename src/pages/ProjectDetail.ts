@@ -18,7 +18,3 @@ export function mount(): void {
 export function unmount(): void {
     // Cleanup if needed
 }
-
-
-
-

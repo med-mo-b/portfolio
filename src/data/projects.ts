@@ -79,16 +79,15 @@ export const PROJECTS: Project[] = [
         id: 'portfolio-website',
         title: 'Portfolio Website',
         titleDe: 'Portfolio Webseite',
-        description: 'This website. Modern SPA with custom router, git-style timeline visualization, and bilingual support. Built with TypeScript, Vite, and CSS without frameworks.',
-        descriptionDe: 'Diese Webseite. Moderne SPA mit eigenem Router, Git-Style Timeline-Visualisierung und zweisprachiger Unterstützung. Erstellt mit TypeScript, Vite und CSS ohne Frameworks.',
-        details: 'A modern single-page application built from scratch without heavy frameworks. Features a custom router implementation for seamless navigation, a unique git-style timeline visualization for the about page, and full bilingual support (English/German) with dynamic language switching. The architecture emphasizes performance and maintainability, using TypeScript for type safety, Vite for fast development and optimized builds, and pure CSS for styling without framework dependencies. The design follows a retro/terminal aesthetic with VT323 font and noise overlay effects, creating a distinctive visual identity.',
-        detailsDe: 'Eine moderne Single-Page-Anwendung, die von Grund auf ohne schwere Frameworks erstellt wurde. Enthält eine eigene Router-Implementierung für nahtlose Navigation, eine einzigartige Git-Style Timeline-Visualisierung für die About-Seite und vollständige zweisprachige Unterstützung (Englisch/Deutsch) mit dynamischem Sprachwechsel. Die Architektur betont Leistung und Wartbarkeit, verwendet TypeScript für Typsicherheit, Vite für schnelle Entwicklung und optimierte Builds, und reines CSS für das Styling ohne Framework-Abhängigkeiten. Das Design folgt einer Retro/Terminal-Ästhetik mit VT323-Schriftart und Noise-Overlay-Effekten, wodurch eine unverwechselbare visuelle Identität entsteht.',
+        description: 'This website. Modern SPA with custom router, git-style timeline visualization, and bilingual support. Built with TypeScript, Bun, and CSS without frameworks.',
+        descriptionDe: 'Diese Webseite. Moderne SPA mit eigenem Router, Git-Style Timeline-Visualisierung und zweisprachiger Unterstützung. Erstellt mit TypeScript, Bun und CSS ohne Frameworks.',
+        details: 'A modern single-page application built from scratch without heavy frameworks. Features a custom router implementation for seamless navigation, a unique git-style timeline visualization for the about page, and full bilingual support (English/German) with dynamic language switching. The architecture emphasizes performance and maintainability, using TypeScript for type safety, Bun for fast development and optimized builds, and pure CSS for styling without framework dependencies. The design follows a retro/terminal aesthetic with VT323 font and noise overlay effects, creating a distinctive visual identity.',
+        detailsDe: 'Eine moderne Single-Page-Anwendung, die von Grund auf ohne schwere Frameworks erstellt wurde. Enthält eine eigene Router-Implementierung für nahtlose Navigation, eine einzigartige Git-Style Timeline-Visualisierung für die About-Seite und vollständige zweisprachige Unterstützung (Englisch/Deutsch) mit dynamischem Sprachwechsel. Die Architektur betont Leistung und Wartbarkeit, verwendet TypeScript für Typsicherheit, Bun für schnelle Entwicklung und optimierte Builds, und reines CSS für das Styling ohne Framework-Abhängigkeiten. Das Design folgt einer Retro/Terminal-Ästhetik mit VT323-Schriftart und Noise-Overlay-Effekten, wodurch eine unverwechselbare visuelle Identität entsteht.',
         category: 'project',
-        tech: ['TypeScript', 'Vite', 'CSS', 'Bun'],
+        tech: ['TypeScript', 'Bun', 'CSS'],
         image: 'https://placehold.co/600x350/1a1a1e/FFF',
         links: {
             github: 'https://github.com/moritzbednorz/portfolio'
         }
     }
 ];
-

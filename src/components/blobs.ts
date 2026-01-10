@@ -76,7 +76,3 @@ export function initBlobInteraction(): (x: number, y: number) => void {
         });
     };
 }
-
-
-
-

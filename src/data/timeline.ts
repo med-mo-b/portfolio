@@ -3,7 +3,7 @@
  * Contains career, education, research, and homelabbing events
  */
 
-import type { TimelineEvent, BranchConfig } from '../../types.js';
+import type { TimelineEvent, BranchConfig } from '../types.js';
 
 /**
  * Branch configurations for the git-style timeline
@@ -45,7 +45,7 @@ export const TIMELINE_DATA: TimelineEvent[] = [
         titleDe: 'Portfolio Webseite',
         description: 'Built moritzbednorz.com as a personal portfolio. Modern SPA with custom router, git-style timeline, and bilingual support.',
         descriptionDe: 'Erstellung von moritzbednorz.com als persönliches Portfolio. Moderne SPA mit eigenem Router, Git-Style Timeline und zweisprachiger Unterstützung.',
-        tags: ['Bun', 'TypeScript', 'Vite', 'CSS'],
+        tags: ['Bun', 'TypeScript', 'CSS'],
         icon: 'drafting'
     },
     {
@@ -305,4 +305,3 @@ export function getSortedEvents(): TimelineEvent[] {
 export function getBranchById(id: string): BranchConfig | undefined {
     return BRANCHES.find(b => b.id === id);
 }
-

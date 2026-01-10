@@ -1,5 +1,5 @@
 import { join } from "path";
-import index from "./src/index.html";
+import index from "./index.html";
 
 Bun.serve({
   port: 3000,

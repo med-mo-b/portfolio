@@ -106,7 +106,3 @@ function updateThemeUI(theme: 'light' | 'dark'): void {
         if (logoDark) logoDark.style.display = 'none';
     }
 }
-
-
-
-

@@ -7,10 +7,10 @@ import { injectBackgroundBlobs, initBlobInteraction } from './components/blobs.j
 import { injectCursor, initCursor } from './components/cursor.js';
 import { injectHeader } from './components/header.js';
 import { injectMenuOverlay, initMenu } from './components/menu.js';
-import { initTheme } from './utils/theme.js';
-import { initLanguage } from './utils/language.js';
-import { initTransitions } from './utils/transitions.js';
-import { Router } from '../router.js';
+import { initTheme } from './lib/theme.js';
+import { initLanguage } from './lib/language.js';
+import { initTransitions } from './lib/transitions.js';
+import { Router } from './router.js';
 import Lenis from 'lenis';
 
 // Extend Window interface to include initLanguage and lenis
@@ -59,7 +59,3 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize router (this will handle page-specific logic via mount/unmount)
     const router = new Router('app');
 });
-
-
-
-

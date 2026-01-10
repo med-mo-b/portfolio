@@ -4,14 +4,14 @@
  */
 
 import type { Page, RouteHandler } from './types.js';
-import { animatePageOut, animatePageIn } from './scripts/utils/transitions.js';
+import { animatePageOut, animatePageIn } from './lib/transitions.js';
 
 // Route mapping
 const routes: Record<string, RouteHandler> = {
-    '/': () => import('./pages/home.js'),
-    '/about': () => import('./pages/about.js'),
-    '/work': () => import('./pages/work.js'),
-    '/project-detail': () => import('./pages/project-detail.js'),
+    '/': () => import('./pages/Home.js'),
+    '/about': () => import('./pages/About.js'),
+    '/work': () => import('./pages/Work.js'),
+    '/project-detail': () => import('./pages/ProjectDetail.js'),
 };
 
 // Page title mapping
@@ -201,5 +201,3 @@ export class Router {
         }
     }
 }
-
-

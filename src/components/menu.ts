@@ -46,7 +46,3 @@ export function initMenu(): void {
         menuTrigger.addEventListener('click', () => document.body.classList.toggle('menu-open'));
     }
 }
-
-
-
-

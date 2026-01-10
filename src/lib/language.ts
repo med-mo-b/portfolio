@@ -108,4 +108,3 @@ function setLanguage(lang: Language, pushState: boolean = true): void {
          window.history.replaceState({}, '', cleanUrl);
     }
 }
-

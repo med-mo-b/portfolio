@@ -86,7 +86,3 @@ export function injectHeader(): void {
         document.body.prepend(header);
     }
 }
-
-
-
-

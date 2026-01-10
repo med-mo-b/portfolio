@@ -51,7 +51,3 @@ export function createLightbox(src: string, link: string | null = null): void {
         if (e.target === lightbox) closeLightbox();
     });
 }
-
-
-
-
