@@ -103,7 +103,7 @@
     overflow: hidden;
     border: 1px solid var(--line-color);
     background: light-dark(rgba(255, 255, 255, 0.5), rgba(20, 20, 25, 0.6));
-    backdrop-filter: blur(5px);
+    /* backdrop-filter: blur(100px); */
     border-radius: 24px;
     position: relative;
     cursor: pointer;
@@ -368,6 +368,9 @@
     }
     
     .project-card {
+        backdrop-filter: none; /* Critical for smooth scrolling */
+        -webkit-backdrop-filter: none;
+        background: light-dark(rgba(255, 255, 255, 0.95), rgba(20, 20, 25, 0.95));
         margin-bottom: 1.5rem;
     }
 

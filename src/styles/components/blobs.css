@@ -111,7 +111,7 @@
 @media (max-width: 768px) {
     /* Performance-Schutz für Mobile */
     .blob {
-        filter: blur(40px); /* Reduziert für bessere Akku/Performance */
+        filter: blur(30px); /* Reduziert für bessere Akku/Performance */
         opacity: 0.5; /* Etwas dezenter auf Mobile */
     }
 

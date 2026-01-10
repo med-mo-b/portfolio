@@ -33,6 +33,10 @@ export function injectBackgroundBlobs(): void {
  * @returns Function to interact with blobs based on cursor position
  */
 export function initBlobInteraction(): (x: number, y: number) => void {
+    if (window.matchMedia('(hover: none) and (pointer: coarse)').matches) {
+        return () => {};
+    }
+    
     const blobWrappers = document.querySelectorAll<HTMLElement>('.blob-wrapper');
     let animationFrameId: number | null = null;
     let lastX = 0;
