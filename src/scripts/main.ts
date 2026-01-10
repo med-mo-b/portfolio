@@ -11,16 +11,31 @@ import { initTheme } from './utils/theme.js';
 import { initLanguage } from './utils/language.js';
 import { initTransitions } from './utils/transitions.js';
 import { Router } from '../router.js';
+import Lenis from 'lenis';
 
-// Extend Window interface to include initLanguage
+// Extend Window interface to include initLanguage and lenis
 declare global {
     interface Window {
         initLanguage?: () => void;
+        lenis: Lenis;
     }
 }
 
 // Make initLanguage available globally for router to call after page changes
 window.initLanguage = initLanguage;
+
+// Initialize Lenis for smooth scrolling
+const lenis = new Lenis({
+    autoRaf: true,
+});
+
+// Optional: Debug logging (can be removed later)
+// lenis.on('scroll', (e) => {
+//     console.log(e);
+// });
+
+// Make Lenis available globally for router to use
+window.lenis = lenis;
 
 document.addEventListener('DOMContentLoaded', () => {
     // Inject global components (only once, since this is SPA)

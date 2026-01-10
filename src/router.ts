@@ -160,7 +160,13 @@ export class Router {
             // 3. SCROLL
             // Scroll immediately after swap, before enter animation
             // Prevents user from seeing new page at old scroll level
-            window.scrollTo(0, 0);
+            // Use Lenis for smooth scrolling (immediate: true to prevent animation during page transition)
+            if (window.lenis) {
+                window.lenis.scrollTo(0, { immediate: true });
+            } else {
+                // Fallback to native scroll if Lenis is not available
+                window.scrollTo(0, 0);
+            }
 
             // Mount new page - ensure DOM is ready
             if (typeof pageModule.mount === 'function') {
