@@ -44,6 +44,9 @@ export function injectMenuOverlay(): void {
 export function initMenu(): void {
     const menuTrigger = document.querySelector<HTMLButtonElement>('.menu-trigger');
     const menuOverlay = document.querySelector<HTMLElement>('.menu-overlay');
+    
+    // Select all links inside the menu (nav links AND footer links)
+    const allMenuLinks = document.querySelectorAll('.menu-overlay a');
 
     if (menuTrigger && menuOverlay) {
         menuTrigger.addEventListener('click', () => {
@@ -60,4 +63,22 @@ export function initMenu(): void {
             }
         });
     }
+
+    // Add click listeners to ALL links inside the menu
+    // This ensures proper cleanup before the router takes over
+    allMenuLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            // Only act if menu is actually open
+            if (document.body.classList.contains('menu-open')) {
+                // 1. Remove class to trigger CSS exit animation
+                document.body.classList.remove('menu-open');
+                
+                // 2. Stop physics engine to save resources and prevent interference
+                stopPhysics();
+                
+                // Note: The router (in router.ts) will handle the actual navigation
+                // because this click event will bubble up/be handled in parallel.
+            }
+        });
+    });
 }

@@ -24,7 +24,7 @@ export const template: string = `
             <div class="hero-links">
                 <a href="/work" class="pretty-arrow">
                     <span class="arrow-icon">→</span>
-                    <span class="arrow-text" data-text-en="research & projects" data-text-de="projekte">research & projects</span>
+                    <span class="arrow-text" data-text-en="projects" data-text-de="projekte">projects</span>
                 </a>
                 <a href="/about" class="pretty-arrow">
                     <span class="arrow-icon">→</span>

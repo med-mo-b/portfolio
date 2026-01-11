@@ -18,7 +18,11 @@ let resizeHandler: (() => void) | null = null;
 let ground: Matter.Body | null = null;
 let leftWall: Matter.Body | null = null;
 let rightWall: Matter.Body | null = null;
-let topWall: Matter.Body | null = null;
+// topWall removed to allow objects to fall in
+
+// Constants
+// Massive walls to prevent tunneling on mobile devices
+const WALL_THICKNESS = 1000;
 
 /**
  * Get theme colors from CSS variables
@@ -54,47 +58,53 @@ function getRandomThemeColor(): string {
  * Handle window/container resize
  */
 function handleResize(container: HTMLElement): void {
-    if (!render || !engine) return;
+    if (!render || !engine || !render.canvas) return;
     
     const width = container.clientWidth;
     const height = container.clientHeight;
-    const wallThick = 60;
     
-    // Update canvas and renderer size
-    render.canvas.width = width;
-    render.canvas.height = height;
+    // Use the pixel ratio stored in options or default to 1
+    const pixelRatio = render.options.pixelRatio || 1;
+    
+    // CRITICAL FIX: Changing canvas width/height resets the context scale!
+    // We must manually re-apply the scale after resizing.
+    
+    // 1. Update canvas buffer size (physical pixels)
+    render.canvas.width = width * pixelRatio;
+    render.canvas.height = height * pixelRatio;
+    
+    // 2. Restore context scale (Matter.js does this only on creation)
+    render.context.scale(pixelRatio, pixelRatio);
+    
+    // 3. Update display size (CSS pixels)
+    render.canvas.style.width = `${width}px`;
+    render.canvas.style.height = `${height}px`;
+    
+    // 4. Update render options (logical pixels)
     render.options.width = width;
     render.options.height = height;
     
     // Update wall positions
+    // We use setPosition to move the center of the body
     if (rightWall) {
         Matter.Body.setPosition(rightWall, { 
-            x: width + wallThick / 2, 
+            x: width + WALL_THICKNESS / 2, 
             y: height / 2 
         });
     }
     
     if (leftWall) {
         Matter.Body.setPosition(leftWall, { 
-            x: 0 - wallThick / 2, 
+            x: 0 - WALL_THICKNESS / 2, 
             y: height / 2 
         });
-    }
-    
-    if (topWall) {
-        Matter.Body.setPosition(topWall, { 
-            x: width / 2, 
-            y: 0 - wallThick / 2 
-        });
-        // Top wall is already very wide (width * 2), so it should handle most resizes
     }
     
     if (ground) {
         Matter.Body.setPosition(ground, { 
             x: width / 2, 
-            y: height + wallThick / 2 
+            y: height + WALL_THICKNESS / 2 
         });
-        // Ground is already very wide (width * 2), so it should handle most resizes
     }
 }
 
@@ -114,7 +124,6 @@ export function initPhysics(container: HTMLElement): void {
     const Composite = Matter.Composite;
     const Mouse = Matter.Mouse;
     const MouseConstraint = Matter.MouseConstraint;
-    const Body = Matter.Body;
     
     // Create engine
     engine = Engine.create();
@@ -122,13 +131,27 @@ export function initPhysics(container: HTMLElement): void {
     // Create canvas element
     canvasElement = document.createElement('canvas');
     canvasElement.className = 'physics-canvas';
+    
+    // Explicitly set style to avoid layout shifts
+    canvasElement.style.position = 'absolute';
+    canvasElement.style.top = '0';
+    canvasElement.style.left = '0';
+    canvasElement.style.width = '100%';
+    canvasElement.style.height = '100%';
+    canvasElement.style.pointerEvents = 'auto'; // Essential for mouse interaction
+    
+    // Note: z-index is handled in CSS (set to 0, behind content but above bg)
+    
     container.prepend(canvasElement);
     
     const width = container.clientWidth;
     const height = container.clientHeight;
     const isMobile = window.innerWidth < 768;
+    
+    // High DPI handling
+    // On mobile we cap it at 2 to save battery/performance, desktop gets full res
     const pixelRatio = isMobile 
-        ? Math.min(window.devicePixelRatio, 1.5) 
+        ? Math.min(window.devicePixelRatio, 2) 
         : window.devicePixelRatio;
     
     // Create renderer
@@ -150,35 +173,47 @@ export function initPhysics(container: HTMLElement): void {
         isStatic: true, 
         render: { visible: false } 
     };
-    const wallThick = 60;
     
-    ground = Bodies.rectangle(width / 2, height + wallThick / 2, width * 2, wallThick, wallOptions);
-    leftWall = Bodies.rectangle(0 - wallThick / 2, height / 2, wallThick, height, wallOptions);
-    rightWall = Bodies.rectangle(width + wallThick / 2, height / 2, wallThick, height, wallOptions);
-    topWall = Bodies.rectangle(width / 2, 0 - wallThick / 2, width * 2, wallThick, wallOptions);
+    // Create walls with massive thickness
+    // Width * 10 ensures that even on rapid width resize, there's a floor
+    ground = Bodies.rectangle(width / 2, height + WALL_THICKNESS / 2, width * 10, WALL_THICKNESS, wallOptions);
+    leftWall = Bodies.rectangle(0 - WALL_THICKNESS / 2, height / 2, WALL_THICKNESS, height * 10, wallOptions);
+    rightWall = Bodies.rectangle(width + WALL_THICKNESS / 2, height / 2, WALL_THICKNESS, height * 10, wallOptions);
+    // topWall removed so objects don't spawn inside it
     
-    Composite.add(engine.world, [ground, leftWall, rightWall, topWall]);
+    Composite.add(engine.world, [ground, leftWall, rightWall]);
     
     // Create physics objects
-    const objectCount = isMobile ? 20 : 40;
+    // Reduce count slightly on mobile for better performance
+    const objectCount = isMobile ? 15 : 40;
     
-    // Spawn objects within the viewport, distributed vertically
     for (let i = 0; i < objectCount; i++) {
-        const x = Math.random() * width;
-        const y = Math.random() * height; // Spawn anywhere in viewport
+        // Spawn x with safe margin from walls
+        const x = Math.random() * (width - 60) + 30;
+        
+        // Spawn y: Lower part of screen so objects don't fall as long
+        // Spawn in the lower 50-80% of the screen
+        const y = height * 0.5 + Math.random() * (height * 0.3);
         
         const color = getRandomThemeColor();
         const isCircle = Math.random() > 0.5;
         
+        // Slightly larger objects on mobile are easier to grab
+        const scale = isMobile ? 1.2 : 1;
+        
         const body = isCircle
-            ? Bodies.circle(x, y, 20 + Math.random() * 20, {
-                render: { fillStyle: color },
-                restitution: 0.9
-            })
-            : Bodies.rectangle(x, y, 40, 40, {
+            ? Bodies.circle(x, y, (20 + Math.random() * 20) * scale, {
                 render: { fillStyle: color },
                 restitution: 0.9,
-                chamfer: { radius: 0 } // Pixel-look for rectangles
+                friction: 0.005,
+                density: 0.04
+            })
+            : Bodies.rectangle(x, y, 40 * scale, 40 * scale, {
+                render: { fillStyle: color },
+                restitution: 0.9,
+                friction: 0.005,
+                density: 0.04,
+                chamfer: { radius: 0 }
             });
         
         Composite.add(engine.world, body);
@@ -194,8 +229,7 @@ export function initPhysics(container: HTMLElement): void {
         }
     });
     
-    // Prevent scroll interference
-    // Remove default mousewheel handlers that Matter.js adds
+    // Remove scroll interference
     const mouseElement = mouseConstraint.mouse.element as HTMLElement;
     if (mouseElement) {
         mouseElement.removeEventListener('mousewheel', (mouse as any).mousewheel);
@@ -216,12 +250,15 @@ export function initPhysics(container: HTMLElement): void {
     // Setup resize observer
     resizeObserver = new ResizeObserver(() => {
         if (containerElement) {
-            handleResize(containerElement);
+            // Request animation frame for smoother resize handling
+            requestAnimationFrame(() => {
+                if (containerElement) handleResize(containerElement);
+            });
         }
     });
     resizeObserver.observe(container);
     
-    // Also listen to window resize as fallback
+    // Window resize fallback
     resizeHandler = () => {
         if (containerElement) {
             handleResize(containerElement);
@@ -262,7 +299,7 @@ export function stopPhysics(): void {
         window.removeEventListener('resize', resizeHandler);
     }
     
-    // Reset references
+    // Reset references to free memory
     engine = null;
     render = null;
     runner = null;
@@ -273,5 +310,5 @@ export function stopPhysics(): void {
     ground = null;
     leftWall = null;
     rightWall = null;
-    topWall = null;
+    // topWall removed
 }
