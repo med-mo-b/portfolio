@@ -13,7 +13,7 @@ export const template: string = `
                 </span>
                 <span class="line">
                     <span class="outline-text" data-text-en="AND I'M AN" data-text-de="UND ICH BIN EIN">AND I'M AN</span> 
-                    <span class="filled-text" data-text-en="TECH ENTHUSIAST" data-text-de="TECH ENTHUSIAST">TECH ENTHUSIAST</span>
+                    <span class="filled-text break-before" data-text-en="TECH ENTHUSIAST" data-text-de="TECH ENTHUSIAST">TECH ENTHUSIAST</span>
                 </span>
             </h1>
 
@@ -24,7 +24,7 @@ export const template: string = `
             <div class="hero-links">
                 <a href="/work" class="pretty-arrow">
                     <span class="arrow-icon">→</span>
-                    <span class="arrow-text" data-text-en="research & projects" data-text-de="forschung & projekte">research & projects</span>
+                    <span class="arrow-text" data-text-en="research & projects" data-text-de="projekte">research & projects</span>
                 </a>
                 <a href="/about" class="pretty-arrow">
                     <span class="arrow-icon">→</span>

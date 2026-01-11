@@ -15,11 +15,20 @@
 .hero-title {
     display: flex;
     flex-direction: column;
+    gap: 0;
     font-size: var(--text-size-hero);
     line-height: 0.9;
     margin-bottom: 3rem;
     letter-spacing: -0.02em;
     text-transform: uppercase;
+}
+
+.hero-title .line {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.2em;
+    line-height: 0.9;
 }
 
 .outline-text {
@@ -93,4 +102,27 @@
 
 .pretty-arrow:hover .arrow-icon {
     transform: translateX(5px);
+}
+
+/* Responsive line breaks */
+@media (max-width: 768px) {
+    .hero-title {
+        gap: 0;
+    }
+    
+    .hero-title .line {
+        line-height: 0.9;
+    }
+    
+    .hero-title .line:nth-child(2) {
+        flex-direction: column;
+        align-items: center;
+        gap: 0;
+    }
+    
+    .hero-title .break-before {
+        display: block;
+        width: 100%;
+        line-height: 0.9;
+    }
 }
