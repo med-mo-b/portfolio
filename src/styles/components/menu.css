@@ -22,7 +22,11 @@
 
 body.menu-open .menu-overlay {
     opacity: 1;
-    pointer-events: auto;
+    pointer-events: none; /* Let clicks fall through to canvas */
+}
+
+.menu-nav {
+    pointer-events: none; /* Let clicks fall through container */
 }
 
 .menu-nav ul { list-style: none; }
@@ -44,6 +48,9 @@ body.menu-open .menu-overlay {
     transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), letter-spacing 0.3s ease; /* Reverted to simpler transition */
     line-height: 1;
     color: var(--text-primary);
+    pointer-events: auto; /* Make links clickable */
+    position: relative;
+    z-index: 10; /* Above canvas */
 }
 .menu-link:hover {
     letter-spacing: -0.05em; /* Simpler squeeze effect */
@@ -59,6 +66,13 @@ body.menu-open .menu-link {
     margin-top: 2rem;
     font-size: 1.5rem;
     color: var(--text-secondary);
+    pointer-events: none; /* Let clicks fall through container */
+}
+
+.menu-footer a {
+    pointer-events: auto; /* Make footer links clickable */
+    position: relative;
+    z-index: 10; /* Above canvas */
 }
 
 .menu-footer a::after {
@@ -107,3 +121,14 @@ body.menu-open li:nth-child(1) .menu-number { transform: translateY(0); transiti
 body.menu-open li:nth-child(2) .menu-number { transform: translateY(0); transition-delay: 0.2s; }
 body.menu-open li:nth-child(3) .menu-number { transform: translateY(0); transition-delay: 0.3s; }
 body.menu-open li:nth-child(4) .menu-number { transform: translateY(0); transition-delay: 0.4s; }
+
+/* Physics Canvas Styling */
+.physics-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Behind menu content */
+    pointer-events: auto; /* Enable mouse interaction for Matter.js */
+}

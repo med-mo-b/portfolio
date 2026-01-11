@@ -3,6 +3,8 @@
  * Handles menu injection and toggle logic
  */
 
+import { initPhysics, stopPhysics } from './physicsMenu.js';
+
 /**
  * Inject menu overlay into the page
  */
@@ -41,8 +43,21 @@ export function injectMenuOverlay(): void {
  */
 export function initMenu(): void {
     const menuTrigger = document.querySelector<HTMLButtonElement>('.menu-trigger');
+    const menuOverlay = document.querySelector<HTMLElement>('.menu-overlay');
 
-    if (menuTrigger) {
-        menuTrigger.addEventListener('click', () => document.body.classList.toggle('menu-open'));
+    if (menuTrigger && menuOverlay) {
+        menuTrigger.addEventListener('click', () => {
+            const isOpen = document.body.classList.toggle('menu-open');
+            
+            if (isOpen) {
+                // Delay to ensure layout is rendered
+                setTimeout(() => {
+                    initPhysics(menuOverlay);
+                }, 100);
+            } else {
+                // Stop physics immediately when closing
+                stopPhysics();
+            }
+        });
     }
 }
