@@ -23,14 +23,14 @@
 }
 
 /* Zufällige Verteilung über den Viewport */
-.blob-wrapper-1 { width: 55vw; height: 55vw; top: -15%; left: -10%; }
-.blob-wrapper-2 { width: 45vw; height: 45vw; bottom: -15%; right: -5%; }
-.blob-wrapper-3 { width: 50vw; height: 50vw; top: 15%; right: -10%; }
-.blob-wrapper-4 { width: 40vw; height: 40vw; bottom: 15%; left: -5%; }
-.blob-wrapper-5 { width: 48vw; height: 48vw; top: 40%; left: 35%; }  /* Zentrum-Fokus */
-.blob-wrapper-6 { width: 42vw; height: 42vw; top: -5%; right: 35%; }  /* Oben Mitte */
-.blob-wrapper-7 { width: 38vw; height: 38vw; bottom: 5%; left: 40%; } /* Unten Mitte */
-.blob-wrapper-8 { width: 45vw; height: 45vw; top: 25%; left: -15%; } /* Links Mitte */
+.blob-wrapper-1 { width: 60vw; height: 60vw; top: -15%; left: -10%; }
+.blob-wrapper-2 { width: 55vw; height: 55vw; bottom: -15%; right: -5%; }
+.blob-wrapper-3 { width: 60vw; height: 60vw; top: 15%; right: -10%; }
+.blob-wrapper-4 { width: 50vw; height: 50vw; bottom: 15%; left: -5%; }
+.blob-wrapper-5 { width: 55vw; height: 55vw; top: 40%; left: 35%; }  /* Zentrum-Fokus */
+.blob-wrapper-6 { width: 50vw; height: 50vw; top: -5%; right: 35%; }  /* Oben Mitte */
+.blob-wrapper-7 { width: 45vw; height: 45vw; bottom: 5%; left: 40%; } /* Unten Mitte */
+.blob-wrapper-8 { width: 50vw; height: 50vw; top: 25%; left: -15%; } /* Links Mitte */
 
 .blob {
     width: 100%;

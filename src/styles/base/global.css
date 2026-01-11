@@ -19,34 +19,40 @@ a, button {
     cursor: none; /* Hide Default Cursor */
 }
 
-/* Background Texture */
-body::before {
-    content: "";
+/* 
+   Grained Overlay 
+   Replaces previous SVG body::before
+*/
+#grained-overlay {
     position: fixed;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
+    top: -100%;
+    left: -100%;
+    width: 300%;
+    height: 300%;
     pointer-events: none;
     z-index: 9998; /* Below cursor */
+    
     opacity: var(--noise-opacity); 
-    mix-blend-mode: var(--noise-blend); /* Adaptive blending */
+    mix-blend-mode: var(--noise-blend);
+    filter: var(--noise-filter);
     
-    /* Use the theme-specific noise URL */
-    background-image: var(--noise-url);
-    background-size: 600px 600px; /* Enlarged for visibility */
-    
-    animation: grain 0.5s steps(5) infinite;
+    /* Animation logic similar to grained.js */
+    animation: grained 8s steps(10) infinite;
+    will-change: transform;
 }
 
 /* Film Grain Animation */
-@keyframes grain {
+@keyframes grained {
   0%, 100% { transform: translate(0, 0); }
   10% { transform: translate(-5%, -10%); }
-  30% { transform: translate(3%, -5%); }
-  50% { transform: translate(-3%, 5%); }
-  70% { transform: translate(5%, 10%); }
-  90% { transform: translate(-5%, 5%); }
+  20% { transform: translate(-15%, 5%); }
+  30% { transform: translate(7%, -25%); }
+  40% { transform: translate(-5%, 25%); }
+  50% { transform: translate(-15%, 10%); }
+  60% { transform: translate(15%, 0%); }
+  70% { transform: translate(0%, 15%); }
+  80% { transform: translate(3%, 35%); }
+  90% { transform: translate(-10%, 10%); }
 }
 
 /* Page Transitions */

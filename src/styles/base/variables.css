@@ -28,43 +28,38 @@
     --font-main: 'VT323', monospace;
     --text-size-hero: clamp(3rem, 6vw, 5rem);
     
-
-    --noise-opacity: light-dark(0.6, 0.3);
+    /* Noise Variables for Grained.js implementation */
+    --noise-opacity: light-dark(0.5, 0.4);
     --noise-blend: light-dark(multiply, screen);
-
-    --noise-url: light-dark(
-        url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='5' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='1' fill='black'/%3E%3C/svg%3E"),
-        url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='10' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='1'/%3E%3C/svg%3E")
-    );
+    /* In dark mode, we invert the black noise to white */
+    --noise-filter: light-dark(none, invert(1));
 }
 
 [data-theme="light"] {
     color-scheme: light;
-    --noise-opacity: 0.6;
+    --noise-opacity: 0.5;
     --noise-blend: multiply;
-    --noise-url: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='5' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='1' fill='black'/%3E%3C/svg%3E");
+    --noise-filter: none;
 }
 
 [data-theme="dark"] {
     color-scheme: dark;
-    --noise-opacity: 0.25;
+    --noise-opacity: 0.4;
     --noise-blend: screen;
-    --noise-url: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='10' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='1'/%3E%3C/svg%3E");
+    --noise-filter: invert(1);
 }
 
 /* MOBILE TWEAKS */
 @media (max-width: 768px) {
-    /* Reduce noise significantly on mobile (Pixeldichte/OLED-Kontrast) */
     :root {
-        --noise-opacity: light-dark(0.6, 0.2);
+        --noise-opacity: light-dark(0.5, 0.5);
     }
     
-    /* Also adjust for manual dark mode on mobile */
     [data-theme="dark"] {
-        --noise-opacity: 0.2;
+        --noise-opacity: 0.4;
     }
 
     [data-theme="light"] {
-        --noise-opacity: 0.6;
+        --noise-opacity: 0.5;
     }
 }
