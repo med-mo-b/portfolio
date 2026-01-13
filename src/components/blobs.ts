@@ -30,6 +30,8 @@ export function injectBackgroundBlobs(): void {
 
 /**
  * Initialize blob interaction with cursor
+ * Uses caching to prevent layout thrashing during animation loop.
+ * 
  * @returns Function to interact with blobs based on cursor position
  */
 export function initBlobInteraction(): (x: number, y: number) => void {
@@ -38,23 +40,40 @@ export function initBlobInteraction(): (x: number, y: number) => void {
     }
     
     const blobWrappers = document.querySelectorAll<HTMLElement>('.blob-wrapper');
+    
+    // Cache positions to avoid getBoundingClientRect() in the loop (Layout Thrashing)
+    let blobCache: { el: HTMLElement, x: number, y: number }[] = [];
+
+    const updateCache = () => {
+        blobCache = Array.from(blobWrappers).map(wrapper => {
+            const rect = wrapper.getBoundingClientRect();
+            return {
+                el: wrapper,
+                // Calculate center point relative to viewport
+                x: rect.left + rect.width / 2,
+                y: rect.top + rect.height / 2
+            };
+        });
+    };
+
+    // Initial cache and update on resize
+    updateCache();
+    window.addEventListener('resize', () => {
+        // Debounce could be added here, but simple update is fine for resize
+        updateCache();
+    });
+    
     let animationFrameId: number | null = null;
-    let lastX = 0;
-    let lastY = 0;
     
     return function interactWithBlobs(x: number, y: number): void {
-        // Nutze requestAnimationFrame für flüssigere Updates
         if (animationFrameId !== null) {
             cancelAnimationFrame(animationFrameId);
         }
         
         animationFrameId = requestAnimationFrame(() => {
-            blobWrappers.forEach((wrapper) => {
-                const rect = wrapper.getBoundingClientRect();
-                const centerX = rect.left + rect.width / 2;
-                const centerY = rect.top + rect.height / 2;
-                const distX = x - centerX;
-                const distY = y - centerY;
+            blobCache.forEach((item) => {
+                const distX = x - item.x;
+                const distY = y - item.y;
                 const distance = Math.sqrt(distX * distX + distY * distY);
                 const radius = 400; 
                 const maxPush = 100; 
@@ -66,13 +85,9 @@ export function initBlobInteraction(): (x: number, y: number) => void {
                     moveY = -(distY / distance) * force * maxPush;
                 }
                 
-                // Sanftes Zurückfahren: CSS-Transition sorgt für sanftes Gleiten zurück
-                // Die CSS-Transition (0.4s cubic-bezier) sorgt dafür, dass dieser Reset nicht springt
-                wrapper.style.transform = `translate(${moveX}px, ${moveY}px)`;
+                // Use translate3d for GPU acceleration
+                item.el.style.transform = `translate3d(${moveX}px, ${moveY}px, 0)`;
             });
-            
-            lastX = x;
-            lastY = y;
         });
     };
 }

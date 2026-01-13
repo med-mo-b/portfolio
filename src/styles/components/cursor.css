@@ -7,10 +7,11 @@
     position: fixed;
     top: 0;
     left: 0;
-    transform: translate(-50%, -50%);
+    /* Transform is handled in JS for performance */
     border-radius: 50%;
     z-index: 99999;
     pointer-events: none;
+    will-change: transform; /* Hint for browser optimization */
 }
 
 .cursor-dot {
@@ -25,12 +26,13 @@
     height: 20px;
     border: 1px solid var(--cursor-color);
     mix-blend-mode: difference;
-    transition: transform 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+    /* Removed transform from transition to avoid conflict with JS loop */
+    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 /* Hover State for Cursor */
 body.hovering .cursor-circle {
-    transform: translate(-50%, -50%) scale(2);
+    /* Scale is handled in JS via lerp for smoothness */
     background-color: #ffffff;
     border-color: transparent;
 }
