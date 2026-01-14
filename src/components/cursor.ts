@@ -47,6 +47,9 @@ export function initCursor(interactWithBlobs?: BlobInteractionFunction): void {
     // Scale state for smooth hover transition
     let currentScale = 1;
     let targetScale = 1;
+    
+    // Click state tracking
+    let isClicked = false;
 
     // Time tracking for Delta Time
     let lastTime = performance.now();
@@ -69,6 +72,15 @@ export function initCursor(interactWithBlobs?: BlobInteractionFunction): void {
             }
         });
 
+        // Track Click State
+        document.addEventListener('mousedown', () => {
+            isClicked = true;
+        });
+
+        document.addEventListener('mouseup', () => {
+            isClicked = false;
+        });
+
         // Animation loop
         const animateCursor = (time: number): void => {
             // Calculate Delta Time (seconds)
@@ -88,9 +100,20 @@ export function initCursor(interactWithBlobs?: BlobInteractionFunction): void {
             cursorX += dx * adjust; 
             cursorY += dy * adjust;
 
-            // Determine Target Scale based on hover state
+            // Determine Target Scale based on hover AND click state
             const isHovering = document.body.classList.contains('hovering');
-            targetScale = isHovering ? 2.5 : 1; // Slightly larger for better visibility
+            
+            if (isHovering) {
+                // Wenn wir hovern (gefüllter Kreis):
+                // Normal: 2.5x
+                // Geklickt: 3.2x (noch größerer Impuls)
+                targetScale = isClicked ? 5.0 : 2.5;
+            } else {
+                // Wenn wir nicht hovern (leerer Kreis):
+                // Normal: 1.0x
+                // Geklickt: 1.5x (deutliches Feedback)
+                targetScale = isClicked ? 2 : 1;
+            }
 
             // Interpolate Scale
             currentScale += (targetScale - currentScale) * scaleAdjust;
@@ -112,10 +135,11 @@ export function initCursor(interactWithBlobs?: BlobInteractionFunction): void {
             'textarea', 
             'label', 
             '[data-cursor-hover]',
-            '.commit-node',      // Timeline nodes in about section
-            '.legend-item',       // Legend items in about section
-            '.event-card-close',  // Close button in event card
-            '.work-item'          // Work items
+            '.commit-node',      
+            '.legend-item',       
+            '.event-card-close',  
+            '.work-item',
+            '.filter-btn' // Added filter buttons explicitly
         ];
 
         document.addEventListener('mouseover', (e: MouseEvent) => {
