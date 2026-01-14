@@ -8,6 +8,9 @@
     top: 0;
     left: 0;
     width: 100vw;
+    /* 100dvh berücksichtigt die Browser-UI auf mobilen Geräten */
+    height: 100dvh;
+    /* Fallback für ältere Browser */
     height: 100vh;
     
     /* Nutzt jetzt die Theme-Variable (Hell oder Dunkel) */
@@ -22,6 +25,9 @@
     color: var(--text-primary);
     
     will-change: opacity; /* Optimiert für Fade-Out */
+    
+    /* Sicherstellen, dass der Preloader den gesamten Viewport abdeckt */
+    min-height: -webkit-fill-available; /* iOS Safari */
 }
 
 .preloader-content {
@@ -32,16 +38,28 @@
     justify-content: center;
     align-items: center;
     position: relative;
+    
+    /* Padding für den Footer-Bereich, damit er nicht abgeschnitten wird */
+    padding-bottom: 4rem;
+    padding-top: 2rem;
+    
+    /* Sicherstellen, dass der Content nicht überläuft */
+    overflow: hidden;
 }
 
 .preloader-logo {
     /* Subtile Puls-Animation */
     animation: logoPulse 3s infinite ease-in-out;
+    
+    /* Sicherstellen, dass das Logo wirklich zentriert ist */
+    flex-shrink: 0;
 }
 
 .preloader-footer {
     position: absolute;
-    bottom: 3rem;
+    bottom: 1.5rem; /* Reduziert für mobile Geräte */
+    left: 50%;
+    transform: translateX(-50%); /* Zentrieren */
     font-family: var(--font-main);
     font-size: 1.1rem;
     
@@ -51,6 +69,38 @@
     opacity: 0.7;
     letter-spacing: 0.1em;
     text-transform: uppercase;
+    
+    /* Sicherstellen, dass der Text nicht abgeschnitten wird */
+    white-space: nowrap;
+    text-align: center;
+    width: 100%;
+    padding: 0 1rem; /* Padding für kleine Screens */
+    box-sizing: border-box;
+}
+
+/* Mobile Optimierungen */
+@media (max-width: 768px) {
+    .preloader {
+        /* Auf mobilen Geräten sicherstellen, dass wir die volle Höhe nutzen */
+        height: 100dvh;
+        height: -webkit-fill-available; /* iOS Safari Fallback */
+    }
+    
+    .preloader-content {
+        padding-bottom: 3rem; /* Weniger Padding auf mobilen Geräten */
+        padding-top: 1rem;
+    }
+    
+    .preloader-footer {
+        bottom: 1rem; /* Noch näher am Rand auf mobilen Geräten */
+        font-size: 0.9rem; /* Etwas kleinerer Text */
+        padding: 0 0.5rem;
+    }
+    
+    .preloader-logo {
+        /* Logo etwas kleiner auf mobilen Geräten */
+        transform: scale(0.9);
+    }
 }
 
 @keyframes logoPulse {
