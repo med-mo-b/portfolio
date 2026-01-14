@@ -1,0 +1,60 @@
+/* 
+  ========================================
+  PRELOADER
+  ========================================
+*/
+.preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    
+    /* Nutzt jetzt die Theme-Variable (Hell oder Dunkel) */
+    background-color: var(--bg-color); 
+    
+    z-index: 999999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    /* Textfarbe passt sich auch an */
+    color: var(--text-primary);
+    
+    will-change: opacity; /* Optimiert für Fade-Out */
+}
+
+.preloader-content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.preloader-logo {
+    /* Subtile Puls-Animation */
+    animation: logoPulse 3s infinite ease-in-out;
+}
+
+.preloader-footer {
+    position: absolute;
+    bottom: 3rem;
+    font-family: var(--font-main);
+    font-size: 1.1rem;
+    
+    /* Sekundärfarbe für den Footer-Text */
+    color: var(--text-secondary);
+    
+    opacity: 0.7;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+@keyframes logoPulse {
+    0% { transform: scale(1); opacity: 0.8; }
+    50% { transform: scale(1.05); opacity: 1; }
+    100% { transform: scale(1); opacity: 0.8; }
+}

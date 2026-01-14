@@ -35,6 +35,7 @@ const pageClasses: Record<string, string> = {
 export class Router {
     private container: HTMLElement | null;
     private currentPage: Page | null = null;
+    private isFirstLoad: boolean = true; // Flag für ersten Load
 
     constructor(containerId: string) {
         this.container = document.getElementById(containerId);
@@ -54,9 +55,16 @@ export class Router {
         
         // Handle browser back/forward buttons
         window.addEventListener('popstate', this.handlePopState.bind(this));
-        
-        // Initial route
-        this.navigate(window.location.pathname, false);
+    }
+
+    /**
+     * Load initial route (called from main.ts after setup)
+     * Returns a promise that resolves when the initial page is loaded
+     */
+    public async loadInitialRoute(): Promise<void> {
+        // Initial route - WICHTIG: skipAnimation = true für den ersten Load
+        // Wir animieren das manuell in main.ts
+        await this.navigate(window.location.pathname, false, true);
     }
 
     /**
@@ -90,7 +98,7 @@ export class Router {
     /**
      * Navigate to a route
      */
-    async navigate(path: string, pushState: boolean = true): Promise<void> {
+    async navigate(path: string, pushState: boolean = true, skipAnimation: boolean = false): Promise<void> {
         if (!this.container) return;
 
         // Normalize path (remove trailing slash except for root)
@@ -105,9 +113,8 @@ export class Router {
             return;
         }
 
-        // 1. EXIT ANIMATION
-        // If we're already on a page, animate it out
-        if (this.currentPage) {
+        // 1. EXIT ANIMATION (Nur wenn nicht erster Load)
+        if (this.currentPage && !skipAnimation) {
             await animatePageOut(this.container);
         }
 
@@ -142,11 +149,21 @@ export class Router {
             if (pageModule.template) {
                 this.container.innerHTML = pageModule.template;
                 
-                // FOUC-Vermeidung: Sofort verstecken, damit kein Frame "blitzt"
-                // bevor GSAP greift
-                const children = this.container.children;
-                for (let i = 0; i < children.length; i++) {
-                    (children[i] as HTMLElement).style.opacity = '0';
+                // Wenn wir Animation skippen (erster Load), setzen wir Opacity auf 0,
+                // damit main.ts die Kontrolle übernehmen kann.
+                // Wenn normale Navigation, setzt animatePageIn das gleich.
+                if (skipAnimation) {
+                    const children = this.container.children;
+                    for (let i = 0; i < children.length; i++) {
+                        (children[i] as HTMLElement).style.opacity = '0';
+                    }
+                } else {
+                    // FOUC-Vermeidung: Sofort verstecken, damit kein Frame "blitzt"
+                    // bevor GSAP greift
+                    const children = this.container.children;
+                    for (let i = 0; i < children.length; i++) {
+                        (children[i] as HTMLElement).style.opacity = '0';
+                    }
                 }
             } else {
                 console.error('Page module does not export template');
@@ -188,12 +205,17 @@ export class Router {
             }
 
             // 4. ENTER ANIMATION
-            // Use requestAnimationFrame to ensure DOM is fully rendered
-            requestAnimationFrame(() => {
-                if (this.container) {
-                    animatePageIn(this.container);
-                }
-            });
+            // Nur ausführen, wenn NICHT geskippt werden soll
+            if (!skipAnimation) {
+                requestAnimationFrame(() => {
+                    if (this.container) {
+                        animatePageIn(this.container);
+                    }
+                });
+            }
+            
+            // Flag zurücksetzen
+            this.isFirstLoad = false;
 
         } catch (error) {
             console.error('Error loading page:', error);

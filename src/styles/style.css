@@ -7,6 +7,7 @@
 @import './components/header.css';
 @import './components/menu.css';
 @import './components/lightbox.css';
+@import './components/preloader.css';
 @import './pages/home.css';
 @import './pages/work.css';
 @import './pages/about.css';

@@ -7,10 +7,11 @@ import { injectBackgroundBlobs, initBlobInteraction } from './components/blobs.j
 import { injectCursor, initCursor } from './components/cursor.js';
 import { injectHeader } from './components/header.js';
 import { injectMenuOverlay, initMenu } from './components/menu.js';
-import { initTheme } from './lib/theme.js';
+import { initTheme, setInitialTheme } from './lib/theme.js';
 import { initLanguage } from './lib/language.js';
-import { initTransitions } from './lib/transitions.js';
+import { initTransitions, animateInitialIn } from './lib/transitions.js';
 import { initGrained } from './lib/grained.js'; // Import Grained
+import { Preloader } from './components/preloader.js';
 import { Router } from './router.js';
 import Lenis from 'lenis';
 
@@ -38,27 +39,34 @@ const lenis = new Lenis({
 // Make Lenis available globally for router to use
 window.lenis = lenis;
 
-document.addEventListener('DOMContentLoaded', () => {
-    // Inject global components (only once, since this is SPA)
+document.addEventListener('DOMContentLoaded', async () => {
+    setInitialTheme(); 
+
+    const preloader = new Preloader();
+    const shouldPreload = preloader.shouldRun();
+
+    if (shouldPreload) {
+        // 1. Preloader anzeigen
+        preloader.render();
+        
+        // 2. Assets laden (Warten...)
+        await preloader.load();
+    }
+
+    // 3. App Komponenten injizieren
     injectBackgroundBlobs();
     injectMenuOverlay();
     injectCursor();
     injectHeader();
     
-    // Initialize blob interaction and cursor
     const interactWithBlobs = initBlobInteraction();
     initCursor(interactWithBlobs);
     
-    // Initialize menu
     initMenu();
-    
-    // Initialize utilities
     initTheme();
     initLanguage();
     initTransitions();
     
-    // Initialize Grained Noise
-    // We use a higher density but lower opacity for a subtle film grain look
     initGrained({
         patternWidth: 200,
         patternHeight: 200,
@@ -66,6 +74,28 @@ document.addEventListener('DOMContentLoaded', () => {
         grainDensity: 1
     });
     
-    // Initialize router (this will handle page-specific logic via mount/unmount)
+    // 4. Router starten und initialen Inhalt laden
     const router = new Router('app');
+    
+    // Warten, bis der Router den Inhalt gerendert hat
+    await router.loadInitialRoute();
+    
+    // 5. Koordinierte Animation: Preloader raus, Inhalt rein
+    if (shouldPreload) {
+        const appContainer = document.getElementById('app');
+        if (appContainer && appContainer.children.length > 0) {
+            // Beide Animationen parallel starten
+            await Promise.all([
+                preloader.animateOut(),
+                animateInitialIn(appContainer)
+            ]);
+        }
+    } else {
+        // Fallback: Wenn kein Preloader (z.B. Refresh), Inhalt sofort sichtbar machen
+        const appContainer = document.getElementById('app');
+        if (appContainer && appContainer.children.length > 0) {
+             // Schnelles Einblenden ohne Drama
+             await animateInitialIn(appContainer); 
+        }
+    }
 });

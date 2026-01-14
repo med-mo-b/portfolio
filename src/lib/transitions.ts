@@ -57,6 +57,33 @@ export function animatePageIn(container: HTMLElement): Promise<void> {
 }
 
 /**
+ * Spezielle Animation für den allerersten Load nach dem Preloader.
+ * "Invertiertes Morphen": Startet klein und unscharf, wird klar und normal groß.
+ */
+export function animateInitialIn(container: HTMLElement): Promise<void> {
+    return new Promise((resolve) => {
+        // Startzustand: Etwas kleiner, unscharf, transparent
+        gsap.set(container.children, {
+            opacity: 0,
+            scale: 0.92, 
+            filter: 'blur(10px)',
+            y: 0 // Kein Y-Offset, wir wollen nur Zoom/Blur
+        });
+
+        // Animation zum Normalzustand
+        gsap.to(container.children, {
+            opacity: 1,
+            scale: 1,
+            filter: 'blur(0px)',
+            duration: 1.5, // Langsam, passend zum Preloader-Exit
+            ease: 'power2.out',
+            clearProps: 'all', // Wichtig: Filter und Transform entfernen für Performance
+            onComplete: () => resolve()
+        });
+    });
+}
+
+/**
  * Initialize page transitions
  * Handles cursor hover states for interactive elements
  */
