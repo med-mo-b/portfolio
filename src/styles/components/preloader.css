@@ -55,6 +55,61 @@
     flex-shrink: 0;
 }
 
+/* Counter Style */
+.counter-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    margin: 2rem 0; /* Abstand zu Logo und Footer */
+}
+
+.counter-digits {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+/* 5x7 Dot Grid for each digit/symbol */
+.digit-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(7, 1fr);
+    gap: 0.3rem;
+    width: clamp(3rem, 8vw, 6rem);
+    height: clamp(4.2rem, 11.2vw, 8.4rem);
+}
+
+.dot {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: transparent;
+    transition: background-color 0.1s ease;
+}
+
+.dot.active {
+    background-color: #404040; /* Light mode default */
+}
+
+/* Dark mode color - weniger helles Weiß */
+[data-theme="dark"] .dot.active {
+    background-color: #d0d0d0;
+}
+
+/* /DEV Text */
+.dev-text {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.dev-text .digit-grid {
+    width: clamp(3rem, 8vw, 6rem);
+    height: clamp(4.2rem, 11.2vw, 8.4rem);
+}
+
 .preloader-footer {
     position: absolute;
     bottom: 1.5rem; /* Reduziert für mobile Geräte */
@@ -100,6 +155,31 @@
     .preloader-logo {
         /* Logo etwas kleiner auf mobilen Geräten */
         transform: scale(0.9);
+    }
+    
+    .counter-wrapper {
+        margin: 1.5rem 0;
+        gap: 1.5rem;
+    }
+    
+    .counter-digits {
+        gap: 0.5rem;
+    }
+    
+    .digit-grid {
+        width: clamp(4rem, 12vw, 7rem);
+        height: clamp(5.6rem, 16.8vw, 9.8rem);
+        gap: 0.3rem;
+    }
+    
+    .dev-text {
+        gap: 0.5rem;
+        margin-top: 0.5rem;
+    }
+    
+    .dev-text .digit-grid {
+        width: clamp(4rem, 12vw, 7rem);
+        height: clamp(5.6rem, 16.8vw, 9.8rem);
     }
 }
 
