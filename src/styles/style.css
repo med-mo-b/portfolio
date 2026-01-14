@@ -3,7 +3,7 @@
 @import './base/reset.css';
 @import './base/global.css';
 @import './components/cursor.css';
-@import './components/blobs.css';
+/* @import './components/blobs.css'; Removed: Replaced by WebGL */
 @import './components/header.css';
 @import './components/menu.css';
 @import './components/lightbox.css';

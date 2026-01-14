@@ -6,45 +6,52 @@
 :root {
     color-scheme: light dark;
     
-    --bg-color: light-dark(#f0f0f5, #1a1a1e);
+    --bg-color: light-dark(#f0f0f5, #101012); /* Dark mode bg slightly darker for better contrast */
     --text-primary: light-dark(#2a2a2a, #e0e0e5);
     --text-outline: light-dark(#5a5a70, #e0e0e5);
     --text-secondary: light-dark(#5a5a70, #a0a0b0);
-    --line-color: light-dark(rgba(90, 90, 112, 0.2), rgba(224, 224, 229, 0.2));
-    /* --blob-1: light-dark(#6bffd5e0, #164233);
-    --blob-2: light-dark(#ff9580e0, #4a2b26);
-    --blob-3: light-dark(#ffff90e0, #424018);
-    --blob-4: light-dark(#a88affe0, #2d2550);
-    --blob-5: light-dark(#80d4ffe0, #1a404a);
-    --blob-6: light-dark(#ff80bfe0, #4a1a35);
-    --blob-7: light-dark(#d4ff80e0, #2b4a1a);
-    --blob-8: light-dark(#ffb380e0, #4a321a); */
-    /* Nebula Blue */
-    --blob-1: light-dark(#a5f3fc, #0891b2); 
-    /* Deep Purple / Syntax Highlight */
-    --blob-2: light-dark(#ddd6fe, #7c3aed); 
-    /* Neon Pink / Error Highlight */
-    --blob-3: light-dark(#fbcfe8, #db2777); 
-    /* Electric Blue */
-    --blob-4: light-dark(#bae6fd, #2563eb); 
-    /* Emerald / Success Green */
-    --blob-5: light-dark(#bbf7d0, #059669); 
-    /* Soft Indigo */
-    --blob-6: light-dark(#c7d2fe, #4f46e5); 
-    /* Warm Orange / Warning */
-    --blob-7: light-dark(#fed7aa, #ea580c); 
-    /* Magenta Accent */
-    --blob-8: light-dark(#f5d0fe, #c026d3); 
+    --line-color: light-dark(rgba(90, 90, 112, 0.2), rgba(224, 224, 229, 0.1));
+
+    /* 
+       BLOB COLORS 
+       Format: light-dark(LIGHT_MODE_COLOR, DARK_MODE_COLOR)
+       
+       Light Mode: Shifted from faint pastels to Mid-Tones (more visible)
+       Dark Mode: Shifted from Bright Neons to Deep Jewel Tones (less poppy)
+    */
+    
+    /* Cyan / Deep Teal */
+    --blob-1: light-dark(#22d3ee, #0f3842); 
+    
+    /* Purple / Midnight Violet */
+    --blob-2: light-dark(#a78bfa, #2e1065); 
+    
+    /* Pink / Deep Raspberry */
+    --blob-3: light-dark(#f472b6, #4a0426); 
+    
+    /* Blue / Navy */
+    --blob-4: light-dark(#60a5fa, #172554); 
+    
+    /* Green / Dark Forest */
+    --blob-5: light-dark(#4ade80, #064e3b); 
+    
+    /* Indigo / Deep Indigo */
+    --blob-6: light-dark(#818cf8, #312e81); 
+    
+    /* Orange / Burnt Sienna */
+    --blob-7: light-dark(#fb923c, #431407); 
+    
+    /* Magenta / Deep Plum */
+    --blob-8: light-dark(#e879f9, #4a044e); 
 
     --cursor-color: light-dark(#151515, #e0e0e5);
     
     --font-main: 'VT323', monospace;
     --text-size-hero: clamp(3rem, 6vw, 5rem);
     
-    /* Noise Variables for Grained.js implementation */
-    --noise-opacity: light-dark(0.5, 0.4);
+    /* Noise Variables */
+    --noise-opacity: light-dark(0.5, 0.3); /* Reduced dark mode noise slightly */
     --noise-blend: light-dark(multiply, screen);
-    /* In dark mode, we invert the black noise to white */
     --noise-filter: light-dark(none, invert(1));
 }
 
@@ -57,7 +64,7 @@
 
 [data-theme="dark"] {
     color-scheme: dark;
-    --noise-opacity: 0.4;
+    --noise-opacity: 0.3;
     --noise-blend: screen;
     --noise-filter: invert(1);
 }
@@ -65,14 +72,6 @@
 /* MOBILE TWEAKS */
 @media (max-width: 768px) {
     :root {
-        --noise-opacity: light-dark(0.5, 0.5);
-    }
-    
-    [data-theme="dark"] {
-        --noise-opacity: 0.4;
-    }
-
-    [data-theme="light"] {
-        --noise-opacity: 0.5;
+        --noise-opacity: light-dark(0.5, 0.4);
     }
 }
