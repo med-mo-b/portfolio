@@ -18,17 +18,18 @@ export const template: string = `
             </h1>
 
             <div class="hero-description">
-                <p data-text-en="Research Engineer @ Fraunhofer IPA" data-text-de="Forschungsingenieur @ Fraunhofer IPA">Research Engineer @ Fraunhofer IPA</p>
+                <p data-text-en="I'm a research engineer, software developer" data-text-de="Ich bin ein Forschungsingenieur, Softwareentwickler">I'm a research engineer, software developer</p>
+                <p data-text-en="& builder of AI-driven systems" data-text-de="& Entwickler KI-gestützter Systeme">& builder of AI-driven systems</p>
             </div>
 
             <div class="hero-links">
                 <a href="/work" class="pretty-arrow">
                     <span class="arrow-icon">→</span>
-                    <span class="arrow-text" data-text-en="research & projects" data-text-de="projekte">research & projects</span>
+                    <span class="arrow-text" data-text-en="see my projects" data-text-de="zu meinen Projekten">see my projects</span>
                 </a>
                 <a href="/about" class="pretty-arrow">
                     <span class="arrow-icon">→</span>
-                    <span class="arrow-text" data-text-en="about me" data-text-de="über mich">about me</span>
+                    <span class="arrow-text" data-text-en="more about me" data-text-de="mehr über mich">more about me</span>
                 </a>
             </div>
         </div>

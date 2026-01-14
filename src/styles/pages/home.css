@@ -18,9 +18,10 @@
     gap: 0;
     font-size: var(--text-size-hero);
     line-height: 0.9;
-    margin-bottom: 3rem;
-    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+    letter-spacing: 0.05em;
     text-transform: uppercase;
+    font-weight: 400;
 }
 
 .hero-title .line {
@@ -33,34 +34,40 @@
 
 .outline-text {
     color: transparent;
-    -webkit-text-stroke: 1px var(--text-primary);
-    font-weight: 400;
+    -webkit-text-stroke: 1px #ffffff;
+    font-weight: 500;
 }
 
 .filled-text {
-    color: var(--text-primary);
-    font-weight: 400;
+    color: #ffffff;
+    font-weight: 300;
 }
 
 .hero-description {
-    font-size: 1.4rem;
-    margin-bottom: 3rem;
-    line-height: 1.4;
-    color: var(--text-secondary);
+    font-size: 1.8rem;
+    margin-bottom: 2rem;
+    line-height: 1.2;
+    color: var(--text-primary);
+    letter-spacing: -0.05em;
+    color: #afafaf;
+}
+
+.hero-description p {
+    margin: 0;
 }
 
 /* Pretty Arrows */
 .hero-links {
     display: flex;
     justify-content: center;
-    gap: 5rem;
+    gap: 3rem;
 }
 
 .pretty-arrow {
     display: flex;
     align-items: center;
     gap: calc(0.5rem + 2px);
-    font-size: 1.3rem;
+    font-size: 1.6rem;
     color: var(--text-primary);
     position: relative;
     padding-bottom: 5px;
@@ -124,5 +131,11 @@
         display: block;
         width: 100%;
         line-height: 0.9;
+    }
+    
+    .hero-links {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
     }
 }

@@ -10,6 +10,7 @@
     --text-primary: light-dark(#2a2a2a, #e0e0e5);
     --text-outline: light-dark(#5a5a70, #e0e0e5);
     --text-secondary: light-dark(#5a5a70, #a0a0b0);
+    --text-accent: light-dark(#fcd34d, #fbbf24);
     --line-color: light-dark(rgba(90, 90, 112, 0.2), rgba(224, 224, 229, 0.1));
 
     /* 
