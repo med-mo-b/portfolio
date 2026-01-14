@@ -34,7 +34,7 @@ export class Preloader {
                     </svg>
                 </div>
                 <div class="preloader-footer">
-                    <p>Design and Codes by Mo &copy; ${currentYear}</p>
+                    <p>Designed and coded by Mo &copy; ${currentYear}</p>
                 </div>
             </div>
         `;
@@ -43,12 +43,6 @@ export class Preloader {
 
     // Lädt Assets und wartet Mindestzeit
     public async load(): Promise<void> {
-        // Wenn schon gesehen, sofort fertig
-        if (sessionStorage.getItem('preloaderShown')) {
-            this.element.style.display = 'none'; // Sicherstellen, dass er weg ist
-            return Promise.resolve();
-        }
-
         const minTimePromise = new Promise(resolve => setTimeout(resolve, 1500));
         const assetsPromise = this.loadImages();
 
@@ -57,15 +51,10 @@ export class Preloader {
 
     // Führt die Exit-Animation aus
     public animateOut(): Promise<void> {
-        if (sessionStorage.getItem('preloaderShown')) {
-            return Promise.resolve();
-        }
-
         return new Promise<void>(resolve => {
             const tl = gsap.timeline({
                 onComplete: () => {
                     this.element.remove();
-                    sessionStorage.setItem('preloaderShown', 'true');
                     resolve();
                 }
             });
@@ -100,7 +89,8 @@ export class Preloader {
     }
     
     // Hilfsmethode um zu prüfen, ob wir überhaupt preloaden müssen
+    // Jetzt immer true, da der Preloader bei jedem Neuladen angezeigt werden soll
     public shouldRun(): boolean {
-        return !sessionStorage.getItem('preloaderShown');
+        return true;
     }
 }
