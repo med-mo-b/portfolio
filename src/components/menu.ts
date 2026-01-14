@@ -22,6 +22,7 @@ export function injectMenuOverlay(): void {
             </ul>
         </nav>
         <div class="menu-footer">
+            <a href="https://github.com/med-mo-b" target="_blank">↗ GitHub</a>
             <a href="https://www.linkedin.com/in/moritz-bednorz/" target="_blank">↗ LinkedIn</a>
             <a href="https://orcid.org/0000-0002-4981-5732" target="_blank">↗ ORCID</a>
         </div>

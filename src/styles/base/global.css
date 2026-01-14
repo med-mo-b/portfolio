@@ -30,7 +30,7 @@ a, button {
     width: 300%;
     height: 300%;
     pointer-events: none;
-    z-index: 9998; /* Below cursor */
+    z-index: 1000000; /* Above preloader (999999) */
     
     opacity: var(--noise-opacity); 
     mix-blend-mode: var(--noise-blend);

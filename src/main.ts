@@ -42,6 +42,14 @@ window.lenis = lenis;
 document.addEventListener('DOMContentLoaded', async () => {
     setInitialTheme(); 
 
+    // Initialize Grained (Noise Overlay) early so it appears over the preloader
+    initGrained({
+        patternWidth: 200,
+        patternHeight: 200,
+        grainOpacity: 0.15,
+        grainDensity: 1
+    });
+
     const preloader = new Preloader();
     const shouldPreload = preloader.shouldRun();
 
@@ -66,13 +74,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     initTheme();
     initLanguage();
     initTransitions();
-    
-    initGrained({
-        patternWidth: 200,
-        patternHeight: 200,
-        grainOpacity: 0.15,
-        grainDensity: 1
-    });
     
     // 4. Router starten und initialen Inhalt laden
     const router = new Router('app');

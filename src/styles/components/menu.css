@@ -55,7 +55,7 @@ body.menu-open .menu-link {
 
 .menu-footer {
     display: flex;
-    gap: 4rem; /* Increased gap between footer links */
+    gap: 1.5rem; /* Reduced gap to bring links closer together */
     margin-top: 2rem;
     font-size: 1.5rem;
     color: var(--text-secondary);

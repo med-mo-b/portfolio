@@ -9,6 +9,7 @@ import { BRANCHES, TIMELINE_DATA, getSortedEvents, getBranchById } from '../data
 // State
 let selectedEvent: TimelineEvent | null = null;
 let activeBranchFilter: string | null = null;
+let scrollHandler: (() => void) | null = null;
 
 /**
  * Generate the stats cards HTML
@@ -340,6 +341,11 @@ function updateEventCard(event: TimelineEvent | null): void {
         `<span class="event-tag">#${tag}</span>`
     ).join('') : '';
 
+    // Check if project link exists
+    const projectBtn = event.projectId 
+        ? `<a href="/work?project=${event.projectId}" class="event-project-link">View Project →</a>` 
+        : '';
+
     cardContainer.innerHTML = `
         <div class="event-card-content">
             <div class="event-header">
@@ -354,6 +360,8 @@ function updateEventCard(event: TimelineEvent | null): void {
             ${event.company ? `<p class="event-company">${event.company}</p>` : ''}
             
             <p class="event-description" data-text-en="${event.description}" data-text-de="${event.descriptionDe}">${event.description}</p>
+            
+            ${projectBtn}
             
             ${tagsHtml ? `<div class="event-tags">${tagsHtml}</div>` : ''}
             
@@ -531,10 +539,38 @@ export function mount(): void {
     
     // Setup event card listeners (for close button)
     setupEventCardListeners();
+
+    // --- NEW: Mobile Scroll Auto-Close ---
+    scrollHandler = () => {
+        // Only on mobile/tablet
+        if (window.innerWidth <= 1023 && selectedEvent) {
+            closeEventCard();
+        }
+    };
+    
+    // Use passive listener for better performance
+    window.addEventListener('scroll', scrollHandler, { passive: true });
+    
+    // Also close on click outside (for mobile overlay)
+    document.addEventListener('click', (e) => {
+        const target = e.target as HTMLElement;
+        const card = document.getElementById('event-card');
+        const clickedNode = target.closest('.commit-node');
+        
+        // If card is visible, and we didn't click the card OR a node
+        if (card && card.classList.contains('visible') && !card.contains(target) && !clickedNode) {
+            closeEventCard();
+        }
+    });
 }
 
 export function unmount(): void {
-    // Cleanup
     selectedEvent = null;
     activeBranchFilter = null;
+    
+    // Clean up scroll listener
+    if (scrollHandler) {
+        window.removeEventListener('scroll', scrollHandler);
+        scrollHandler = null;
+    }
 }

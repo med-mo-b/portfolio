@@ -44,4 +44,5 @@ export interface TimelineEvent {
     descriptionDe: string;
     tags?: string[];
     icon?: string;
+    projectId?: string;
 }

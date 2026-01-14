@@ -32,7 +32,8 @@ export const TIMELINE_DATA: TimelineEvent[] = [
         description: 'Largest federated cardiac CT analysis (n=8,104) across 8 hospitals. Semi-supervised knowledge distillation from CNNs into transformers for multi-label learning.',
         descriptionDe: 'Größte föderierte Cardiac-CT-Analyse (n=8.104) über 8 Krankenhäuser. Semi-überwachte Wissensdestillation von CNNs in Transformer für Multi-Label-Learning.',
         tags: ['Federated Learning', 'Transformer', 'Cardiac CT'],
-        icon: 'microscope'
+        icon: 'microscope',
+        projectId: 'federated-cardiac-ct'
     },
     {
         id: 'portfolio-website',
@@ -46,7 +47,8 @@ export const TIMELINE_DATA: TimelineEvent[] = [
         description: 'Built moritzbednorz.com as a personal portfolio. Modern SPA with custom router, git-style timeline, and bilingual support.',
         descriptionDe: 'Erstellung von moritzbednorz.com als persönliches Portfolio. Moderne SPA mit eigenem Router, Git-Style Timeline und zweisprachiger Unterstützung.',
         tags: ['Bun', 'TypeScript', 'CSS'],
-        icon: 'drafting'
+        icon: 'drafting',
+        projectId: 'portfolio-website'
     },
     {
         id: 'thoraxmonitor-paper',
@@ -61,7 +63,8 @@ export const TIMELINE_DATA: TimelineEvent[] = [
         description: 'Demonstrated contactless impedance-based sensor (Thoraxmonitor) for quantitative respiratory flow reconstruction. Bridging gap to real flow measurement for neonatology applications.',
         descriptionDe: 'Nachweis eines kontaktlosen impedanzbasierten Sensors (Thoraxmonitor) zur quantitativen Atemfluss-Rekonstruktion. Schließt die Lücke zur echten Flow-Messung für Neonatologie.',
         tags: ['Sensors', 'ML', 'Neonatology', 'Bioimpedance'],
-        icon: 'microscope'
+        icon: 'microscope',
+        projectId: 'thoraxmonitor'
     },
     {
         id: 'fipa-re',

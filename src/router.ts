@@ -64,7 +64,9 @@ export class Router {
     public async loadInitialRoute(): Promise<void> {
         // Initial route - WICHTIG: skipAnimation = true für den ersten Load
         // Wir animieren das manuell in main.ts
-        await this.navigate(window.location.pathname, false, true);
+        // Preserve query string from initial URL
+        const initialPath = window.location.pathname + window.location.search;
+        await this.navigate(initialPath, false, true);
     }
 
     /**
@@ -92,7 +94,9 @@ export class Router {
      * Handle browser navigation (back/forward)
      */
     private handlePopState(_e: PopStateEvent): void {
-        this.navigate(window.location.pathname, false);
+        // Preserve query string when handling browser navigation
+        const currentPath = window.location.pathname + window.location.search;
+        this.navigate(currentPath, false);
     }
 
     /**
@@ -101,10 +105,27 @@ export class Router {
     async navigate(path: string, pushState: boolean = true, skipAnimation: boolean = false): Promise<void> {
         if (!this.container) return;
 
-        // Normalize path (remove trailing slash except for root)
-        const normalizedPath = path === '/' ? '/' : path.replace(/\/$/, '');
+        // Parse path and query string separately
+        // Handle both absolute paths (/work?project=...) and relative paths
+        let pathname: string;
+        let search: string;
         
-        // Get route handler
+        if (path.startsWith('/')) {
+            // Absolute path - parse with current origin
+            const url = new URL(path, window.location.origin);
+            pathname = url.pathname;
+            search = url.search;
+        } else {
+            // Relative path - shouldn't happen for internal links, but handle it
+            const url = new URL(path, window.location.href);
+            pathname = url.pathname;
+            search = url.search;
+        }
+        
+        // Normalize pathname (remove trailing slash except for root)
+        const normalizedPath = pathname === '/' ? '/' : pathname.replace(/\/$/, '');
+        
+        // Get route handler (use only pathname for route lookup)
         const routeHandler = routes[normalizedPath];
         
         if (!routeHandler) {
@@ -127,9 +148,10 @@ export class Router {
             }
         }
 
-        // Update URL (without reload)
+        // Update URL (without reload) - preserve query string
         if (pushState) {
-            window.history.pushState({}, '', normalizedPath);
+            const fullPath = normalizedPath + search;
+            window.history.pushState({}, '', fullPath);
         }
 
         // Update body class

@@ -94,14 +94,14 @@ function generateProjectCards(): string {
         
         // Video vs Image Preview
         const mediaPreview = project.video 
-            ? `<video src="${project.video}" autoplay ${project.audio !== true ? 'muted' : ''} loop playsinline class="card-media-video" style="width: 100%; height: 100%; object-fit: cover;"></video>`
+            ? `<video src="${project.video}" autoplay ${project.audio !== true ? 'muted' : ''} loop playsinline preload="none" class="card-media-video" style="width: 100%; height: 100%; object-fit: cover;"></video>`
             : `<img src="${project.image}" alt="${project.title}" data-project-id="${project.id}">`;
 
         // Video vs Image Expanded
         // Use inline style for object-fit on video to ensure it's not overridden before CSS loads, 
         // though our new CSS will enforce 'contain'
         const mediaExpanded = project.video
-            ? `<video src="${project.video}" autoplay ${project.audio !== true ? 'muted' : ''} loop playsinline ${project.audio !== false ? 'controls' : ''} style="width: 100%; height: 100%; object-fit: contain;"></video>`
+            ? `<video src="${project.video}" autoplay ${project.audio !== true ? 'muted' : ''} loop playsinline preload="metadata" ${project.audio !== false ? 'controls' : ''} style="width: 100%; height: 100%; object-fit: contain;"></video>`
             : `<img src="${project.image}" alt="${project.title}">`;
 
         // Prepare background image for ambient effect
@@ -267,6 +267,36 @@ export function mount(): void {
             }
         });
     });
+    
+    // --- NEW: Check URL Params for Auto-Expansion ---
+    const urlParams = new URLSearchParams(window.location.search);
+    const targetProjectId = urlParams.get('project');
+
+    if (targetProjectId) {
+        const targetCard = document.querySelector<HTMLElement>(`.project-card[data-project-id="${targetProjectId}"]`);
+        
+        if (targetCard) {
+            // Wait a moment for page transition to finish
+            setTimeout(() => {
+                // Collapse others
+                projectCards.forEach(c => c.classList.remove('expanded'));
+                
+                // Expand target
+                targetCard.classList.add('expanded');
+                
+                // Force reflow to ensure column-span works
+                void targetCard.offsetHeight;
+                
+                // Scroll to it
+                setTimeout(() => {
+                    targetCard.scrollIntoView({ 
+                        behavior: 'smooth', 
+                        block: 'center' 
+                    });
+                }, 150);
+            }, 500);
+        }
+    }
     
     // Re-apply language after rendering
     if (window.initLanguage) {
