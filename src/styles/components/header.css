@@ -104,10 +104,10 @@ body.menu-open .close-icon {
         padding: 5rem 6.5rem; /* Increased padding to move elements slightly toward center */
     }
     
-    /* Increase logo size by 20% */
+    /* Increase logo size by 20% - both logos same size for consistent header height and visual consistency */
     .logo svg.logo-light {
-        width: 60px;
-        height: 44.4px; /* 37 * 1.2 */
+        width: 80px; /* Same as logo-dark for visual consistency */
+        height: 80px; /* Same as logo-dark for consistent header height */
     }
     
     .logo svg.logo-dark {

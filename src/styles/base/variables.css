@@ -6,7 +6,7 @@
 :root {
     color-scheme: light dark;
     
-    --bg-color: light-dark(#f0f0f5, #101012); /* Dark mode bg slightly darker for better contrast */
+    --bg-color: light-dark(#f0f0f5, #101012);
     --text-primary: light-dark(#2a2a2a, #e0e0e5);
     --text-outline: light-dark(#5a5a70, #e0e0e5);
     --text-secondary: light-dark(#5a5a70, #a0a0b0);
@@ -16,12 +16,13 @@
        BLOB COLORS 
        Format: light-dark(LIGHT_MODE_COLOR, DARK_MODE_COLOR)
        
-       Light Mode: Shifted from faint pastels to Mid-Tones (more visible)
-       Dark Mode: Shifted from Bright Neons to Deep Jewel Tones (less poppy)
+       Changes:
+       - Removed Green/Teal tones
+       - Added Sky Blue and Warm Gold for a "Sunset/Nebula" vibe
     */
     
-    /* Cyan / Deep Teal */
-    --blob-1: light-dark(#22d3ee, #0f3842); 
+    /* Was Cyan/Teal -> Now Sky Blue (Cleaner, no green tint) */
+    --blob-1: light-dark(#7dd3fc, #0c4a6e); 
     
     /* Purple / Midnight Violet */
     --blob-2: light-dark(#a78bfa, #2e1065); 
@@ -32,8 +33,8 @@
     /* Blue / Navy */
     --blob-4: light-dark(#60a5fa, #172554); 
     
-    /* Green / Dark Forest */
-    --blob-5: light-dark(#4ade80, #064e3b); 
+    /* Was Green -> Now Warm Gold (Adds warmth, mixes well with pinks) */
+    --blob-5: light-dark(#fcd34d, #78350f); 
     
     /* Indigo / Deep Indigo */
     --blob-6: light-dark(#818cf8, #312e81); 
@@ -50,7 +51,7 @@
     --text-size-hero: clamp(3rem, 6vw, 5rem);
     
     /* Noise Variables */
-    --noise-opacity: light-dark(0.5, 0.3); /* Reduced dark mode noise slightly */
+    --noise-opacity: light-dark(0.5, 0.3);
     --noise-blend: light-dark(multiply, screen);
     --noise-filter: light-dark(none, invert(1));
 }
