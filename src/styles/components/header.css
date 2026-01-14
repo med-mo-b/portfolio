@@ -90,3 +90,63 @@ body.menu-open .close-icon {
     width: 140px; /* Fixed width for the container to prevent outer shifts */
     justify-content: flex-end; /* Align items to the right */
 }
+
+/* MOBILE: Move elements to corners */
+@media (max-width: 768px) {
+    .site-header {
+        padding: 1rem 1.25rem; /* Reduced padding to move elements closer to corners */
+    }
+}
+
+/* DESKTOP: Increase size by 20% and move slightly toward center */
+@media (min-width: 768px) {
+    .site-header {
+        padding: 5rem 6.5rem; /* Increased padding to move elements slightly toward center */
+    }
+    
+    /* Increase logo size by 20% */
+    .logo svg.logo-light {
+        width: 60px;
+        height: 44.4px; /* 37 * 1.2 */
+    }
+    
+    .logo svg.logo-dark {
+        width: 80px;
+        height: 80px; /* 50 * 1.2 */
+    }
+    
+    /* Increase header controls by 20% */
+    .lang-switch, .theme-toggle {
+        width: 48px; /* 40 * 1.2 */
+        height: 48px; /* 40 * 1.2 */
+    }
+    
+    .menu-trigger {
+        width: 29px; /* 24 * 1.2, rounded */
+        height: 29px; /* 24 * 1.2, rounded */
+    }
+    
+    /* Increase icon sizes by 20% */
+    .theme-toggle svg,
+    .menu-trigger .close-icon svg {
+        width: 24px; /* 20 * 1.2 */
+        height: 24px; /* 20 * 1.2 */
+    }
+    
+    /* Increase grid dots size by 20% */
+    .grid-dots {
+        grid-template-columns: repeat(3, 7.2px); /* 6 * 1.2 */
+        gap: 4.8px; /* 4 * 1.2 */
+    }
+    
+    .grid-dots span {
+        width: 7.2px; /* 6 * 1.2 */
+        height: 7.2px; /* 6 * 1.2 */
+        border-width: 1.8px; /* 1.5 * 1.2 */
+    }
+    
+    /* Adjust header controls width to accommodate larger buttons */
+    .header-controls {
+        width: 168px; /* 140 * 1.2 */
+    }
+}

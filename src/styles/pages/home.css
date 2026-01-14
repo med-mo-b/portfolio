@@ -126,3 +126,11 @@
         line-height: 0.9;
     }
 }
+
+/* Desktop: Adjust padding for larger header */
+@media (min-width: 768px) {
+    .hero {
+        padding-top: 15rem; /* 15rem (240px) for larger header */
+        min-height: calc(100vh + 15rem); /* Ensure full viewport height plus header space */
+    }
+}

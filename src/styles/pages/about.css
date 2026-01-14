@@ -513,7 +513,7 @@
    ======================================== */
 @media (min-width: 768px) {
     .about-container {
-        padding: 8rem 4rem 4rem;
+        padding: 15rem 4rem 4rem; /* 15rem (240px) for larger header */
     }
 
     .about-header {

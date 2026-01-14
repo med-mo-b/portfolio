@@ -414,3 +414,10 @@
         grid-template-columns: repeat(2, 1fr);
     }
 }
+
+/* Desktop: Adjust padding for larger header */
+@media (min-width: 768px) {
+    .work-container {
+        padding-top: 200; /* 120px original + 160px for larger header */
+    }
+}
