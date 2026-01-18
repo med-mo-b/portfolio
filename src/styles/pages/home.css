@@ -1,141 +1,208 @@
 /* 
   ========================================
-  HERO SECTION
+  HOME - SPLIT LAYOUT STYLE
   ========================================
 */
-.hero {
-    height: 100vh;
-    display: flex;
+
+.hero-split {
+    min-height: 100vh;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1.2fr 1fr; /* Text bekommt etwas mehr Platz */
     align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 0 2rem;
+    padding: 0 4rem; /* Seitenabstand */
+    max-width: 1600px;
+    margin: 0 auto;
+    gap: 2rem;
+    position: relative;
+    padding-top: 80px; /* Platz für Header */
+    overflow: hidden; /* Damit das Bild unten bündig abschneidet */
 }
 
-.hero-title {
+/* --- Linke Seite: Text --- */
+.hero-text-side {
     display: flex;
     flex-direction: column;
-    gap: 0;
-    font-size: var(--text-size-hero);
-    line-height: 0.9;
-    margin-bottom: 1rem;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    font-weight: 400;
-}
-
-.hero-title .line {
-    display: flex;
-    flex-wrap: wrap;
     justify-content: center;
-    gap: 0.2em;
-    line-height: 0.9;
+    align-items: flex-start;
+    z-index: 10;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+    padding-left: 1rem; /* Text etwas nach rechts verschieben */
 }
 
-.outline-text {
-    color: transparent;
-    -webkit-text-stroke: 1px #ffffff;
-    font-weight: 500;
+.hero-text-side.animate-in {
+    opacity: 1;
+    transform: translateY(0);
 }
 
-.filled-text {
-    color: #ffffff;
-    font-weight: 300;
+/* Handschrift-Name */
+.signature-text {
+    font-family: 'Caveat', cursive;
+    font-size: 2.5rem;
+    color: var(--text-secondary); /* Gräulich */
+    margin-bottom: 1rem;
+    transform: rotate(-2deg); /* Leichte Neigung für Handschrift-Look */
+    display: block;
 }
 
-.hero-description {
-    font-size: 1.8rem;
-    margin-bottom: 2rem;
-    line-height: 1.2;
+/* Hauptüberschrift */
+.hero-headline {
+    font-family: 'VT323';
+    font-size: clamp(3rem, 5vw, 4.5rem);
+    line-height: 1.1;
     color: var(--text-primary);
-    letter-spacing: -0.05em;
-    color: #afafaf;
+    margin-bottom: 2rem;
+    font-weight: 700;
+    display: flex;
+    flex-direction: column;
 }
 
-.hero-description p {
+.hero-headline .line {
+    display: block;
+}
+
+.hero-headline .outline-text {
+    color: transparent;
+    -webkit-text-stroke: 0.5px var(--text-primary);
+}
+
+.hero-headline .filled-text {
+    color: var(--text-primary);
+    font-weight: 700;
+}
+
+.hero-headline .highlight {
+    color: var(--text-primary);
+    font-weight: 700;
+}
+
+/* Beschreibungstext */
+.hero-bio {
+    max-width: 550px;
+    margin-bottom: 2.5rem;
+}
+
+.hero-bio p {
+    font-family: 'VT323', sans-serif;
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
     margin: 0;
 }
 
-/* Pretty Arrows */
-.hero-links {
+/* Buttons */
+.hero-cta {
     display: flex;
-    justify-content: center;
-    gap: 3rem;
+    gap: 1.5rem;
 }
 
-.pretty-arrow {
-    display: flex;
-    align-items: center;
-    gap: calc(0.5rem + 2px);
-    font-size: 1.6rem;
+.btn-primary, .btn-secondary {
+    padding: 0.8rem 1.5rem;
+    font-family: 'Geist Sans', sans-serif;
+    font-size: 1.2rem;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-primary {
+    background: var(--text-primary);
+    color: var(--bg-color);
+    border: 1px solid var(--text-primary);
+}
+
+.btn-primary:hover {
+    background: transparent;
     color: var(--text-primary);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: var(--text-primary);
+    border: 1px solid var(--text-secondary);
+}
+
+.btn-secondary:hover {
+    border-color: var(--text-primary);
+}
+
+
+/* --- Rechte Seite: Bild --- */
+.hero-image-side {
+    height: 100%;
+    display: flex;
+    align-items: flex-end; /* Bild unten ausrichten */
+    justify-content: center;
     position: relative;
-    padding-bottom: 5px;
+    opacity: 0;
+    transform: translateX(20px);
+    transition: opacity 1s ease 0.3s, transform 1s ease 0.3s; /* Verzögerter Start */
+    padding-bottom: 0;
+    margin-bottom: 0;
 }
 
-.pretty-arrow::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    height: 2px;
-    background-color: var(--text-primary);
-    transform: scaleX(0);
-    transform-origin: right;
-    transition: transform 0.3s ease;
+
+.hero-image-side.animate-in {
+    opacity: 1;
+    transform: translateX(0);
 }
 
-.pretty-arrow:hover::after {
-    transform: scaleX(1);
-    transform-origin: left;
-}
-
-/* Arrow Icon Animation */
-@keyframes arrowPulse {
-    0%, 100% {
-        transform: translateX(0);
-    }
-    50% {
-        transform: translateX(5px);
-    }
-}
-
-.arrow-icon {
-    will-change: transform;
-    animation: arrowPulse 1.5s ease-in-out infinite;
-    transition: transform 0.3s ease;
-}
-
-.pretty-arrow:hover .arrow-icon {
-    transform: translateX(5px);
-}
-
-/* Responsive line breaks */
-@media (max-width: 768px) {
-    .hero-title {
-        gap: 0;
-    }
+.portrait-img {
+    max-width: 130%;
+    max-height: 85vh; /* Damit es nicht zu riesig wird */
+    width: auto;
+    object-fit: contain;
+    /* Optional: Subtiler Schlagschatten für Tiefe */
+    filter: drop-shadow(0 20px 30px rgba(0,0,0,0.3));
     
-    .hero-title .line {
-        line-height: 0.9;
-    }
+    /* Wichtig: Verhindert, dass das Bild über den Header rutscht */
+    mask-image: linear-gradient(to top, black 90%, transparent 100%);
     
-    .hero-title .line:nth-child(2) {
-        flex-direction: column;
-        align-items: center;
-        gap: 0;
-    }
-    
-    .hero-title .break-before {
-        display: block;
-        width: 100%;
-        line-height: 0.9;
-    }
-    
-    .hero-links {
-        flex-direction: column;
-        align-items: center;
+    /* Bündig am unteren Rand */
+    align-self: flex-end;
+    margin-bottom: -30px; /* Je größer die Minuszahl, desto tiefer rutscht das Bild */
+}
+
+/* --- Responsive (Mobile) --- */
+@media (max-width: 900px) {
+    .hero-split {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto 1fr;
+        padding: 80px 1.5rem 0;
+        text-align: justify;
         gap: 1rem;
+    }
+
+    .hero-text-side {
+        align-items: center;
+        padding-left: 0; /* Padding auf Mobile entfernen, da zentriert */
+    }
+
+    .hero-headline {
+        font-size: 3rem;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .hero-headline .line {
+        margin-bottom: 0px;
+    }
+    
+    .signature-text {
+        font-size: 2rem;
+    }
+
+    .hero-image-side {
+        justify-content: center;
+        align-items: flex-end;
+    }
+
+    .portrait-img {
+        max-height: 40vh; /* Kleiner auf Mobile */
     }
 }

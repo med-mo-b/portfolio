@@ -114,15 +114,15 @@ export class Preloader {
      * Calculates the increment based on current progress (slower near 100%)
      */
     private getIncrement(progress: number): number {
-        // Start with larger increments, get smaller as we approach 100%
+        // MEHR SCHWUNG: Größere Sprünge machen
         if (progress < 50) {
-            return Math.floor(Math.random() * 5) + 2; // 2-6
+            return Math.floor(Math.random() * 10) + 5; // War 2-6, jetzt 5-15
         } else if (progress < 80) {
-            return Math.floor(Math.random() * 3) + 1; // 1-3
+            return Math.floor(Math.random() * 5) + 3; // War 1-3, jetzt 3-8
         } else if (progress < 95) {
-            return Math.floor(Math.random() * 2) + 1; // 1-2
+            return Math.floor(Math.random() * 3) + 2; // War 1-2, jetzt 2-5
         } else {
-            return 1; // Always 1 near the end
+            return 2; // War 1, jetzt 2 (geht doppelt so schnell am Ende)
         }
     }
 
@@ -130,18 +130,17 @@ export class Preloader {
      * Calculates the interval delay based on current progress (longer near 100%)
      */
     private getIntervalDelay(progress: number): number {
-        // Start fast, get slower as we approach 100%
+        // WENIGER WARTEN: Kürzere Pausen
         if (progress < 50) {
-            return 50; // Fast
+            return 20; // War 50
         } else if (progress < 80) {
-            return 80; // Medium
+            return 30; // War 80
         } else if (progress < 95) {
-            return 120; // Slower
+            return 50; // War 120
         } else {
-            return 200; // Very slow near the end
+            return 80; // War 200 (das war der Hauptgrund für die Wartezeit)
         }
     }
-
     // Lädt Assets und wartet Mindestzeit
     public async load(): Promise<void> {
         const counterWrapper = this.element.querySelector('.counter-wrapper');
