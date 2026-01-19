@@ -5,7 +5,7 @@
 */
 
 .hero-split {
-    min-height: 100vh;
+    height: 100dvh;
     width: 100%;
     display: grid;
     grid-template-columns: 1.2fr 1fr; /* Text bekommt etwas mehr Platz */
@@ -17,6 +17,7 @@
     position: relative;
     padding-top: 80px; /* Platz für Header */
     overflow: hidden; /* Damit das Bild unten bündig abschneidet */
+    max-height: 100dvh;
 }
 
 /* --- Linke Seite: Text --- */
@@ -30,6 +31,7 @@
     transform: translateY(20px);
     transition: opacity 0.8s ease, transform 0.8s ease;
     padding-left: 1rem; /* Text etwas nach rechts verschieben */
+    padding-top: 5vh;
 }
 
 .hero-text-side.animate-in {
@@ -50,17 +52,18 @@
 /* Hauptüberschrift */
 .hero-headline {
     font-family: 'VT323';
-    font-size: clamp(3rem, 5vw, 4.5rem);
+    font-size: clamp(1.8rem, 5vw, 4.5rem);
     line-height: 1.1;
     color: var(--text-primary);
     margin-bottom: 2rem;
-    font-weight: 700;
+    font-weight: 400;
     display: flex;
     flex-direction: column;
 }
 
 .hero-headline .line {
     display: block;
+    white-space: nowrap;
 }
 
 .hero-headline .outline-text {
@@ -70,12 +73,12 @@
 
 .hero-headline .filled-text {
     color: var(--text-primary);
-    font-weight: 700;
+    font-weight: 400;
 }
 
 .hero-headline .highlight {
     color: var(--text-primary);
-    font-weight: 700;
+    font-weight: 400;
 }
 
 /* Beschreibungstext */
@@ -86,7 +89,7 @@
 
 .hero-bio p {
     font-family: 'VT323', sans-serif;
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     line-height: 1.6;
     color: var(--text-secondary);
     margin: 0;
@@ -101,13 +104,14 @@
 .btn-primary, .btn-secondary {
     padding: 0.8rem 1.5rem;
     font-family: 'Geist Sans', sans-serif;
-    font-size: 1.2rem;
+    font-size: 1rem;
     border-radius: 4px;
     transition: all 0.3s ease;
     text-transform: uppercase;
     letter-spacing: 1px;
     text-decoration: none;
     display: inline-block;
+    white-space: nowrap;
 }
 
 .btn-primary {
@@ -181,28 +185,76 @@
     .hero-text-side {
         align-items: center;
         padding-left: 0; /* Padding auf Mobile entfernen, da zentriert */
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
     }
 
     .hero-headline {
         font-size: 3rem;
         align-items: center;
         text-align: center;
+        width: 100%;
+        max-width: 100%;
     }
     
     .hero-headline .line {
         margin-bottom: 0px;
+        overflow-wrap: break-word;
+        word-break: break-word;
     }
     
     .signature-text {
         font-size: 2rem;
     }
 
+    .hero-bio {
+        max-width: 100%;
+        width: 100%;
+        box-sizing: border-box;
+        padding: 0 0.5rem;
+    }
+
+    .hero-bio p {
+        line-height: 1.2;
+        overflow-wrap: break-word;
+        word-break: break-word;
+        max-width: 100%;
+    }
+
     .hero-image-side {
         justify-content: center;
         align-items: flex-end;
+        flex: 1;
+        min-height: 0;
     }
 
     .portrait-img {
-        max-height: 40vh; /* Kleiner auf Mobile */
+        height: 100%;
+        max-height: 100%;
+        object-fit: contain;
+        object-position: bottom center;
+        margin-bottom: 0;
+    }
+}
+
+/* Responsive Bio-Texte */
+/* Default (Desktop) */
+.bio-mobile { 
+    display: none; 
+}
+
+.bio-desktop { 
+    display: block; 
+}
+
+/* Mobile Breakpoint */
+@media (max-width: 900px) {
+    .bio-mobile { 
+        display: block; 
+    }
+    
+    .bio-desktop { 
+        display: none; 
     }
 }

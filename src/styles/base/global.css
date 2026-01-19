@@ -11,6 +11,8 @@ body {
     transition: background-color 0.5s ease, color 0.5s ease;
     min-height: 100vh;
     font-size: 18px; /* Slightly larger base size for pixel font */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 a, button {
