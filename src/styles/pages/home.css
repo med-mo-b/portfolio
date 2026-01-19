@@ -169,7 +169,7 @@
     
     /* Bündig am unteren Rand */
     align-self: flex-end;
-    margin-bottom: -30px; /* Je größer die Minuszahl, desto tiefer rutscht das Bild */
+    margin-bottom: -10px; /* Je größer die Minuszahl, desto tiefer rutscht das Bild */
 }
 
 /* --- Responsive (Mobile) --- */
@@ -234,7 +234,7 @@
         max-height: 100%;
         object-fit: contain;
         object-position: bottom center;
-        margin-bottom: 0;
+        margin-bottom: -10px; 
     }
 }
 
