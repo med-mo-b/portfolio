@@ -16,14 +16,14 @@ export const template: string = `
                     <span class="filled-text">MORITZ</span>
                 </span>
                 <span class="line">
-                    <span class="outline-text" data-text-en="AND I'M AN" data-text-de="UND ICH BIN EIN">AND I'M AN</span>
+                    <span class="outline-text" data-text-en="AND I'M A" data-text-de="UND ICH BIN EIN">AND I'M A</span>
                 </span>
                 <span class="line">
                     <span class="filled-text">TECH ENTHUSIAST</span>
                 </span>
             </h1>
 
-            <div class="hero-bio">
+            <div class="hero-bio"> 
                 <!-- DESKTOP VERSION (Detailed) -->
                 <p class="bio-desktop" 
                    data-text-en="Think of me as a Swiss Army knife — I dive deep into any technology or domain, eager to learn new things daily. Whether it's building AI-driven systems, developing medical sensor systems, or solving complex technical challenges." 
