@@ -33,9 +33,9 @@ export const template: string = `
 
                 <!-- MOBILE VERSION (Short & Punchy) -->
                 <p class="bio-mobile" 
-                data-text-en="A technical Swiss Army Knife for complex challenges. I adapt to any domain—from hardware to AI—to engineer solutions where others see obstacles." 
-                data-text-de="Ein technisches Schweizer Taschenmesser für komplexe Herausforderungen. Ich adaptiere jede Domäne – von Hardware bis KI – um Lösungen zu finden, wo andere Hindernisse sehen.">
-                    A technical Swiss Army Knife for complex challenges. I adapt to any domain—from hardware to AI—to engineer solutions where others see obstacles.
+                data-text-en="A technical Swiss Army Knife for complex challenges. I adapt to any domain, from hardware to AI, to engineer solutions where others see obstacles." 
+                data-text-de="Ein technisches Schweizer Taschenmesser für komplexe Herausforderungen. Ich adaptiere jede Domäne, von Hardware bis KI, um Lösungen zu finden, wo andere Hindernisse sehen.">
+                    A technical Swiss Army Knife for complex challenges. I adapt to any domain, from hardware to AI, to engineer solutions where others see obstacles.
                 </p>
             </div>
 
