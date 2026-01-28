@@ -126,5 +126,23 @@ export const PROJECTS: Project[] = [
         links: {
             paper: 'https://www.mdpi.com/1424-8220/25/23/7114'
         }
+    },
+    {
+        id: 'patent-measuring-process',
+        title: 'Patent: Process Measurement in Objects',
+        titleDe: 'Patent: Vermessung eines Ablaufs in einem Objekt',
+        role: 'Co-Inventor',
+        roleDe: 'Miterfinder',
+        description: 'Patent for contactless measurement of physiological processes using electromagnetic fields and AI models. Currently in the application phase.',
+        descriptionDe: 'Patent zur kontaktlosen Vermessung physiologischer Abläufe mittels elektromagnetischer Wechselfelder und KI-Modellen. Derzeit in der Anmeldephase.',
+        details: 'This patent (EP4504045A1) describes a method and apparatus for measuring processes within an object. It covers the core technology of radiating electromagnetic alternating fields, receiving the modulated signals, and using statistical models—specifically neural networks—to reconstruct vital parameters like respiratory flow or cardiac activity in real-time without skin contact. The patent is currently in the application phase.',
+        detailsDe: 'Dieses Patent (EP4504045A1) beschreibt ein Verfahren und eine Vorrichtung zur Vermessung von Abläufen in einem Objekt. Es umfasst die Kerntechnologie des Einstrahlens elektromagnetischer Wechselfelder, den Empfang der modulierten Signale und die Nutzung statistischer Modelle – insbesondere neuronaler Netze –, um Vitalparameter wie Atemfluss oder Herzaktivität kontaktlos und in Echtzeit zu rekonstruieren. Das Patent befindet sich derzeit in der Anmeldephase.',
+        category: 'publication',
+        orientation: 'landscape',
+        tech: ['Patent Law', 'Signal Processing', 'AI', 'Electromagnetics'],
+        image: '/images/European-Patent-Office-Logo-Vector.svg-.webp',
+        links: {
+            paper: 'https://patents.google.com/patent/EP4504045A1/de'
+        }
     }
 ];

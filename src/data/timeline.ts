@@ -52,9 +52,9 @@ export const TIMELINE_DATA: TimelineEvent[] = [
     },
     {
         id: 'thoraxmonitor-paper',
-        date: 'Nov 2024',
-        dateDe: 'Nov 2024',
-        year: 2024,
+        date: 'Nov 2025',
+        dateDe: 'Nov 2025',
+        year: 2025,
         month: 11,
         branch: 'research',
         title: 'First Author: Contactless Respiratory Flow',
@@ -64,7 +64,7 @@ export const TIMELINE_DATA: TimelineEvent[] = [
         descriptionDe: 'Nachweis eines kontaktlosen impedanzbasierten Sensors (Thoraxmonitor) zur quantitativen Atemfluss-Rekonstruktion. Schließt die Lücke zur echten Flow-Messung für Neonatologie.',
         tags: ['Sensors', 'ML', 'Neonatology', 'Bioimpedance'],
         icon: 'microscope',
-        projectId: 'thoraxmonitor'
+        projectId: 'respiratory-flow-reconstruction'
     },
     {
         id: 'fipa-re',
@@ -139,6 +139,22 @@ export const TIMELINE_DATA: TimelineEvent[] = [
         descriptionDe: 'RK3588-basierter NAS mit 16GB RAM, 8TB NVMe RAID6. Betreibt OMV, Immich, Home Assistant, AdGuard, Stirling PDF via Cloudflare Zero Trust.',
         tags: ['RK3588', 'NAS', 'Docker', 'Self-Hosted'],
         icon: 'server'
+    },
+    {
+        id: 'patent-filing',
+        date: '2022 (DE) - 2023 (EU)',
+        dateDe: '2022 (DE) - 2023 (EU)',
+        year: 2022,
+        month: 4,
+        branch: 'research',
+        title: 'Co-Inventor: Patent Core Technology',
+        titleDe: 'Miterfinder: Patent Kerntechnologie',
+        company: 'Fraunhofer IPA',
+        description: 'Co-invented the method for measuring processes in objects (Thoraxmonitor core technology). Patent currently in the application phase in DE and EU.',
+        descriptionDe: 'Miterfinder des Verfahrens zur Vermessung von Abläufen in Objekten (Thoraxmonitor Kerntechnologie). Patent derzeit in der Anmeldephase in DE und EU.',
+        tags: ['Patent', 'IP', 'MedTech'],
+        icon: 'award',
+        projectId: 'patent-measuring-process'
     },
     {
         id: 'ukhd-project',
