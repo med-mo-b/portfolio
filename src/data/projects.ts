@@ -49,7 +49,7 @@ export const PROJECTS: Project[] = [
         orientation: 'landscape',
         size: 'tall',
         tech: ['Product Management', 'UHF Sensing', 'Signal Processing', 'Deep Learning'],
-        image: '/images/thoraxmonitor.png',
+        image: '/images/thoraxmonitor.webp',
         // video: 'https://gesundheitstechnologien.ipa.fraunhofer.de/content/dam/pamb/en/video/Thoraxmonitor%20Video%202022%20-%20FINAL%20-%20MIT%20Untertiteln%20EN.mp4#t=6',
         links: {
             external: 'https://gesundheitstechnologien.ipa.fraunhofer.de/en/our_projects/thoraxmonitor_en.html',
@@ -101,7 +101,7 @@ export const PROJECTS: Project[] = [
         category: 'project',
         orientation: 'landscape',
         tech: ['TypeScript', 'Bun', 'CSS'],
-        image: 'images/portfolio_about_screenshot.png',
+        image: '/images/portfolio_about_screenshot.webp',
         video: 'videos/portfolio.mp4',
         audio: false,
         links: {
@@ -122,7 +122,7 @@ export const PROJECTS: Project[] = [
         category: 'publication',
         orientation: 'portrait',
         tech: ['Machine Learning', 'UHF Sensing', 'Python', 'Signal Processing'],
-        image: '/images/mdpi_tm_abstract.png',
+        image: '/images/mdpi_tm_abstract.webp',
         links: {
             paper: 'https://www.mdpi.com/1424-8220/25/23/7114'
         }

@@ -1,0 +1,44 @@
+<svg width="600" height="600" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Weichzeichner für den Lavalampen-Effekt -->
+    <filter id="blur" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="25" result="blur" />
+    </filter>
+
+    <!-- Der MO Pfad - Zentriert durch X-Offset Korrektur -->
+    <path id="mo-path" d="M45 180 
+      C 35 110, 85 110, 95 160 
+      C 105 200, 135 200, 145 160 
+      C 155 100, 205 110, 195 150 
+      C 205 205, 265 190, 255 140 
+      C 245 100, 190 115, 200 155" />
+  </defs>
+
+  <!-- Hintergrund: Dunkle Basis -->
+  <rect width="300" height="300" fill="#101012" />
+
+  <!-- Lavalampen Blobs -->
+  <g filter="url(#blur)" opacity="0.9">
+    <circle cx="40" cy="40" r="100" fill="#7dd3fc" /> <!-- Blob 1: Sky Blue -->
+    <circle cx="150" cy="60" r="90" fill="#818cf8" /> <!-- NEU: Indigo Übergang -->
+    <circle cx="260" cy="90" r="100" fill="#a78bfa" /> <!-- Blob 2: Purple -->
+    <circle cx="150" cy="250" r="110" fill="#f472b6" /> <!-- Blob 3: Pink -->
+    <circle cx="280" cy="280" r="100" fill="#fcd34d" /> <!-- Blob 5: Gold -->
+    <circle cx="20" cy="220" r="100" fill="#60a5fa" /> <!-- Blob 4: Blue -->
+  </g>
+
+  <!-- Das Logo (Jetzt voll ausgefüllt durch dicken Stroke) -->
+  <use href="#mo-path" 
+       stroke="white" 
+       stroke-width="26" 
+       stroke-linecap="round" 
+       stroke-linejoin="round" 
+       fill="none" />
+       
+  <!-- Subtiler innerer Glanz für mehr Tiefe -->
+  <use href="#mo-path" 
+       stroke="white" 
+       stroke-width="1" 
+       stroke-opacity="0.2" 
+       fill="none" />
+</svg>

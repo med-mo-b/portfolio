@@ -10,9 +10,10 @@
     "preview": "bun x serve dist"
   },
   "devDependencies": {
+    "@types/bun": "latest",
     "@types/node": "latest",
-    "typescript": "latest",
-    "@types/bun": "latest"
+    "sharp": "^0.34.5",
+    "typescript": "latest"
   },
   "module": "index.ts",
   "dependencies": {

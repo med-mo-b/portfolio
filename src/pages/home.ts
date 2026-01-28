@@ -3,8 +3,8 @@
  * Split layout: Text left, Image right (bottom aligned)
  */
 
-// Stelle sicher, dass dein Bild hier korrekt benannt ist (z.B. portrait.png)
-const PORTRAIT_IMAGE = '/images/portrait.png'; 
+// Stelle sicher, dass dein Bild hier korrekt benannt ist (z.B. portrait.webp)
+const PORTRAIT_IMAGE = '/images/portrait.webp'; 
 
 export const template: string = `
     <section class="hero-split">
@@ -46,7 +46,15 @@ export const template: string = `
         </div>
 
         <div class="hero-image-side">
-            <img src="${PORTRAIT_IMAGE}" alt="Moritz Bednorz" class="portrait-img">
+            <img 
+                src="${PORTRAIT_IMAGE}" 
+                srcset="/images/portrait-small.webp 400w, /images/portrait-medium.webp 800w, ${PORTRAIT_IMAGE} 1200w"
+                sizes="(max-width: 900px) 100vw, 50vw"
+                alt="Moritz Bednorz" 
+                class="portrait-img"
+                fetchpriority="high"
+                decoding="async"
+            >
         </div>
     </section>
 `;

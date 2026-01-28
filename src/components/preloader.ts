@@ -36,12 +36,14 @@ export class Preloader {
         this.element = document.createElement('div');
         this.element.className = 'preloader';
         
-        this.imagesToLoad = PROJECTS
-            .map(p => p.image)
-            .filter((img): img is string => !!img);
-
-        this.imagesToLoad.push('/images/portfolio_about_screenshot.png');
-        this.imagesToLoad.push('/images/federated_paper.webp');
+        // OPTIMIERUNG: Nur das Portrait (Medium-Version) und Logos preloaden.
+        // Die Projektbilder laden wir NICHT mehr im Preloader, 
+        // da sie auf der Work-Seite per lazy-loading kommen.
+        this.imagesToLoad = [
+            '/images/portrait-medium.webp',
+            '/images/white_logo.svg',
+            '/images/black_logo.svg'
+        ];
     }
 
     /**

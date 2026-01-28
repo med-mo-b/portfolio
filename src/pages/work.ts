@@ -55,6 +55,19 @@ function getExternalLink(project: typeof PROJECTS[0]): string | null {
 }
 
 /**
+ * Generate responsive srcset string for image
+ * @param imagePath - Image path (can be undefined or external URL)
+ * @returns srcset string or empty string for external images
+ */
+function getResponsiveSrcset(imagePath: string | undefined): string {
+    if (!imagePath || imagePath.startsWith('http')) {
+        return '';
+    }
+    const base = imagePath.replace('.webp', '');
+    return `${base}-small.webp 400w, ${base}-medium.webp 800w, ${imagePath} 1200w`;
+}
+
+/**
  * Generate project cards HTML
  */
 function generateProjectCards(): string {
@@ -95,14 +108,30 @@ function generateProjectCards(): string {
         // Video vs Image Preview
         const mediaPreview = project.video 
             ? `<video src="${project.video}" autoplay ${project.audio !== true ? 'muted' : ''} loop playsinline preload="none" class="card-media-video" style="width: 100%; height: 100%; object-fit: cover;"></video>`
-            : `<img src="${project.image}" alt="${project.title}" data-project-id="${project.id}">`;
+            : project.image?.startsWith('http')
+                ? `<img src="${project.image}" alt="${project.title}" loading="lazy" data-project-id="${project.id}">`
+                : `<img 
+                    src="${project.image}" 
+                    srcset="${getResponsiveSrcset(project.image)}"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    alt="${project.title}" 
+                    loading="lazy" 
+                    decoding="async"
+                    data-project-id="${project.id}">`;
 
         // Video vs Image Expanded
         // Use inline style for object-fit on video to ensure it's not overridden before CSS loads, 
         // though our new CSS will enforce 'contain'
         const mediaExpanded = project.video
             ? `<video src="${project.video}" autoplay ${project.audio !== true ? 'muted' : ''} loop playsinline preload="metadata" ${project.audio !== false ? 'controls' : ''} style="width: 100%; height: 100%; object-fit: contain;"></video>`
-            : `<img src="${project.image}" alt="${project.title}">`;
+            : project.image?.startsWith('http')
+                ? `<img src="${project.image}" alt="${project.title}">`
+                : `<img 
+                    src="${project.image}" 
+                    srcset="${getResponsiveSrcset(project.image)}"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    alt="${project.title}"
+                    decoding="async">`;
 
         // Prepare background image for ambient effect
         const bgImage = project.image ? `url('${project.image}')` : 'none';
