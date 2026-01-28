@@ -396,6 +396,8 @@
     }
 
     .card-hover-info {
+        opacity: 1;  /* Immer sichtbar auf Mobile */
+        transform: translateY(0);  /* Keine Verschiebung */
         padding: 1rem;
     }
 
