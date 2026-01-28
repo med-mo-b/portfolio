@@ -184,6 +184,7 @@ export const template: string = `
             <button class="filter-btn active" data-filter="all" data-text-en="All" data-text-de="Alle">All</button>
             <button class="filter-btn" data-filter="project" data-text-en="Projects" data-text-de="Projekte">Projects</button>
             <button class="filter-btn" data-filter="publication" data-text-en="Publications" data-text-de="Publikationen">Publications</button>
+            <button class="filter-btn" data-filter="sidequest" data-text-en="Sidequests" data-text-de="Sidequests">Sidequests</button>
         </nav>
         <div class="projects-grid">
             ${generateProjectCards()}

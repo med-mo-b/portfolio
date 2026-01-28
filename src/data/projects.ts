@@ -16,7 +16,7 @@ export interface Project {
     descriptionDe: string;
     details: string;
     detailsDe: string;
-    category: 'project' | 'publication';
+    category: 'project' | 'publication' | 'sidequest';
     size?: 'normal' | 'tall' | 'short';
     orientation?: 'landscape' | 'portrait';
     audio?: boolean;
@@ -47,7 +47,7 @@ export const PROJECTS: Project[] = [
         detailsDe: 'Als Product Owner leite ich die Entwicklung dieses Sensorsystems, das die Atemüberwachung kontaktlos messen kann. Im Gegensatz zu Radar oder Kameras, die nur Oberflächenbewegungen erfassen, nutzt der Thoraxmonitor ein 433 MHz UHF-Feld, um tatsächliche Luftvolumenänderungen im Inneren der Lunge (dielektrische Eigenschaften) durch Kleidung hindurch zu messen. Dieser volumetrische Ansatz liefert präzise Atemflussdaten, vergleichbar mit klinischen Referenzgeräten. Das System verwendet Deep Learning (Neuronale Netze), um Flusssignale in Echtzeit zu rekonstruieren, und ist flexibel in verschiedenen klinischen Szenarien einsetzbar.',
         category: 'project',
         orientation: 'landscape',
-        size: 'tall',
+        size: 'short',
         tech: ['Product Management', 'UHF Sensing', 'Signal Processing', 'Deep Learning'],
         image: '/images/thoraxmonitor.webp',
         // video: 'https://gesundheitstechnologien.ipa.fraunhofer.de/content/dam/pamb/en/video/Thoraxmonitor%20Video%202022%20-%20FINAL%20-%20MIT%20Untertiteln%20EN.mp4#t=6',
@@ -67,6 +67,7 @@ export const PROJECTS: Project[] = [
         detailsDe: 'Mit DARIAN habe ich einen medizinischen Co-Piloten auf Basis von Retrieval-Augmented Generation (RAG) entwickelt. Er verknüpft Echtzeit-Patientendaten (via FHIR-Standard) mit validierten klinischen Leitlinien (S3, SOPs), um fundierte Entscheidungshilfen mit Quellenangabe zu liefern. Technisch setzt das System auf eine modulare, produktionsreife Microservices-Architektur in Docker. Das ermöglicht ein einfaches One-Click-Deployment auf eigenen Servern (On-Premise). Durch diesen lokalen Ansatz und konsequentes Security-by-Design verlassen sensible Daten zu keinem Zeitpunkt die geschützte Klinikinfrastruktur.',
         category: 'project',
         orientation: 'landscape',
+        size: 'short',
         tech: ['Microservices', 'Docker', 'FHIR', 'RAG / LLMs', 'Python'],
         image: 'https://gesundheitstechnologien.ipa.fraunhofer.de/de/unsere_projekte/rag-chatbot/jcr:content/contentPar/sectioncomponent_181/sectionParsys/wideimage_299877879/imageComponent/image.img.4col.jpg/1762261612109/architecture-C4-Container-C4-Container-1.jpg',
         // video: 'https://gesundheitstechnologien.ipa.fraunhofer.de/content/dam/pamb/de/video/RAG-Chatbot_Video_Interaktion.mp4',
@@ -84,6 +85,7 @@ export const PROJECTS: Project[] = [
         detailsDe: 'Dieses Forschungsprojekt stellt die größte föderierte Cardiac-CT-Analyse dar, die bisher durchgeführt wurde, mit über 8.000 Scans über 8 teilnehmende Krankenhäuser. Die Arbeit konzentriert sich auf semi-überwachte Wissensdestillationstechniken, die gelernte Repräsentationen von Convolutional Neural Networks (CNNs) in Transformer-Architekturen übertragen, um die Multi-Label-Learning-Leistung zu verbessern. Der föderierte Lernansatz gewährleistet die Privatsphäre der Patientendaten, indem Modelle lokal in jedem Krankenhaus trainiert werden, ohne Rohdaten zu teilen. Die resultierenden Modelle erreichen Spitzenleistungen bei der Erkennung von Herzerkrankungen und gewährleisten gleichzeitig strenge Datenschutzgarantien. Veröffentlicht in Nature Digital Medicine.',
         category: 'publication',
         orientation: 'portrait',
+        size: 'short',
         tech: ['PyTorch', 'Federated Learning', 'Transformers'],
         image: '/images/federated_paper.webp',
         links: {
@@ -98,8 +100,9 @@ export const PROJECTS: Project[] = [
         descriptionDe: 'Diese Webseite. Moderne SPA mit eigenem Router, Git-Style Timeline-Visualisierung und zweisprachiger Unterstützung. Erstellt mit TypeScript, Bun und CSS ohne Frameworks.',
         details: 'A modern single-page application built from scratch without heavy frameworks. Features a custom router implementation for seamless navigation, a unique git-style timeline visualization for the about page, and full bilingual support (English/German) with dynamic language switching. The architecture emphasizes performance and maintainability, using TypeScript for type safety, Bun for fast development and optimized builds, and pure CSS for styling without framework dependencies. The design follows a retro/terminal aesthetic with VT323 font and noise overlay effects, creating a distinctive visual identity.',
         detailsDe: 'Eine moderne Single-Page-Anwendung, die von Grund auf ohne schwere Frameworks erstellt wurde. Enthält eine eigene Router-Implementierung für nahtlose Navigation, eine einzigartige Git-Style Timeline-Visualisierung für die About-Seite und vollständige zweisprachige Unterstützung (Englisch/Deutsch) mit dynamischem Sprachwechsel. Die Architektur betont Leistung und Wartbarkeit, verwendet TypeScript für Typsicherheit, Bun für schnelle Entwicklung und optimierte Builds, und reines CSS für das Styling ohne Framework-Abhängigkeiten. Das Design folgt einer Retro/Terminal-Ästhetik mit VT323-Schriftart und Noise-Overlay-Effekten, wodurch eine unverwechselbare visuelle Identität entsteht.',
-        category: 'project',
+        category: 'sidequest',
         orientation: 'landscape',
+        size: 'short',
         tech: ['TypeScript', 'Bun', 'CSS'],
         image: '/images/portfolio_about_screenshot.webp',
         video: 'videos/portfolio.mp4',
@@ -114,7 +117,7 @@ export const PROJECTS: Project[] = [
         titleDe: 'Rekonstruktion des Atemflusses',
         role: 'First Author',
         roleDe: 'Erstautor',
-        size: 'tall',
+        size: 'short',
         description: 'Reconstruction of full respiratory flow using contactless impedance sensing and machine learning. Closes the gap to true flow measurement for sensitive clinical areas.',
         descriptionDe: 'Rekonstruktion des vollständigen Atemflusses mittels kontaktloser Impedanzmessung und Machine Learning. Schließt die Lücke zur echten Flow-Messung für sensitive klinische Bereiche.',
         details: 'This work demonstrates that the contactless, impedance-based sensor system (Thoraxmonitor) is capable of reconstructing not just the respiratory rate, but the complete respiratory flow quantitatively. In contrast to existing radar or camera technologies, this approach closes the gap to true flow measurement. This opens up enormous potential for clinical areas where wired sensors or direct skin contact are problematic—for example, in neonatology for the protection of sensitive preterm infants. The research proves practical applicability, showing that even simple machine learning methods are sufficient to realize a precise mapping between the sensor signal and the actual respiratory flow.',
@@ -139,10 +142,30 @@ export const PROJECTS: Project[] = [
         detailsDe: 'Dieses Patent (EP4504045A1) beschreibt ein Verfahren und eine Vorrichtung zur Vermessung von Abläufen in einem Objekt. Es umfasst die Kerntechnologie des Einstrahlens elektromagnetischer Wechselfelder, den Empfang der modulierten Signale und die Nutzung statistischer Modelle – insbesondere neuronaler Netze –, um Vitalparameter wie Atemfluss oder Herzaktivität kontaktlos und in Echtzeit zu rekonstruieren. Das Patent befindet sich derzeit in der Anmeldephase.',
         category: 'publication',
         orientation: 'landscape',
+        size: 'short',
         tech: ['Patent Law', 'Signal Processing', 'AI', 'Electromagnetics'],
         image: '/images/European-Patent-Office-Logo-Vector.svg-.webp',
         links: {
             paper: 'https://patents.google.com/patent/EP4504045A1/de'
+        }
+    },
+    {
+        id: 'homelab-cm3588',
+        title: 'CM3588 NAS Homelab',
+        titleDe: 'CM3588 NAS Homelab',
+        role: 'System Architect',
+        roleDe: 'Systemarchitekt',
+        description: 'High-performance ARM-based NAS with 8TB NVMe RAID6. Self-hosting a complete home infrastructure securely via Cloudflare.',
+        descriptionDe: 'Leistungsstarker ARM-basierter NAS mit 8TB NVMe RAID6. Hostet sicher eine komplette Heim-Infrastruktur via Cloudflare.',
+        details: 'This project involved building a custom, energy-efficient NAS based on the Rockchip RK3588 (CM3588) with 16GB RAM. The storage layer consists of four NVMe SSDs in a RAID6 configuration for high-speed redundancy (8TB total). The software stack is managed via OpenMediaVault and runs various Dockerized services: Immich for photo management, Home Assistant for automation, AdGuard for DNS filtering, and Stirling PDF. The entire setup is exposed securely through a Cloudflare Zero Trust Tunnel, providing remote access without opening local ports.',
+        detailsDe: 'Dieses Projekt umfasst den Aufbau eines energieeffizienten Custom-NAS auf Basis des Rockchip RK3588 (CM3588) mit 16GB RAM. Der Speicher besteht aus vier NVMe-SSDs in einer RAID6-Konfiguration für Hochgeschwindigkeits-Redundanz (8TB gesamt). Der Software-Stack wird über OpenMediaVault verwaltet und betreibt diverse Docker-Dienste: Immich für Fotos, Home Assistant für Automatisierung, AdGuard für DNS-Filterung und Stirling PDF. Das gesamte System ist sicher über einen Cloudflare Zero Trust Tunnel angebunden, was Fernzugriff ohne offene Ports ermöglicht.',
+        category: 'sidequest',
+        orientation: 'landscape',
+        size: 'short',
+        tech: ['RK3588', 'RAID6', 'Docker', 'Cloudflare Zero Trust', 'OpenMediaVault'],
+        image: '/images/cm3588plus.webp',
+        links: {
+            external: 'https://www.friendlyelec.com/index.php?route=product/product&product_id=294'
         }
     }
 ];

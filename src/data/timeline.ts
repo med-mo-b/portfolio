@@ -138,7 +138,8 @@ export const TIMELINE_DATA: TimelineEvent[] = [
         description: 'Built RK3588-based NAS with 16GB RAM, 8TB NVMe RAID6. Running OMV, Immich, Home Assistant, AdGuard, Stirling PDF via Cloudflare Zero Trust.',
         descriptionDe: 'RK3588-basierter NAS mit 16GB RAM, 8TB NVMe RAID6. Betreibt OMV, Immich, Home Assistant, AdGuard, Stirling PDF via Cloudflare Zero Trust.',
         tags: ['RK3588', 'NAS', 'Docker', 'Self-Hosted'],
-        icon: 'server'
+        icon: 'server',
+        projectId: 'homelab-cm3588'
     },
     {
         id: 'patent-filing',
