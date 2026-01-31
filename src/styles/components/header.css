@@ -12,6 +12,12 @@
     top: 0;
     width: 100%;
     z-index: 200;
+    pointer-events: none;
+}
+
+.site-header .logo,
+.site-header .header-controls {
+    pointer-events: auto;
 }
 
 .logo a {
