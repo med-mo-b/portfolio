@@ -18,7 +18,7 @@ precision mediump float;
 
 uniform float u_time;
 uniform vec2 u_resolution;
-uniform vec2 u_mouse;
+uniform vec2 u_cursor;
 uniform float u_interaction_enabled;
 
 // Theme Colors
@@ -63,11 +63,11 @@ float snoise(vec2 v) {
 void main() {
     vec2 st = gl_FragCoord.xy / u_resolution.xy;
     
-    // Mouse Attraction
+    // Mouse Attraction (0.8 = influence radius, 0.3 = pull strength)
     if (u_interaction_enabled > 0.5) {
-        float dist = distance(st, u_mouse);
-        vec2 dir = u_mouse - st;
-        st += dir * smoothstep(0.6, 0.0, dist) * 0.15;
+        float dist = distance(st, u_cursor);
+        vec2 dir = u_cursor - st;
+        st += dir * smoothstep(0.8, 0.0, dist) * 0.3;
     }
 
     float time = u_time * 0.1;
@@ -122,6 +122,7 @@ function updateUniforms() {
     }
     
     glslCanvas.setUniform('u_interaction_enabled', isMobile ? 0.0 : 1.0);
+    glslCanvas.setUniform('u_cursor', 0.5, 0.5);
 }
 
 export function injectBackgroundBlobs(): void {
@@ -181,6 +182,6 @@ export function initBlobInteraction(): (x: number, y: number) => void {
         if (!glslCanvas || isMobile) return;
         const nX = x / window.innerWidth;
         const nY = 1.0 - (y / window.innerHeight);
-        glslCanvas.setUniform('u_mouse', nX, nY);
+        glslCanvas.setUniform('u_cursor', nX, nY);
     };
 }

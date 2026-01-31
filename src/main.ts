@@ -69,6 +69,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     
     const interactWithBlobs = initBlobInteraction();
     initCursor(interactWithBlobs);
+    // initCursor();
     
     initMenu();
     initTheme();
