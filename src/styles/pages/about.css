@@ -49,6 +49,44 @@
     margin-bottom: 1rem;
 }
 
+/* Resume link (arrow + label, underline on hover) */
+.bio-resume-wrap {
+    margin-top: 2rem;
+}
+
+.resume-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    color: var(--text-primary);
+    text-decoration: none;
+    position: relative;
+    font-size: 1.6rem;
+    font-weight: 500;
+}
+
+.resume-link .resume-link-icon {
+    flex-shrink: 0;
+}
+
+.resume-link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--text-primary);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.3s ease;
+}
+
+.resume-link:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
 /* Stats Grid */
 .stats-grid {
     display: grid;

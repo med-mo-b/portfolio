@@ -78,6 +78,11 @@ export class Router {
 
         const href = link.getAttribute('href');
         
+        // Let the browser handle links that open in a new tab (e.g. PDF, external docs)
+        if (link.getAttribute('target') === '_blank') {
+            return;
+        }
+        
         // Check if it's an internal link
         if (href && href.startsWith('/') && !href.startsWith('//') && !href.startsWith('http')) {
             // Skip if it's a disabled link (like work items)

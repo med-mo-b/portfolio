@@ -100,6 +100,12 @@ export const template: string = `
                     <p data-text-en="For me, research isn't just about writing papers; it's about building solutions that work in the real world and help people." data-text-de="Für mich ist Forschung nicht nur Paper schreiben; es geht darum, Lösungen zu entwickeln, die in der realen Welt funktionieren und Menschen helfen.">
                         For me, research isn't just about writing papers; it's about building solutions that work in the real world and help people.
                     </p>
+                    <div class="bio-resume-wrap">
+                        <a class="resume-link" href="/resume.pdf" target="_blank" rel="noopener noreferrer">
+                            <svg class="resume-link-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+                            <span data-text-en="resume" data-text-de="Lebenslauf">resume</span>
+                        </a>
+                    </div>
                 </div>
             </div>
             ${generateStatsHtml()}
