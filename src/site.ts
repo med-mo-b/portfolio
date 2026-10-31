@@ -41,7 +41,10 @@ const role = (p: Project) => (p.role ? ' / ' + (lang === 'de' && p.roleDe ? p.ro
 // The site logo from public/images/black_logo.svg. The fill uses currentColor, so one mark works in both themes.
 const logo = `<svg viewBox="0 0 300 220" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><path id="mo-path" d="M50 160 C 40 90, 90 90, 100 140 C 110 180, 140 180, 150 140 C 160 80, 210 90, 200 130 C 210 185, 270 170, 260 120 C 250 80, 195 95, 205 135"/><mask id="mo-mask"><use href="#mo-path" stroke="white" stroke-width="28" stroke-linecap="round" stroke-linejoin="round"/><use href="#mo-path" stroke="black" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/></mask></defs><rect width="300" height="220" fill="currentColor" mask="url(#mo-mask)"/></svg>`;
 
-const langSwitch = () => `<div class="lang-switch" role="group" aria-label="${t('Language', 'Sprache')}">
+// The German version is hidden for now. Set to true to show the EN/DE switch again.
+const GERMAN = false;
+
+const langSwitch = () => !GERMAN ? '' : `<div class="lang-switch" role="group" aria-label="${t('Language', 'Sprache')}">
 ${(['en', 'de'] as const)
     .map(code => `<a href="${code === 'de' ? '/?lang=de' : '/'}" hreflang="${code}" lang="${code}" data-lang="${code}"${code === lang ? ' aria-current="true"' : ''} aria-label="${code === 'de' ? 'Deutsch' : 'English'}">${code.toUpperCase()}</a>`)
     .join('<span aria-hidden="true">/</span>')}</div>`;
@@ -224,7 +227,7 @@ function moveCursor(parent: Element): void {
 }
 
 export function initSite(): void {
-    lang = detectLanguage();
+    lang = GERMAN ? detectLanguage() : 'en';
     applyLanguage(lang, false);
     if (!document.documentElement.dataset.theme) document.documentElement.dataset.theme = 'light';
     render();
