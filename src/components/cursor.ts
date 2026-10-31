@@ -1,161 +1,142 @@
 /**
- * Custom cursor component
- * Handles cursor injection and animation using Delta Time for frame-rate independence.
+ * Custom cursor: a copy of the itssharl.ee cursor.
+ * A 4 px dot and a 24 px ring follow the pointer with spring physics
+ * (stiffness 200, damping 10, mass 0.15 for the dot and 0.25 for the ring).
+ * The system cursor stays visible, as on itssharl.ee.
+ *
+ * Ring states:
+ * - visible: empty ring, border 2 px (1.5 px below 992 px viewport width), scale 1
+ * - selected (pointer on a link or button): filled, scale 2, opacity 0.5 in light mode
+ * - click: empty ring, border 1.5 px (1 px), scale 2
+ * - clickSelected: filled, scale 4
+ * - invisible: the pointer is outside the window
+ * The dot is hidden in the selected states.
+ *
+ * The ring changes its real width and height, not transform: scale().
+ * A scaled transform stretches a small raster and makes a pixelated circle.
+ * The border width scales with it, so the result looks the same as on itssharl.ee.
  */
 
-type BlobInteractionFunction = (x: number, y: number) => void;
+type Values = Record<string, number>;
 
-/**
- * Inject custom cursor elements into the page
- */
-export function injectCursor(): void {
-    // Disable on touch devices
-    if (window.matchMedia('(hover: none) and (pointer: coarse)').matches) return;
+const STIFFNESS = 200;
+const DAMPING = 10;
+const RING_SIZE = 24;
 
-    if (document.querySelector('.cursor-dot')) return; 
+export class Spring {
+    value: Values;
+    velocity: Values;
+    target: Values;
 
-    const cursorDot = document.createElement('div');
-    cursorDot.className = 'cursor-dot';
-    
-    const cursorCircle = document.createElement('div');
-    cursorCircle.className = 'cursor-circle';
-    
-    document.body.prepend(cursorCircle);
-    document.body.prepend(cursorDot);
+    constructor(start: Values, private mass: number) {
+        this.value = { ...start };
+        this.target = { ...start };
+        this.velocity = Object.fromEntries(Object.keys(start).map(k => [k, 0]));
+    }
+
+    /** Advances by dt seconds. Returns true while the spring still moves. */
+    step(dt: number): boolean {
+        let moving = false;
+        // Fixed 2 ms substeps keep the integration stable at low frame rates.
+        for (let t = 0; t < dt; t += 0.002) {
+            const h = Math.min(0.002, dt - t);
+            for (const k in this.value) {
+                const force = -STIFFNESS * (this.value[k]! - this.target[k]!) - DAMPING * this.velocity[k]!;
+                this.velocity[k]! += (force / this.mass) * h;
+                this.value[k]! += this.velocity[k]! * h;
+            }
+        }
+        for (const k in this.value) {
+            if (Math.abs(this.velocity[k]!) > 0.01 || Math.abs(this.value[k]! - this.target[k]!) > 0.01) moving = true;
+            else this.value[k] = this.target[k]!;
+        }
+        return moving;
+    }
 }
 
-/**
- * Initialize cursor animation and interaction
- * Uses requestAnimationFrame with Delta Time to ensure consistent speed across 60Hz/144Hz monitors.
- * 
- * @param interactWithBlobs - Function to call on mouse move for blob interaction
- */
-export function initCursor(interactWithBlobs?: BlobInteractionFunction): void {
-    // Disable on touch devices
-    if (window.matchMedia('(hover: none) and (pointer: coarse)').matches) return;
+export function initCursor(): void {
+    if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
 
-    const cursorDot = document.querySelector<HTMLElement>('.cursor-dot');
-    const cursorCircle = document.querySelector<HTMLElement>('.cursor-circle');
-    
-    // State variables
-    // Start off-screen to avoid initial jump
-    let mouseX = -100;
-    let mouseY = -100;
-    let cursorX = -100;
-    let cursorY = -100;
-    
-    // Scale state for smooth hover transition
-    let currentScale = 1;
-    let targetScale = 1;
-    
-    // Click state tracking
-    let isClicked = false;
+    const dot = document.createElement('div');
+    const ring = document.createElement('div');
+    dot.className = 'cursor-dot';
+    ring.className = 'cursor';
+    dot.setAttribute('aria-hidden', 'true');
+    ring.setAttribute('aria-hidden', 'true');
+    document.body.append(dot, ring);
 
-    // Time tracking for Delta Time
-    let lastTime = performance.now();
-    
-    // Configuration
-    const DAMPING = 0.25; // 0 to 1 (higher = faster/tighter)
-    const SCALE_DAMPING = 0.15; // Speed of scale transition
+    const dotSpring = new Spring({ x: 0, y: 0, opacity: 0 }, 0.15);
+    const ringSpring = new Spring({ x: 0, y: 0, opacity: 0, scale: 1, border: 0, fill: 0 }, 0.25);
 
-    if (cursorDot && cursorCircle) {
-        // Mouse move updates target position
-        document.addEventListener('mousemove', (e: MouseEvent) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-            
-            // Dot follows instantly using GPU transform
-            cursorDot.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) translate(-50%, -50%)`;
-            
-            if (interactWithBlobs) {
-                interactWithBlobs(mouseX, mouseY);
-            }
-        });
+    let inside = false;
+    let overTarget = false;
+    let pressed = false;
+    let started = false;
+    let running = false;
+    let last = 0;
 
-        // Track Click State
-        document.addEventListener('mousedown', () => {
-            isClicked = true;
-        });
-
-        document.addEventListener('mouseup', () => {
-            isClicked = false;
-        });
-
-        // Animation loop
-        const animateCursor = (time: number): void => {
-            // Calculate Delta Time (seconds)
-            // Cap at 0.1s to prevent huge jumps if tab was inactive
-            const dt = Math.min((time - lastTime) / 1000, 0.1);
-            lastTime = time;
-
-            // Frame-rate independent interpolation factor
-            // Formula: 1 - (1 - damping) ^ (dt * targetFPS)
-            // This ensures the visual speed is the same on 60Hz vs 144Hz
-            const adjust = 1 - Math.pow(1 - DAMPING, dt * 60);
-            const scaleAdjust = 1 - Math.pow(1 - SCALE_DAMPING, dt * 60);
-
-            // Interpolate Position
-            const dx = mouseX - cursorX;
-            const dy = mouseY - cursorY;
-            cursorX += dx * adjust; 
-            cursorY += dy * adjust;
-
-            // Determine Target Scale based on hover AND click state
-            const isHovering = document.body.classList.contains('hovering');
-            
-            if (isHovering) {
-                // Wenn wir hovern (gefüllter Kreis):
-                // Normal: 2.5x
-                // Geklickt: 3.2x (noch größerer Impuls)
-                targetScale = isClicked ? 5.0 : 2.5;
-            } else {
-                // Wenn wir nicht hovern (leerer Kreis):
-                // Normal: 1.0x
-                // Geklickt: 1.5x (deutliches Feedback)
-                targetScale = isClicked ? 2 : 1;
-            }
-
-            // Interpolate Scale
-            currentScale += (targetScale - currentScale) * scaleAdjust;
-
-            // Apply Transform (GPU accelerated)
-            // Combine translation and scale in one property to avoid CSS conflicts
-            cursorCircle.style.transform = `translate3d(${cursorX}px, ${cursorY}px, 0) translate(-50%, -50%) scale(${currentScale})`;
-            
-            requestAnimationFrame(animateCursor);
-        };
-        
-        requestAnimationFrame(animateCursor);
-
-        // Event listeners for interactive elements to toggle 'hovering' class
-        const hoverSelectors = [
-            'a', 
-            'button', 
-            'input', 
-            'textarea', 
-            'label', 
-            '[data-cursor-hover]',
-            '.commit-node',      
-            '.legend-item',       
-            '.event-card-close',  
-            '.work-item',
-            '.filter-btn' // Added filter buttons explicitly
-        ];
-
-        document.addEventListener('mouseover', (e: MouseEvent) => {
-            const target = e.target as HTMLElement;
-            const interactiveEl = target.closest(hoverSelectors.join(','));
-            if (interactiveEl) {
-                document.body.classList.add('hovering');
-            }
-        });
-
-        document.addEventListener('mouseout', (e: MouseEvent) => {
-            const target = e.target as HTMLElement;
-            const interactiveEl = target.closest(hoverSelectors.join(','));
-            if (interactiveEl) {
-                document.body.classList.remove('hovering');
-            }
-        });
+    function setTargets(): void {
+        const dark = document.documentElement.dataset.theme === 'dark';
+        const thin = window.innerWidth < 992;
+        const r = ringSpring.target;
+        const d = dotSpring.target;
+        if (!inside) Object.assign(r, { opacity: 0, scale: 1, border: 0, fill: 0 });
+        else if (overTarget) Object.assign(r, { opacity: dark ? 1 : 0.5, scale: pressed ? 4 : 2, border: 0, fill: 1 });
+        else if (pressed) Object.assign(r, { opacity: 1, scale: 2, border: thin ? 1 : 1.5, fill: 0 });
+        else Object.assign(r, { opacity: 1, scale: 1, border: thin ? 1.5 : 2, fill: 0 });
+        d.opacity = inside && !overTarget ? 1 : 0;
+        if (!running) {
+            running = true;
+            last = performance.now();
+            requestAnimationFrame(frame);
+        }
     }
+
+    function frame(now: number): void {
+        const dt = Math.min((now - last) / 1000, 1 / 30);
+        last = now;
+        const moving = [dotSpring.step(dt), ringSpring.step(dt)].some(Boolean);
+        const d = dotSpring.value;
+        const r = ringSpring.value;
+        dot.style.transform = `translate3d(${d.x! - 2}px, ${d.y! - 2}px, 0)`;
+        dot.style.opacity = String(d.opacity);
+        const size = RING_SIZE * r.scale!;
+        ring.style.width = ring.style.height = `${size}px`;
+        ring.style.transform = `translate3d(${r.x! - size / 2}px, ${r.y! - size / 2}px, 0)`;
+        ring.style.borderWidth = `${Math.max(0, r.border! * r.scale!)}px`;
+        ring.style.opacity = String(Math.max(0, r.opacity!));
+        ring.style.setProperty('--fill', String(Math.min(1, Math.max(0, r.fill!))));
+        running = moving;
+        if (running) requestAnimationFrame(frame);
+    }
+
+    document.addEventListener('pointermove', (event) => {
+        if (event.pointerType !== 'mouse') return;
+        for (const spring of [dotSpring, ringSpring]) {
+            spring.target.x = event.clientX;
+            spring.target.y = event.clientY;
+            // The first position appears at the pointer, without a flight from the corner.
+            if (!started) {
+                spring.value.x = event.clientX;
+                spring.value.y = event.clientY;
+            }
+        }
+        started = true;
+        inside = true;
+        overTarget = !!(event.target as Element | null)?.closest?.('a, button');
+        setTargets();
+    });
+    document.documentElement.addEventListener('mouseleave', () => {
+        inside = false;
+        setTargets();
+    });
+    document.addEventListener('pointerdown', () => {
+        pressed = true;
+        setTargets();
+    });
+    document.addEventListener('pointerup', () => {
+        pressed = false;
+        setTargets();
+    });
+    new MutationObserver(setTargets).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
 }

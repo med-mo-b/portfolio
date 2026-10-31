@@ -1,2 +1,9 @@
-/*    /index.html   200
+# Old pages: redirect to their section on the one page. Query strings pass through by default.
+/about /#journey 301
+/about/ /#journey 301
+/work /#work 301
+/work/ /#work 301
+/project-detail /#work 301
+/project-detail/ /#work 301
 
+/*    /index.html   200
