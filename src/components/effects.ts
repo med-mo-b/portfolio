@@ -27,7 +27,13 @@ export function initGrain(): void {
     });
 }
 
-const FRAGMENT = `precision mediump float;
+// Phones often run mediump as 16-bit floats. The noise then breaks into visible blocks, so use highp when the GPU has it.
+const FRAGMENT = `#ifdef GL_FRAGMENT_PRECISION_HIGH
+precision highp float;
+#else
+precision mediump float;
+#endif
+
 uniform float u_time;uniform vec2 u_resolution;uniform vec2 u_cursor;uniform float u_interaction;
 uniform vec3 u_color1;uniform vec3 u_color2;uniform vec3 u_color3;uniform vec3 u_color4;
 uniform vec3 u_color5;uniform vec3 u_color6;uniform vec3 u_color7;uniform vec3 u_color8;
