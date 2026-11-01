@@ -174,10 +174,10 @@ const SECTIONS: [string, string, string][] = [
     ['contact', 'Contact', 'Kontakt'],
 ];
 
-/** Fixed section index on wide screens. A "Back to top" button replaces it on narrow screens. */
+/** Fixed section index on wide screens. A section button with a short list replaces it on narrow screens. */
 function sectionIndex(): string {
     const links = SECTIONS.map(([id, en, de], i) => `<a href="#${id}" data-index="${id}"><em>${t(en, de)}</em><span>0${i + 1}</span></a>`).join('');
-    return `<nav class="section-index" aria-label="${t('Sections', 'Abschnitte')}">${links}</nav><a class="to-top" href="#home" aria-label="${t('Back to top', 'Nach oben')}">↑</a>`;
+    return `<nav class="section-index" aria-label="${t('Sections', 'Abschnitte')}">${links}</nav><div class="section-pill"><div id="section-list" hidden><a href="#home">↑ ${t('Top', 'Nach oben')}</a>${SECTIONS.slice(1).map(([id, en, de], i) => `<a href="#${id}" data-index="${id}"><span>0${i + 2}</span> ${t(en, de)}</a>`).join('')}</div><button id="section-toggle" aria-expanded="false" aria-controls="section-list"><span class="pill-current"></span> <span aria-hidden="true">▴</span></button></div>`;
 }
 
 /** Marks the section that is in the upper part of the viewport. */
@@ -189,7 +189,11 @@ function updateIndex(): void {
     // The contact section is short and can not reach the upper part of the viewport.
     if (innerHeight + scrollY >= document.documentElement.scrollHeight - 2) active = 'contact';
     document.querySelectorAll('[data-index]').forEach(a => a.setAttribute('aria-current', String(a.getAttribute('data-index') === active)));
-    document.querySelector('.to-top')?.classList.toggle('show', scrollY > innerHeight);
+    const pill = document.querySelector('.section-pill');
+    pill?.classList.toggle('show', scrollY > innerHeight * 0.6);
+    const [, en, de] = SECTIONS.find(([id]) => id === active)!;
+    const label = pill?.querySelector('.pill-current');
+    if (label) label.textContent = `0${SECTIONS.findIndex(([id]) => id === active) + 1} ${t(en, de)}`;
 }
 
 function render(): void {
@@ -277,6 +281,14 @@ export function initSite(): void {
             document.querySelector('#menu-toggle')!.setAttribute('aria-expanded', String(!menu.hidden));
         } else if (!target.closest('#menu') || target.closest('#menu a')) {
             closeMenu();
+        }
+        const list = document.querySelector<HTMLElement>('#section-list');
+        if (list && target.closest('#section-toggle')) {
+            list.hidden = !list.hidden;
+            document.querySelector('#section-toggle')!.setAttribute('aria-expanded', String(!list.hidden));
+        } else if (list && (!target.closest('#section-list') || target.closest('#section-list a'))) {
+            list.hidden = true;
+            document.querySelector('#section-toggle')!.setAttribute('aria-expanded', 'false');
         }
         const select = target.closest<HTMLElement>('[data-select]');
         if (select) {

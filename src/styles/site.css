@@ -78,6 +78,20 @@ html[data-theme=dark] .cursor,html[data-theme=dark] .cursor-dot{mix-blend-mode:d
 .section-index a[aria-current=true]::after{width:22px}
 .section-index em{position:absolute;right:100%;margin-right:8px;padding:5px 8px;font-style:normal;text-transform:uppercase;white-space:nowrap;background:var(--paper);border:1px solid var(--rule);opacity:0;pointer-events:none;transition:opacity .2s}
 .section-index a:hover em,.section-index a:focus-visible em{opacity:1}
-.to-top{display:none}
-@media(max-width:900px){.section-index{display:none}.to-top{position:fixed;right:16px;bottom:16px;z-index:40;width:44px;height:44px;display:grid;place-items:center;border:1px solid var(--rule);background:var(--paper);color:var(--ink);text-decoration:none;font:16px var(--mono);visibility:hidden;opacity:0;transition:opacity .2s,visibility .2s}.to-top.show{visibility:visible;opacity:1}}
-@media(prefers-reduced-motion:reduce){.section-index a::after,.section-index em,.to-top{transition:none}}
+
+/* Section button on narrow screens: shows the current section and opens a short list. */
+.section-pill{display:none}
+@media(max-width:900px){
+.section-index{display:none}
+.section-pill{position:fixed;right:16px;bottom:16px;z-index:40;display:flex;flex-direction:column;align-items:flex-end;gap:8px;visibility:hidden;opacity:0;transform:translateY(8px);transition:opacity .2s,transform .2s,visibility .2s}
+.section-pill.show{visibility:visible;opacity:1;transform:none}
+#section-toggle{min-height:44px;padding:0 16px;border:1px solid var(--rule);border-radius:22px;background:var(--paper);color:var(--ink);font:12px var(--mono);letter-spacing:.06em;text-transform:uppercase;cursor:pointer;box-shadow:0 6px 18px #0002}
+#section-toggle[aria-expanded=true] span[aria-hidden]{display:inline-block;transform:rotate(180deg)}
+#section-list{display:flex;flex-direction:column;min-width:180px;padding:6px 0;border:1px solid var(--rule);background:var(--paper);box-shadow:0 10px 26px #0003}
+#section-list[hidden]{display:none}
+#section-list a{display:flex;gap:10px;align-items:center;min-height:44px;padding:0 16px;color:var(--ink);text-decoration:none;font:15px var(--sans)}
+#section-list a span{font:11px var(--mono);color:var(--muted)}
+#section-list a[aria-current=true]{font-weight:600}
+#section-list a[aria-current=true] span{color:var(--ink)}
+}
+@media(prefers-reduced-motion:reduce){.section-index a::after,.section-index em,.section-pill{transition:none}}
