@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Proposed portfolio covers for four self-hosted services. Editorial compositions in CSS. Not screenshots, not evidence of app behavior.">
+    <meta name="author" content="Moritz Bednorz">
+    <title>Self-hosted services — proposed portfolio covers · Moritz Bednorz</title>
+    <link rel="icon" type="image/svg+xml" href="../images/favicon.svg">
+    <!-- Self-hosted fonts, same files as the site. Relative paths: no remote requests. -->
+    <style>
+        @font-face {font-family: 'DM Sans';font-style: normal;font-weight: 400;font-display: swap;src: url(../fonts/dm-sans-400.ttf) format('truetype');}
+        @font-face {font-family: 'DM Sans';font-style: normal;font-weight: 500;font-display: swap;src: url(../fonts/dm-sans-500.ttf) format('truetype');}
+        @font-face {font-family: 'DM Sans';font-style: normal;font-weight: 600;font-display: swap;src: url(../fonts/dm-sans-600.ttf) format('truetype');}
+        @font-face {font-family: 'DM Sans';font-style: normal;font-weight: 700;font-display: swap;src: url(../fonts/dm-sans-700.ttf) format('truetype');}
+        @font-face {font-family: 'Instrument Serif';font-style: italic;font-weight: 400;font-display: swap;src: url(../fonts/instrument-serif-italic.ttf) format('truetype');}
+        @font-face {font-family: 'Instrument Serif';font-style: normal;font-weight: 400;font-display: swap;src: url(../fonts/instrument-serif-400.ttf) format('truetype');}
+        @font-face {font-family: 'Space Mono';font-style: normal;font-weight: 400;font-display: swap;src: url(../fonts/space-mono-400.ttf) format('truetype');}
+        @font-face {font-family: 'Space Mono';font-style: normal;font-weight: 700;font-display: swap;src: url(../fonts/space-mono-700.ttf) format('truetype');}
+    </style>
+    <style>
+        /* Palette and type match the site: warm paper, deep green ink, serif headlines, mono labels. */
+        :root{
+            --paper:#eceee6;--ink:#233e35;--muted:#53665c;--rule:#b9c5b9;--wash:#dde5d9;--image:#dce1d5;
+            --burnt:#b16039;
+            --professional:#38664f;--academic:#3f6b94;--research:#8b4c75;--personal:#855416;
+            --peach:#ead7c3;--peach-2:#efdcc9;--sage:#dce6d6;--bluegrey:#d6e1e2;--mist:#f0f1ea;
+            --serif:'Instrument Serif',Georgia,serif;--sans:'DM Sans',Arial,sans-serif;--mono:'Space Mono',monospace;
+        }
+        *{box-sizing:border-box}
+        body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+        h1,h2,p,ul,figure{margin:0}
+        .page{max-width:1360px;margin:0 auto;padding:clamp(28px,5vw,72px)}
+
+        /* Page head */
+        .eyebrow{font:400 12px/1.6 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+        .page-head .eyebrow{margin-bottom:20px}
+        .page-head h1{font:400 clamp(44px,6.5vw,92px)/.98 var(--serif);letter-spacing:-.02em;max-width:16ch;margin-bottom:26px}
+        .page-head h1 em{font-style:italic}
+        .intro{font-size:clamp(16px,1.6vw,21px);line-height:1.5;max-width:640px;margin-bottom:20px}
+        .note{max-width:640px;margin:0 0 clamp(48px,7vw,84px);padding:16px 20px;border-left:3px solid var(--burnt);background:#e3e7dc;font-size:15px;line-height:1.65;color:var(--muted)}
+        .note strong{color:var(--ink);font-weight:600}
+
+        /* Covers */
+        .covers{display:grid;gap:clamp(44px,6vw,84px)}
+        .cover{max-width:1200px;margin:0 auto;width:100%}
+        .panel{
+            position:relative;overflow:hidden;width:100%;
+            /* Design size 1200x750. cqw units scale the whole composition with the width,
+               so the panel stays proportional at every screen size. */
+            aspect-ratio:1200/750;container-type:inline-size;
+            background:var(--paper);border:1px solid var(--rule);box-shadow:0 18px 44px rgba(35,62,53,.09);
+        }
+        .panel-copy{position:relative;z-index:3;padding:80px;padding:5cqw 5cqw 0;max-width:60cqw}
+        .panel-eyebrow{font-size:11px;font-size:1.05cqw;font-family:var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:26px;margin-bottom:2.2cqw}
+        .panel h2{font-size:64px;font-size:6.2cqw;line-height:.98;font-weight:400;letter-spacing:-.02em;font-family:var(--serif)}
+        .panel h2 em{font-style:italic}
+        .panel-lede{font-size:16px;font-size:1.5cqw;line-height:1.5;color:var(--muted);max-width:38cqw;margin-top:26px;margin-top:2.4cqw}
+        .panel-tags{display:flex;flex-wrap:wrap;gap:12px;gap:1.1cqw;list-style:none;padding:0;margin-top:30px;margin-top:2.8cqw;max-width:44cqw}
+        .panel-tags li{font-size:11px;font-size:1cqw;line-height:1;font-family:var(--mono);letter-spacing:.05em;color:var(--ink);border:1px solid var(--rule);background:rgba(255,255,255,.4);padding:11px 15px;padding:1cqw 1.4cqw;border-radius:10cqw;white-space:nowrap}
+        .panel-badge{
+            position:absolute;z-index:4;left:60px;left:5cqw;bottom:42px;bottom:3.6cqw;margin:0;
+            font-size:11px;font-size:1cqw;line-height:1;font-family:var(--mono);letter-spacing:.08em;color:var(--muted);
+            border:1px solid var(--rule);background:var(--paper);padding:11px 16px;padding:1cqw 1.5cqw;border-radius:10cqw;
+        }
+        .ghost{position:absolute;z-index:0;right:24px;right:2cqw;bottom:-38px;bottom:-3.2cqw;font:italic 400 240px/1 var(--serif);font-size:22cqw;color:var(--ink);opacity:.06;pointer-events:none}
+        .deco{position:absolute;inset:0;z-index:1;pointer-events:none}
+        .deco i,.deco span{display:block}
+
+        /* 01 — Local Assistant: Hermes as one steady presence */
+        #ai-workspace .p1-blob{position:absolute;width:44cqw;height:44cqw;border-radius:50%;right:-12cqw;top:-16cqw;background:var(--peach);opacity:.55}
+        #ai-workspace .p1-halo{position:absolute;width:36cqw;height:36cqw;border:1px dashed var(--rule);border-radius:50%;left:51cqw;top:13cqw}
+        #ai-workspace .p1-ring{position:absolute;width:26cqw;height:26cqw;border-radius:50%;left:56cqw;top:18cqw;background:var(--bluegrey);border:1px solid var(--academic)}
+        #ai-workspace .p1-dot{position:absolute;width:1.6cqw;height:1.6cqw;border-radius:50%;background:var(--ink);left:68.2cqw;top:30.2cqw}
+        #ai-workspace .p1-label{position:absolute;left:69cqw;top:46.6cqw;font:400 1cqw/1 var(--mono);letter-spacing:.08em;color:var(--ink);transform:translateX(-50%)}
+
+        /* 02 — Home Automation: radio arcs from one watched node */
+        #home-automation .p2-blob{position:absolute;width:42cqw;height:42cqw;border-radius:50%;left:-16cqw;bottom:-18cqw;background:var(--sage);opacity:.6}
+        #home-automation .p2-arc{position:absolute;border:1px solid var(--professional);border-radius:50%}
+        #home-automation .a1{width:18cqw;height:18cqw;left:69cqw;top:35cqw}
+        #home-automation .a2{width:30cqw;height:30cqw;left:63cqw;top:29cqw;opacity:.65}
+        #home-automation .a3{width:42cqw;height:42cqw;left:57cqw;top:23cqw;opacity:.4}
+        #home-automation .a4{width:54cqw;height:54cqw;left:51cqw;top:17cqw;opacity:.22}
+        #home-automation .p2-node{position:absolute;width:2.6cqw;height:2.6cqw;border-radius:.5cqw;background:var(--professional);left:76.7cqw;top:42.7cqw}
+        #home-automation .b1{width:12cqw;height:12cqw;left:54cqw;top:9cqw;opacity:.35}
+        #home-automation .b2{width:20cqw;height:20cqw;left:50cqw;top:5cqw;opacity:.18}
+        #home-automation .p2-dot{position:absolute;width:1.4cqw;height:1.4cqw;border-radius:50%;background:var(--professional);left:59.3cqw;top:14.3cqw}
+
+        /* 03 — Private Photo Library: empty frames, real photos stay out of the picture */
+        #photo-library .p3-blob{position:absolute;width:30cqw;height:30cqw;border-radius:50%;left:-10cqw;top:-12cqw;background:var(--peach-2);opacity:.7}
+        #photo-library .p3-grid{position:absolute;left:51cqw;top:19cqw;display:grid;grid-template-columns:repeat(3,14.5cqw);gap:2cqw;transform:rotate(-4deg)}
+        #photo-library .f{height:10cqw;border-radius:1.2cqw}
+        #photo-library .f1{background:var(--peach)}
+        #photo-library .f2{background:var(--bluegrey)}
+        #photo-library .f3{background:var(--wash)}
+        #photo-library .f4{background:var(--peach-2)}
+        #photo-library .f5{background:radial-gradient(circle at 30% 30%,var(--mist),var(--image))}
+        #photo-library .f6{border:1px dashed var(--research)}
+        #photo-library .p3-under{position:absolute;left:68cqw;top:43.6cqw;font:400 1cqw/1 var(--mono);letter-spacing:.08em;color:var(--muted)}
+
+        /* 04 — Homelab Operations: generic editorial rack silhouette */
+        #homelab-operations .p4-ring{position:absolute;width:38cqw;height:38cqw;border:1.5px solid var(--personal);border-radius:50%;left:57cqw;top:13cqw;opacity:.45}
+        #homelab-operations .p4-rack{position:absolute;left:61cqw;top:17cqw;width:20cqw;height:42cqw;border:1px solid var(--ink);border-radius:1.2cqw;background:var(--mist);padding:2cqw;display:flex;flex-direction:column;gap:2.2cqw;justify-content:center}
+        #homelab-operations .s{height:2.4cqw;border-radius:.6cqw}
+        #homelab-operations .s1{width:70%;background:var(--personal)}
+        #homelab-operations .s2{width:90%;background:var(--sage)}
+        #homelab-operations .s3{width:55%;background:var(--bluegrey)}
+        #homelab-operations .s4{width:80%;background:var(--peach)}
+        #homelab-operations .s5{width:62%;background:var(--professional);opacity:.6}
+        #homelab-operations .s6{width:75%;background:var(--image)}
+
+        /* Captions under each panel */
+        .caption{display:flex;flex-wrap:wrap;gap:6px 18px;align-items:baseline;padding:16px 2px 0;font-size:14px;line-height:1.6;color:var(--muted)}
+        .caption-index{font:400 11px var(--mono);letter-spacing:.14em;color:var(--burnt);flex:none}
+        .caption strong{color:var(--ink);font-weight:600}
+
+        /* Page foot */
+        .page-foot{margin-top:clamp(50px,8vw,90px);padding-top:22px;border-top:1px solid var(--rule);display:flex;flex-wrap:wrap;gap:10px 30px;font:400 11px/1.8 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+
+        @media (max-width:640px){
+            .caption{display:block}
+            .caption-index{display:block;margin-bottom:4px}
+        }
+    </style>
+</head>
+<body>
+    <main class="page">
+
+        <header class="page-head">
+            <p class="eyebrow">Portfolio previews · Self-hosted services</p>
+            <h1>Four covers for the <em>self-hosted</em> services</h1>
+            <p class="intro">This page collects proposed covers for four portfolio panels. Each panel is an editorial composition, drawn with CSS. The labels stay generic and illustrative.</p>
+            <p class="note"><strong>Read this first.</strong> These covers are proposals. They are not evidence of app behavior. They are not screenshots of real products. They show no live data, no metrics, and no dates. Labels stay generic. No addresses, versions, or setup details appear on this page. Each panel carries the same badge: Illustrative · not a live screen.</p>
+        </header>
+
+        <div class="covers">
+
+            <section class="cover">
+                <article class="panel" id="ai-workspace" aria-label="Proposed cover: Local Assistant">
+                    <div class="deco" aria-hidden="true">
+                        <i class="p1-blob"></i>
+                        <i class="p1-halo"></i>
+                        <i class="p1-ring"></i>
+                        <i class="p1-dot"></i>
+                        <span class="p1-label">Hermes</span>
+                    </div>
+                    <span class="ghost" aria-hidden="true">01</span>
+                    <div class="panel-copy">
+                        <p class="panel-eyebrow">Personal project · 01</p>
+                        <h2>Local <em>Assistant</em></h2>
+                        <p class="panel-lede">A personal assistant based on Hermes, running locally.</p>
+                        <ul class="panel-tags" role="list">
+                            <li>Hermes</li>
+                            <li>Personal AI</li>
+                        </ul>
+                    </div>
+                    <p class="panel-badge">Illustrative · not a live screen</p>
+                </article>
+                <p class="caption"><span class="caption-index">01</span><span><strong>Local Assistant.</strong> A conceptual cover for a locally running personal assistant.</span></p>
+            </section>
+
+            <section class="cover">
+                <article class="panel" id="home-automation" aria-label="Proposed cover: Home Automation">
+                    <div class="deco" aria-hidden="true">
+                        <i class="p2-blob"></i>
+                        <i class="p2-arc a1"></i>
+                        <i class="p2-arc a2"></i>
+                        <i class="p2-arc a3"></i>
+                        <i class="p2-arc a4"></i>
+                        <i class="p2-node"></i>
+                        <i class="p2-arc b1"></i>
+                        <i class="p2-arc b2"></i>
+                        <i class="p2-dot"></i>
+                    </div>
+                    <span class="ghost" aria-hidden="true">02</span>
+                    <div class="panel-copy">
+                        <p class="panel-eyebrow">Personal project · 02</p>
+                        <h2>Home <em>Automation</em></h2>
+                        <p class="panel-lede">A personal exploration of home automation.</p>
+                        <ul class="panel-tags" role="list">
+                            <li>Home Assistant</li>
+                            <li>Automation</li>
+                            <li>Personal project</li>
+                        </ul>
+                    </div>
+                    <p class="panel-badge">Illustrative · not a live screen</p>
+                </article>
+                <p class="caption"><span class="caption-index">02</span><span><strong>Home Automation.</strong> An abstract composition, not a map of devices or rooms.</span></p>
+            </section>
+
+            <section class="cover">
+                <article class="panel" id="photo-library" aria-label="Proposed cover: Private Photo Library">
+                    <div class="deco" aria-hidden="true">
+                        <i class="p3-blob"></i>
+                        <div class="p3-grid">
+                            <i class="f f1"></i>
+                            <i class="f f2"></i>
+                            <i class="f f3"></i>
+                            <i class="f f4"></i>
+                            <i class="f f5"></i>
+                            <i class="f f6"></i>
+                        </div>
+                        <span class="p3-under">unexposed frame</span>
+                    </div>
+                    <span class="ghost" aria-hidden="true">03</span>
+                    <div class="panel-copy">
+                        <p class="panel-eyebrow">Personal project · 03</p>
+                        <h2>Private <em>Photo</em> Library</h2>
+                        <p class="panel-lede">Empty frames, because real photos stay out of the picture.</p>
+                        <ul class="panel-tags" role="list">
+                            <li>Immich</li>
+                            <li>Photo management</li>
+                            <li>Self-hosting</li>
+                        </ul>
+                    </div>
+                    <p class="panel-badge">Illustrative · not a live screen</p>
+                </article>
+                <p class="caption"><span class="caption-index">03</span><span><strong>Private Photo Library.</strong> Empty frames illustrate photo management without revealing photographs or deployment details.</span></p>
+            </section>
+
+            <section class="cover">
+                <article class="panel" id="homelab-operations" aria-label="Proposed cover: Homelab Operations">
+                    <div class="deco" aria-hidden="true">
+                        <i class="p4-ring"></i>
+                        <div class="p4-rack">
+                            <i class="s s1"></i>
+                            <i class="s s2"></i>
+                            <i class="s s3"></i>
+                            <i class="s s4"></i>
+                            <i class="s s5"></i>
+                            <i class="s s6"></i>
+                        </div>
+                    </div>
+                    <span class="ghost" aria-hidden="true">04</span>
+                    <div class="panel-copy">
+                        <p class="panel-eyebrow">Personal project · 04</p>
+                        <h2>Homelab <em>Operations</em></h2>
+                        <p class="panel-lede">A rack silhouette, kept deliberately generic.</p>
+                        <ul class="panel-tags" role="list">
+                            <li>Home server</li>
+                            <li>Encrypted off-site backup</li>
+                            <li>Everyday services</li>
+                        </ul>
+                    </div>
+                    <p class="panel-badge">Illustrative · not a live screen</p>
+                </article>
+                <p class="caption"><span class="caption-index">04</span><span><strong>Homelab Operations.</strong> A generic cover for the home server and its encrypted off-site backup, drawn as a rack silhouette.</span></p>
+            </section>
+
+        </div>
+
+        <footer class="page-foot">
+            <span>Proposed covers · not evidence of app behavior</span>
+            <span>CSS only · no JavaScript · no external requests</span>
+            <span>Instrument Serif · DM Sans · Space Mono</span>
+        </footer>
+
+    </main>
+</body>
+</html>

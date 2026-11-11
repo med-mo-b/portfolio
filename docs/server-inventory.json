@@ -1,0 +1,29 @@
+{
+  "scope": "Privacy-reduced summary of read-only inspection. Not a deployment inventory for publication.",
+  "topicsConfirmed": [
+    "Personal AI assistant",
+    "Self-hosted chat interface",
+    "Photo management",
+    "Home automation",
+    "Network filtering",
+    "File management"
+  ],
+  "ownerClarifications": {
+    "localAssistant": "Locally running Hermes agent",
+    "backup": "Encrypted off-site backup only. Not cloud application hosting."
+  },
+  "redacted": [
+    "Service addresses and domains",
+    "IP addresses and ports",
+    "Software versions",
+    "Container and personal instance names",
+    "Host identities and deployment paths",
+    "Access routes and infrastructure topology"
+  ],
+  "limitations": [
+    "Application presence does not prove an end-to-end workflow.",
+    "Local hosting does not prove offline operation or local model inference.",
+    "Project start dates remain unconfirmed.",
+    "Backup operation and restore success were not tested."
+  ]
+}

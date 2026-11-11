@@ -39,9 +39,9 @@ assert.ok(count(timeline, /\bdate: '/g) === count(timeline, /\bdateDe: '/g), 'ev
 assert.ok(count(timeline, /\btitle: '/g) === count(timeline, /\btitleDe: '/g), 'every event has titleDe');
 assert.ok(count(timeline, /\bdescription: '/g) === count(timeline, /\bdescriptionDe: '/g), 'every event has descriptionDe');
 
-// Sort order: osapiens (2026-07) is the newest event
-const yearMonth = [...timeline.matchAll(/year: (\d+),\s*month: (\d+),/g)].map(m => Number(m[1]) * 12 + Number(m[2]));
-assert.equal(Math.max(...yearMonth), 2026 * 12 + 7, 'osapiens is the newest event');
+// Personal milestones can follow the newest professional role.
+const professionalYearMonth = [...timeline.matchAll(/year: (\d+),\s*month: (\d+),\s*branch: 'main'/g)].map(m => Number(m[1]) * 12 + Number(m[2]));
+assert.equal(Math.max(...professionalYearMonth), 2026 * 12 + 7, 'osapiens is the newest professional event');
 
 // About page bio: current role in EN and DE, no stale current-role wording
 assert.ok(site.includes('AI Platform Engineer at osapiens'), 'about EN bio');

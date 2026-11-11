@@ -27,7 +27,7 @@ const branchName = (id: string) => {
     return t(branch.label, branch.labelDe);
 };
 
-const projectOrder = ['thoraxmonitor', 'tedias-ahead', 'respiratory-flow-reconstruction', 'federated-cardiac-ct', 'patent-measuring-process', 'homelab-cm3588', 'portfolio-website'];
+const projectOrder = ['thoraxmonitor', 'tedias-ahead', 'respiratory-flow-reconstruction', 'federated-cardiac-ct', 'patent-measuring-process', 'homelab-cm3588', 'local-assistant', 'home-automation', 'private-photo-library', 'portfolio-website'];
 const projects = projectOrder.map(id => PROJECTS.find(p => p.id === id)!);
 const shortTitle: Record<string, [string, string]> = {
     'tedias-ahead': ['DARIAN', 'DARIAN'],
@@ -54,7 +54,7 @@ function header(): string {
     return `<a class="skip" href="#main">${t('Skip to content', 'Zum Inhalt springen')}</a>
 <header><a class="identity" href="#home" aria-label="${t('Moritz Bednorz, start of page', 'Moritz Bednorz, Seitenanfang')}">${logo}<span>Moritz Bednorz<span class="identity-sub">${t('Engineer & tech enthusiast', 'Ingenieur & Tech-Enthusiast')}</span></span></a>
 <nav aria-label="${t('Main navigation', 'Hauptnavigation')}"><a href="#journey">${t('Journey', 'Werdegang')}</a><a href="#work">${t('Work', 'Projekte')}</a><a href="#contact">${t('Contact', 'Kontakt')}</a>${langSwitch()}<button id="theme-toggle" aria-label="${dark ? t('Use light mode', 'Hellen Modus verwenden') : t('Use dark mode', 'Dunklen Modus verwenden')}">${dark ? t('Light mode', 'Hell') : t('Dark mode', 'Dunkel')}</button><button id="menu-toggle" aria-expanded="false" aria-controls="menu">${t('Menu', 'Menü')} <span aria-hidden="true">☷</span></button>
-<div id="menu" hidden><a href="#home">${t('Introduction', 'Einleitung')}</a><a href="#journey">${t('Career & branches', 'Werdegang & Zweige')}</a><a href="#work">${t('All seven projects', 'Alle sieben Projekte')}</a><a href="#contact">${t('Contact', 'Kontakt')}</a></div></nav></header>`;
+<div id="menu" hidden><a href="#home">${t('Introduction', 'Einleitung')}</a><a href="#journey">${t('Career & branches', 'Werdegang & Zweige')}</a><a href="#work">${t('All projects', 'Alle Projekte')}</a><a href="#contact">${t('Contact', 'Kontakt')}</a></div></nav></header>`;
 }
 
 function hero(): string {
