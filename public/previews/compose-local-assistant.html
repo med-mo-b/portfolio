@@ -1,0 +1,29 @@
+<!doctype html>
+<!--
+  Composes public/images/local-assistant.png (1188x744).
+  Source: owner-authorized capture of the owner's own Open WebUI instance
+  (dark theme, 1398x876), stored as sources/open-webui-personal-redacted.png.
+  The sidebar, chat history, account details, and unknown text/images were
+  hidden before capture, so no raw unredacted capture exists. The instance
+  address is not recorded in this repository. Used unchanged except resize.
+  Overlay: official Open WebUI logo + honest label. Provenance:
+  docs/media-sources.md.
+-->
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  html,body{margin:0;padding:0}
+  #frame{position:relative;width:1188px;height:744px;overflow:hidden;background:#0b1220}
+  #frame img.src{position:absolute;left:0;top:0;width:1188px;height:744px}
+  .pill{position:absolute;right:16px;bottom:16px;display:flex;align-items:center;gap:8px;height:28px;padding:0 12px;border-radius:14px;font:500 12.5px/1 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;letter-spacing:.1px;background:rgba(255,255,255,.95);color:#1f2937;border:1px solid rgba(15,23,42,.14);box-shadow:0 1px 3px rgba(15,23,42,.18)}
+  .pill img{height:16px;display:block}
+</style>
+</head>
+<body>
+<div id="frame">
+  <img class="src" src="sources/open-webui-personal-redacted.png" alt="">
+  <div class="pill"><img src="logos/logo-open-webui.png" alt="">Personal instance &middot; history hidden</div>
+</div>
+</body>
+</html>

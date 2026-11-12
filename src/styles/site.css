@@ -21,8 +21,8 @@ body{transition:background-color .3s,color .3s}
 .project-image,.detail-image{background:var(--image)}.selected{background:var(--wash)}
 
 /* Grain: the same method as itssharl.ee. One large fixed noise tile layer moves in ten steps. */
-.noise{position:fixed;z-index:9999;top:-300%;left:-150%;width:600%;height:600%;background-repeat:repeat;background-size:384px auto;opacity:.25;pointer-events:none;animation:grain 7s steps(10) infinite}
-html[data-theme=dark] .noise{opacity:.2}
+.noise{position:fixed;z-index:9999;top:-300%;left:-150%;width:600%;height:600%;background-repeat:repeat;background-size:384px auto;opacity:.18;pointer-events:none;animation:grain 7s steps(10) infinite}
+html[data-theme=dark] .noise{opacity:.14}
 @keyframes grain{0%,100%{transform:translate(0)}10%{transform:translate(-5%,-10%)}20%{transform:translate(-15%,5%)}30%{transform:translate(7%,-25%)}40%{transform:translate(-5%,25%)}50%{transform:translate(-15%,10%)}60%{transform:translate(15%)}70%{transform:translateY(15%)}80%{transform:translate(3%,35%)}90%{transform:translate(-10%,10%)}}
 @media(prefers-reduced-motion:reduce){.noise{animation:none}}
 
@@ -95,3 +95,6 @@ html[data-theme=dark] .cursor,html[data-theme=dark] .cursor-dot{mix-blend-mode:d
 #section-list a[aria-current=true] span{color:var(--ink)}
 }
 @media(prefers-reduced-motion:reduce){.section-index a::after,.section-index em,.section-pill{transition:none}}
+
+/* Give longer project and timeline notes room between paragraphs. */
+.detail-copy>p+p:not(.technology),.inline-event>p+p:not(.technology){margin-top:1em}

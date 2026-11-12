@@ -7,14 +7,13 @@ import { PROJECTS, type Project } from './data/projects.js';
 import { BRANCHES, TIMELINE_DATA } from './data/timeline.js';
 import type { TimelineEvent } from './types.js';
 import { applyLanguage, detectLanguage, type Language } from './lib/language.js';
+import { escapeHtml as esc, paragraphs } from './lib/html.js';
 
 let lang: Language = 'en';
 let selected: string | null = 'osapiens-aipe';
 let filter = 'all';
 
 const t = (en: string, de: string) => (lang === 'de' ? de : en);
-const esc = (value: unknown) =>
-    String(value).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]!);
 
 const branchColor: Record<string, string> = {
     main: 'var(--professional)',
@@ -27,7 +26,10 @@ const branchName = (id: string) => {
     return t(branch.label, branch.labelDe);
 };
 
-const projectOrder = ['thoraxmonitor', 'tedias-ahead', 'respiratory-flow-reconstruction', 'federated-cardiac-ct', 'patent-measuring-process', 'homelab-cm3588', 'local-assistant', 'home-automation', 'private-photo-library', 'portfolio-website'];
+// Newest first by latest milestone: Local Agent Nov 2026, homelab backup Oct 2026, DARIAN early 2026 (approximate),
+// Thoraxmonitor Nov 2025 (approximate, tied with the respiratory paper and listed first), respiratory paper Nov 2025,
+// cardiac paper Feb 2025, portfolio Jan 2025, patent filings 2022/2023.
+const projectOrder = ['local-assistant', 'homelab-cm3588', 'tedias-ahead', 'thoraxmonitor', 'respiratory-flow-reconstruction', 'federated-cardiac-ct', 'portfolio-website', 'patent-measuring-process'];
 const projects = projectOrder.map(id => PROJECTS.find(p => p.id === id)!);
 const shortTitle: Record<string, [string, string]> = {
     'tedias-ahead': ['DARIAN', 'DARIAN'],
@@ -74,7 +76,7 @@ function eventDetail(event: TimelineEvent): string {
     const projectLink = event.projectId && PROJECTS.some(p => p.id === event.projectId)
         ? `<button class="text-link" data-project="${event.projectId}">${t('Explore project', 'Projekt ansehen')} ↗</button>`
         : '';
-    return `<p>${esc(t(event.description, event.descriptionDe))}</p>${highlights.length ? `<ul>${highlights.map(h => `<li>${esc(h)}</li>`).join('')}</ul>` : ''}<p class="technology">${(event.tags ?? []).map(esc).join(' · ')}</p>${projectLink}`;
+    return `${paragraphs(t(event.description, event.descriptionDe))}${highlights.length ? `<ul>${highlights.map(h => `<li>${esc(h)}</li>`).join('')}</ul>` : ''}<p class="technology">${(event.tags ?? []).map(esc).join(' · ')}</p>${projectLink}`;
 }
 
 // Newest first. The data file is not strictly sorted.
@@ -92,7 +94,7 @@ function commits(): string {
 
 function journey(): string {
     return `<section id="journey" class="journey"><div class="section-heading"><div><p class="eyebrow">${t('About / a history with branches', 'Über mich / ein Werdegang mit Zweigen')}</p><h2>${t('One curious mind.', 'Ein neugieriger Kopf.')}<br><em>${t('Many branches.', 'Viele Zweige.')}</em></h2></div><p>${t('A background in Medical Informatics.', 'Ein Hintergrund in Medizinischer Informatik.')}<br>${t('A habit of following interesting problems.', 'Und die Gewohnheit, interessanten Problemen zu folgen.')}</p></div>
-<div class="journey-intro"><p>${t('I’m a tech enthusiast with a background in Medical Informatics. My work spans medical sensors, machine learning, and AI platforms.', 'Ich bin Tech-Enthusiast mit einem Hintergrund in Medizinischer Informatik. Meine Arbeit umfasst medizinische Sensoren, Machine Learning und KI-Plattformen.')}</p><p>${t('For me, research isn’t just about writing papers. It’s about building solutions that work in the real world and help people.', 'Für mich ist Forschung mehr als Paper schreiben. Es geht darum, Lösungen zu bauen, die in der realen Welt funktionieren und Menschen helfen.')}</p></div>
+<div class="journey-intro"><p>${t('I’m a tech enthusiast with a background in Medical Informatics. My work spans medical sensors, machine learning, and AI platforms.', 'Ich bin Tech-Enthusiast mit einem Hintergrund in Medizinischer Informatik. Meine Arbeit umfasst medizinische Sensoren, Machine Learning und KI-Plattformen.')}</p><p>${t('I like working on things people can use, whether that starts with a sensor signal or a piece of software. The projects below cover that work and a few experiments at home.', 'Ich arbeite gern an Dingen, die Menschen nutzen können, ob am Anfang ein Sensorsignal oder ein Stück Software steht. Unten stehen diese Projekte und ein paar Experimente von zu Hause.')}</p></div>
 <div class="branch-legend" role="group" aria-label="${t('Filter by branch', 'Nach Zweig filtern')}">${BRANCHES.map(b => `<button data-branch="${b.id}" aria-pressed="${filter === b.id}" style="--branch:${branchColor[b.id]}"><i></i>${branchName(b.id)}</button>`).join('')}<button data-branch="all" aria-pressed="${filter === 'all'}">${t('All branches', 'Alle Zweige')}</button></div>
 <p class="timeline-help">${t('Select an event to read its details. Select a branch to filter events.', 'Wähle einen Eintrag, um die Details zu lesen. Wähle einen Zweig, um Einträge zu filtern.')}</p>
 <div class="timeline-layout"><div id="commits" class="commits">${commits()}</div></div></section>`;
@@ -130,7 +132,7 @@ function projectDetail(p: Project): string {
     const links = p.links ?? {};
     const external = lang === 'de' && links.externalDe ? links.externalDe : links.external;
     const entries = Object.entries({ github: links.github, paper: links.paper, external }).filter(([, url]) => url);
-    return `<img class="detail-image" src="${esc(p.image)}" alt=""><div class="detail-copy"><p class="eyebrow">${esc(category(p) + role(p))}</p><h2 id="project-title">${esc(t(p.title, p.titleDe))}</h2><p>${esc(t(p.details, p.detailsDe))}</p><p class="technology">${p.tech.map(esc).join(' · ')}</p><div class="detail-links">${entries.map(([key, url]) => `<a href="${esc(url)}" target="_blank" rel="noopener noreferrer">${label[key]} ↗</a>`).join('')}</div></div>`;
+    return `<img class="detail-image" src="${esc(p.image)}" alt=""><div class="detail-copy"><p class="eyebrow">${esc(category(p) + role(p))}</p><h2 id="project-title">${esc(t(p.title, p.titleDe))}</h2>${paragraphs(t(p.details, p.detailsDe))}<p class="technology">${p.tech.map(esc).join(' · ')}</p><div class="detail-links">${entries.map(([key, url]) => `<a href="${esc(url)}" target="_blank" rel="noopener noreferrer">${label[key]} ↗</a>`).join('')}</div></div>`;
 }
 
 /** The git tree from the Atlas mockup: one main line and one curved branch per lane. */

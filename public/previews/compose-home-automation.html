@@ -1,0 +1,26 @@
+<!doctype html>
+<!--
+  Composes public/images/home-automation.png (1188x744).
+  Source screenshot: official public demo at https://demo.home-assistant.io/
+  (dashboard "#/lovelace"), captured 2026-11-12 at 1022x640 CSS, 2x scale
+  (2044x1280). Used unchanged except full-frame resize. Overlay: official
+  Home Assistant logomark + honest label. Provenance: docs/media-sources.md.
+-->
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  html,body{margin:0;padding:0}
+  #frame{position:relative;width:1188px;height:744px;overflow:hidden;background:#fff}
+  #frame img.src{position:absolute;left:0;top:0;width:1188px;height:744px}
+  .pill{position:absolute;right:16px;bottom:16px;display:flex;align-items:center;gap:8px;height:28px;padding:0 12px;border-radius:14px;font:500 12.5px/1 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;letter-spacing:.1px;background:rgba(255,255,255,.95);color:#1f2937;border:1px solid rgba(15,23,42,.14);box-shadow:0 1px 3px rgba(15,23,42,.18)}
+  .pill img{height:16px;display:block}
+</style>
+</head>
+<body>
+<div id="frame">
+  <img class="src" src="sources/home-assistant-demo-2x.png" alt="">
+  <div class="pill"><img src="logos/logo-home-assistant.svg" alt="">Public demo UI</div>
+</div>
+</body>
+</html>

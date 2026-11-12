@@ -55,7 +55,8 @@ assert.ok(indexHtml.includes('<title>Moritz Bednorz | AI Platform Engineer & Tec
 assert.ok(indexHtml.includes('AI Platform Engineer at osapiens, with a background in Medical Informatics and healthcare research.'), 'index meta description');
 assert.ok(timeline.includes('I shorten time-to-market with safe and effective AI use in development workflows.'), 'safe AI responsibility');
 assert.ok(timeline.includes('Ich verkürze die Time-to-Market durch sicheren und wirksamen KI-Einsatz in Entwicklungsabläufen.'), 'safe AI responsibility in German');
-assert.ok(timeline.includes('Full-time, hybrid role in Mannheim, Baden-Württemberg, Germany.'), 'employment and location details');
+assert.equal(count(timeline, /full-time in a hybrid role in Mannheim, Baden-Württemberg, Germany/g), 2, 'both roles retain employment and location details');
+assert.equal(count(timeline, /in Vollzeit und hybrid in Mannheim, Baden-Württemberg, Deutschland/g), 2, 'both roles retain employment and location details in German');
 assert.ok(indexHtml.includes('Moritz Bednorz, AI Platform Engineer, osapiens,'), 'index meta keywords');
 assert.ok(!indexHtml.includes('Fraunhofer'), 'index.html has no stale employer');
 

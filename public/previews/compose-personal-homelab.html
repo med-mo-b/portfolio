@@ -1,0 +1,44 @@
+<!doctype html>
+<!--
+  Composes public/images/personal-homelab.png (1188x744).
+  Personal Homelab gap: no official public network-product screenshot exists
+  without banned content (the official AdGuard Home demo GIF shows private
+  IP addresses and exact versions), so this card uses the approved fallback:
+  a montage of three app screenshots. Each strip crops one source screenshot
+  (unchanged except crop/resize): Home Assistant public demo capture, Immich
+  public demo capture (sidebar crop with logo), and an owner-authorized
+  capture of the owner's own Open WebUI instance
+  (sources/open-webui-personal-redacted.png, 1398x876; sidebar, chat
+  history, account details, and unknown text/images were hidden before
+  capture, dark theme, address not recorded here). The third strip
+  center-crops the input area (scale 0.45: the full source height is shown
+  letterboxed on the source background #161616, and the visible 800px-wide
+  source region is centered on the input box); because the redaction removed
+  the in-image branding, the strip carries an official Open WebUI logo
+  badge. Overlay: honest label. Provenance: docs/media-sources.md.
+-->
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  html,body{margin:0;padding:0}
+  #frame{position:relative;width:1188px;height:744px;overflow:hidden;background:#f8fafc}
+  .strip{position:absolute;top:97px;width:360px;height:550px;overflow:hidden;border-radius:14px;border:1px solid rgba(15,23,42,.10);box-shadow:0 2px 8px rgba(15,23,42,.10);background:#fff}
+  .strip img{position:absolute;left:0;top:0}
+  .pill{position:absolute;right:16px;bottom:16px;display:flex;align-items:center;gap:8px;height:28px;padding:0 12px;border-radius:14px;font:500 12.5px/1 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;letter-spacing:.1px;background:rgba(15,23,42,.86);color:#fff;border:1px solid rgba(255,255,255,.22);box-shadow:0 1px 3px rgba(15,23,42,.3)}
+  .badge{position:absolute;left:50%;transform:translateX(-50%);bottom:10px;display:flex;align-items:center;gap:6px;height:22px;padding:0 9px;border-radius:11px;font:500 11px/1 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;letter-spacing:.1px;background:rgba(15,23,42,.86);color:#fff;border:1px solid rgba(255,255,255,.22)}
+  .badge img{position:static;height:13px;display:block}
+</style>
+</head>
+<body>
+<div id="frame">
+  <div class="strip" style="left:27px"><img src="sources/home-assistant-demo-2x.png" style="width:1426.05px;height:893.02px" alt=""></div>
+  <div class="strip" style="left:414px"><img src="sources/immich-demo-sidebar-2x.png" style="width:360px;height:549.8px" alt=""></div>
+  <div class="strip" style="left:801px;background:#161616">
+    <img src="sources/open-webui-personal-redacted.png" style="width:629.1px;height:394.2px;left:-134.55px;top:77.9px" alt="">
+    <div class="badge"><img src="logos/logo-open-webui.png" alt="">Open WebUI</div>
+  </div>
+  <div class="pill">Public demos + redacted personal screenshot</div>
+</div>
+</body>
+</html>

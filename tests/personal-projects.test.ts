@@ -3,19 +3,23 @@ import { existsSync, readFileSync } from 'node:fs';
 import { PROJECTS } from '../src/data/projects';
 import { BRANCHES, TIMELINE_DATA } from '../src/data/timeline';
 
-const personalIds = ['homelab-cm3588', 'local-assistant', 'home-automation', 'private-photo-library'];
+const personalIds = ['homelab-cm3588', 'local-assistant'];
 const milestones = [
     ['local-assistant', 2026, 11, 'local-assistant'],
-    ['home-automation', 2026, 9, 'home-automation'],
-    ['private-photo-library', 2025, 1, 'private-photo-library'],
+    ['home-automation', 2026, 9, 'homelab-cm3588'],
+    ['private-photo-library', 2025, 1, 'homelab-cm3588'],
     ['encrypted-backup', 2026, 10, 'homelab-cm3588'],
     ['network-segmentation', 2026, 9, 'homelab-cm3588'],
 ] as const;
 
 describe('approved personal projects', () => {
     test('IDs, translations, local media, and timeline links are complete', () => {
+        expect(PROJECTS).toHaveLength(8);
         expect(new Set(PROJECTS.map(p => p.id)).size).toBe(PROJECTS.length);
+        expect(PROJECTS.find(p => p.id === 'home-automation')).toBeUndefined();
+        expect(PROJECTS.find(p => p.id === 'private-photo-library')).toBeUndefined();
         expect(new Set(TIMELINE_DATA.map(e => e.id)).size).toBe(TIMELINE_DATA.length);
+        expect(TIMELINE_DATA.filter(e => e.branch === 'homelabbing')).toHaveLength(7);
         for (const p of PROJECTS) {
             for (const key of ['title', 'titleDe', 'description', 'descriptionDe', 'details', 'detailsDe'] as const) {
                 expect(p[key].trim().length).toBeGreaterThan(0);
@@ -33,6 +37,10 @@ describe('approved personal projects', () => {
         const displayedIds = [...order.matchAll(/'([^']+)'/g)].map(m => m[1]);
         expect(new Set(displayedIds).size).toBe(PROJECTS.length);
         for (const p of PROJECTS) expect(displayedIds).toContain(p.id);
+        expect(displayedIds).toEqual([
+            'local-assistant', 'homelab-cm3588', 'tedias-ahead', 'thoraxmonitor',
+            'respiratory-flow-reconstruction', 'federated-cardiac-ct', 'portfolio-website', 'patent-measuring-process',
+        ]);
         expect(site).not.toContain('All seven projects');
     });
 
@@ -46,6 +54,32 @@ describe('approved personal projects', () => {
         }
         expect(TIMELINE_DATA.find(e => e.id === 'osapiens-aipe')?.date).toBe('Jul 2026 - Present');
         expect(TIMELINE_DATA.find(e => e.id === 'private-photo-library')?.description).toMatch(/in use by/i);
+    });
+
+    test('Personal Homelab folds in the photo library and home automation facts', () => {
+        const homelab = PROJECTS.find(p => p.id === 'homelab-cm3588')!;
+        expect(homelab.image).toBe('/images/personal-homelab.png');
+        expect(homelab.details).toMatch(/Immich/);
+        expect(homelab.details).toMatch(/in use by January 2025/i);
+        expect(homelab.details).toMatch(/Home Assistant/);
+        expect(homelab.details).toMatch(/September 2026/);
+        expect(homelab.details).toMatch(/3-2-1/);
+        expect(homelab.detailsDe).toMatch(/Immich/);
+        expect(homelab.detailsDe).toMatch(/spätestens im Januar 2025/);
+        expect(homelab.detailsDe).toMatch(/Home Assistant/);
+        expect(homelab.detailsDe).toMatch(/September 2026/);
+        expect(homelab.detailsDe).toMatch(/3-2-1/);
+    });
+
+    test('Local Agent uses the agreed names without changing its IDs', () => {
+        const project = PROJECTS.find(p => p.id === 'local-assistant');
+        const event = TIMELINE_DATA.find(e => e.id === 'local-assistant');
+        for (const entry of [project, event]) {
+            expect(entry).toMatchObject({ title: 'Local Agent', titleDe: 'Lokaler Agent' });
+            expect(entry?.description).not.toMatch(/assistant/i);
+        }
+        expect(project?.image).toBe('/images/local-assistant.png');
+        expect(event?.projectId).toBe('local-assistant');
     });
 
     test('personal entries contain no operational endpoints or deployment identifiers', () => {
