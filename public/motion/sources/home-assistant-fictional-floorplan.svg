@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="640" viewBox="0 0 900 640" role="img" aria-labelledby="title desc">
+<title id="title">Fictional apartment floorplan</title>
+<desc id="desc">A different, invented single-level apartment. Only the dark drawing style refers to the owner-authorised dashboard. No actual room geometry, names, devices or states are shown.</desc>
+<defs>
+  <pattern id="tiles" width="22" height="22" patternUnits="userSpaceOnUse"><rect width="22" height="22" fill="#23282e"/><path d="M22 0H0V22" fill="none" stroke="#30383f" stroke-width="1"/></pattern>
+  <pattern id="boards" width="42" height="14" patternUnits="userSpaceOnUse"><rect width="42" height="14" fill="#20252a"/><path d="M0 14H42M21 0V14" fill="none" stroke="#293039" stroke-width=".7"/></pattern>
+  <style>
+    .wall{fill:none;stroke:#d8dde3;stroke-width:7;stroke-linecap:butt;stroke-linejoin:miter}
+    .door{fill:none;stroke:#8b98a5;stroke-width:1.7}
+    .furniture{fill:#293039;stroke:#66717d;stroke-width:1.5;stroke-linejoin:round}
+    .detail{fill:none;stroke:#58636e;stroke-width:1.3}
+    .window{fill:none;stroke:#7fc4ff;stroke-width:4;stroke-linecap:butt}
+    .label{font:15px Arial,Helvetica,sans-serif;fill:#b9c2cc;letter-spacing:.7px;text-anchor:middle}
+    .small{font-size:12px;fill:#8a939e}
+  </style>
+</defs>
+<rect width="900" height="640" fill="#1a1d21"/>
+<!-- Every wall and opening below belongs to this fictional apartment. -->
+<path d="M68 64H832V564H284V414H68Z" fill="#20252a"/>
+<path d="M76 72H368V246H76Z" fill="url(#boards)"/>
+<path d="M76 256H368V406H76Z" fill="url(#tiles)"/>
+<path d="M384 72H488V556H384ZM496 268H602V420H496Z" fill="#23282e"/>
+<path d="M504 72H824V252H504ZM504 436H824V556H504Z" fill="url(#boards)"/>
+<path d="M618 268H824V420H618Z" fill="url(#tiles)"/>
+<path d="M292 422H368V556H292Z" fill="#23282e"/>
+<!-- Balcony: a notch outside the L-shaped envelope. -->
+<path d="M76 428H272V556H76Z" fill="#1d242a"/>
+<path d="M68 428V564H272M80 434V552H262" fill="none" stroke="#58636e" stroke-width="2"/>
+<path d="M110 430V550M138 430V550M166 430V550M194 430V550M222 430V550M250 430V550" stroke="#293039" stroke-width="1"/>
+<g class="furniture"><circle cx="176" cy="484" r="25"/><rect x="114" y="470" width="22" height="29" rx="6"/><rect x="216" y="470" width="22" height="29" rx="6"/></g>
+<!-- Living: two-seat sofa, table, rug and wall console. -->
+<rect x="108" y="98" width="142" height="75" rx="8" class="furniture"/>
+<rect x="116" y="110" width="126" height="52" rx="5" fill="#2b3139" stroke="#80909f" stroke-width="1.4"/>
+<path d="M179 111V162M113 103H244M108 115V157M250 115V157" class="detail"/>
+<rect x="111" y="174" width="164" height="61" rx="4" fill="#252c33" stroke="#343d47"/>
+<rect x="149" y="184" width="84" height="35" rx="9" class="furniture"/>
+<circle cx="210" cy="199" r="6" fill="#3b454f"/><rect x="160" y="191" width="19" height="14" rx="1" fill="#3b454f"/>
+<rect x="332" y="92" width="22" height="65" rx="2" class="furniture"/><path d="M343 99V150" stroke="#9aa8b6" stroke-width="2"/>
+<text x="288" y="235" class="label">Living</text>
+<!-- Kitchen: counters, cooker, sink and a small dining table. -->
+<path d="M92 276H270V310H144V383H92Z" class="furniture"/>
+<path d="M144 276V310M194 276V310M92 330H144M92 356H144" class="detail"/>
+<rect x="151" y="282" width="34" height="22" rx="4" fill="#1a1d21" stroke="#8b98a5"/>
+<path d="M168 281V287Q174 287 174 292" class="detail"/>
+<rect x="98" y="331" width="35" height="34" rx="2" fill="#1a1d21" stroke="#80909f"/>
+<g fill="none" stroke="#8b98a5" stroke-width="1.3"><circle cx="107" cy="340" r="5"/><circle cx="124" cy="340" r="5"/><circle cx="107" cy="356" r="5"/><circle cx="124" cy="356" r="5"/></g>
+<g class="furniture"><ellipse cx="251" cy="356" rx="42" ry="28"/><rect x="206" y="339" width="15" height="30" rx="5"/><rect x="288" y="339" width="15" height="30" rx="5"/></g>
+<text x="199" y="397" class="label">Kitchen</text>
+<!-- Bedroom: bed, pillows, bedside tables, wardrobe. -->
+<rect x="658" y="100" width="126" height="138" rx="3" class="furniture"/>
+<rect x="666" y="108" width="110" height="35" rx="3" fill="#3b454f" stroke="#80909f"/>
+<rect x="672" y="114" width="43" height="21" rx="4" fill="#5a626c"/>
+<rect x="725" y="114" width="43" height="21" rx="4" fill="#5a626c"/>
+<path d="M665 150H777V230H665Z" fill="#303943" stroke="#80909f"/>
+<path d="M665 157H777" stroke="#9aa8b6" stroke-width="1.5"/>
+<rect x="626" y="106" width="23" height="31" rx="2" class="furniture"/><rect x="793" y="106" width="23" height="31" rx="2" class="furniture"/>
+<rect x="520" y="80" width="93" height="38" class="furniture"/><path d="M551 81V117M582 81V117" class="detail"/>
+<text x="577" y="151" class="label">Bedroom</text>
+<!-- Bathroom: tub, basin and toilet, clear of the outward-swinging door. -->
+<rect x="748" y="281" width="62" height="122" rx="10" class="furniture"/>
+<rect x="756" y="289" width="46" height="106" rx="17" fill="#1d242a" stroke="#8b98a5"/>
+<circle cx="779" cy="305" r="3" fill="#8b98a5"/>
+<rect x="628" y="279" width="66" height="36" rx="2" class="furniture"/><ellipse cx="661" cy="297" rx="22" ry="11" fill="#1a1d21" stroke="#8b98a5"/>
+<rect x="632" y="358" width="42" height="14" rx="3" class="furniture"/><ellipse cx="653" cy="388" rx="18" ry="22" class="furniture"/><ellipse cx="653" cy="388" rx="11" ry="14" fill="#1a1d21" stroke="#58636e"/>
+<text x="702" y="345" class="label">Bath</text>
+<!-- Guest study: desk and chair, daybed, narrow bookcase. -->
+<rect x="578" y="442" width="68" height="38" rx="2" class="furniture"/>
+<rect x="591" y="449" width="42" height="22" rx="2" fill="#1a1d21" stroke="#8b98a5"/><path d="M612 472V477H603" class="detail"/>
+<rect x="595" y="494" width="28" height="26" rx="9" class="furniture"/>
+<rect x="653" y="445" width="145" height="88" rx="4" class="furniture"/>
+<rect x="663" y="453" width="31" height="70" rx="5" fill="#5a626c"/>
+<path d="M701 453H789V524H701Z" fill="#303943" stroke="#80909f"/><path d="M708 454V523" stroke="#9aa8b6"/>
+<text x="565" y="548" class="label">Study</text>
+<!-- Hall and storage; no sensor or device-state symbols. -->
+<rect x="299" y="430" width="58" height="104" class="furniture"/><path d="M300 465H356M300 500H356" class="detail"/>
+<text x="329" y="552" class="label small">Storage</text>
+<text x="436" y="334" class="label" transform="rotate(-90 436 334)">Hall</text>
+<rect x="402" y="416" width="67" height="64" rx="3" fill="#293039" stroke="#343d47"/>
+<!-- Walls contain real gaps for every door, rather than lines across openings. -->
+<path d="M68 414V64H832V564H468M400 564H284V414H236M164 414H68" class="wall"/>
+<path d="M376 64V170M376 240V294M376 362V564M68 252H278M350 252H376" class="wall"/>
+<path d="M496 64V174M496 244V260H832M610 260V322M610 390V428M496 428H832M496 428V482M496 552V564" class="wall"/>
+<!-- Door leaves and swing arcs are inside clear floor areas. -->
+<path d="M376 170H306M376 240A70 70 0 0 1 306 170M376 294H308M376 362A68 68 0 0 1 308 294" class="door"/>
+<path d="M496 174H566M496 244A70 70 0 0 0 566 174M610 322H542M610 390A68 68 0 0 1 542 322M496 482H566M496 552A70 70 0 0 0 566 482" class="door"/>
+<path d="M400 564V496M468 564A68 68 0 0 0 400 496M164 411H236M164 417H236M198 411V417" class="door"/>
+<!-- Cyan windows use the inspected style, not the owner's positions or counts. -->
+<path d="M112 64H278M68 105V198M646 64H778M832 129V217M832 294V380M832 454V532" stroke="#1a1d21" stroke-width="10"/>
+<path d="M112 64H278M68 105V198M646 64H778M832 129V217M832 294V380M832 454V532" class="window"/>
+<path d="M112 70H278M74 105V198M646 70H778M826 129V217M826 294V380M826 454V532" stroke="#7fc4ff" stroke-width="1" fill="none" opacity=".5"/>
+<text x="176" y="543" class="label small">Balcony</text>
+<rect x="332" y="593" width="236" height="27" rx="13.5" fill="#23282e" stroke="#344149"/>
+<text x="450" y="611" fill="#a8b7bf" font-family="Arial,Helvetica,sans-serif" font-size="12" text-anchor="middle" letter-spacing=".7">Fictional floorplan</text>
+</svg>

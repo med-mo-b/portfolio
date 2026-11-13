@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Project motion — release candidate</title>
+<style>
+:root{color-scheme:dark;font-family:Arial,Helvetica,sans-serif;background:#161a1a;color:#eeeae0}*{box-sizing:border-box}body{margin:0}main{max-width:1440px;margin:auto;padding:40px 28px 64px}.eyebrow,.kind,.downloads,.meta{font:11px/1.6 ui-monospace,monospace;letter-spacing:.08em}.eyebrow{color:#c9c2ae;text-transform:uppercase}h1{font:clamp(38px,7vw,74px)/1.05 Georgia,serif;margin:18px 0}header>p{max-width:740px;line-height:1.6;color:#c9cdc8}a{color:inherit;text-underline-offset:4px}button{font:inherit;background:#eeeae0;color:#171c1c;border:1px solid #eeeae0;padding:10px 16px;border-radius:3px;cursor:pointer}button.secondary{color:#eeeae0;background:transparent}.controls{display:flex;gap:12px;flex-wrap:wrap;margin:24px 0 32px}#grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:26px}.card{min-width:0;border:1px solid #3d4847;background:#1d2424;border-radius:5px;overflow:hidden}video{display:block;width:100%;aspect-ratio:1188/744;background:#111;object-fit:contain}.copy{padding:19px 21px 23px}.kind{display:inline-block;color:#d4c898;border:1px solid #6c6753;border-radius:2px;padding:3px 7px;text-transform:uppercase}.kind.real{color:#c2dbca;border-color:#536b5a}h2{font:29px/1.2 Georgia,serif;margin:14px 0 10px}.description{font-size:14px;line-height:1.6;color:#c5ccc7;min-height:46px}.downloads{display:flex;gap:18px;flex-wrap:wrap;letter-spacing:0}.meta{color:#9ca8a0}.note{border-top:1px solid #3d4847;margin-top:32px;padding-top:20px;color:#bdc5be;font-size:13px;line-height:1.7}#status[hidden]{display:none}@media(max-width:680px){main{padding:25px 16px 40px}#grid{grid-template-columns:1fr}.copy{padding:16px}h2{font-size:25px}.description{min-height:0}}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<main>
+<header>
+<p class="eyebrow">Motion review · release candidate</p>
+<h1>Projects,<br><em>in motion.</em></h1>
+<p>Eight motion studies for the project cards. Real browser interactions where safe, illustrative motion elsewhere. MP4 previews play below. Every clip also has a looping GIF download.</p>
+<div class="controls"><button id="play" type="button">Play visible clips</button><button id="pause" class="secondary" type="button">Pause all</button><a href="/" style="align-self:center">Back to portfolio</a></div>
+<p id="status" role="status">Loading local motion studies…</p>
+</header>
+<section id="grid" aria-label="Project motion previews"></section>
+<p class="note">The Home Assistant study runs the actual frontend and the owner's original shutter and cleaner/media/kitchen components. A fictional apartment replaces the floorplan. Control positions, identifiers, and demonstration states differ. Real clicks operate a simulated backend, never real devices. A separate browser uses fake credentials. Static frontend assets load read-only. No original property geometry, live values, or account details are included. Illustrative typing does not send a request or show a model response. Animation of research images adds no measurements or results. No device commands or service changes were made. Existing image-reuse caveats still apply. With reduced motion enabled, clips stay paused until you select Play.</p>
+</main>
+<script type="module">
+const grid=document.querySelector('#grid'), status=document.querySelector('#status');
+let playing=!matchMedia('(prefers-reduced-motion: reduce)').matches;
+const visible=new Set();
+const observer=new IntersectionObserver(entries=>{for(const entry of entries){const video=entry.target;if(entry.isIntersecting){visible.add(video);if(playing)video.play().catch(()=>{});}else{visible.delete(video);video.pause();}}},{threshold:.15});
+const size=bytes=>bytes>=1024*1024?`${(bytes/1024/1024).toFixed(1)} MB`:`${Math.round(bytes/1024)} KB`;
+try{
+ const response=await fetch('../motion/manifest.json',{cache:'no-store'});
+ if(!response.ok)throw new Error('The local clips are not ready yet. Reload when rendering is complete.');
+ const manifest=await response.json();
+ for(const clip of manifest.entries){
+  const article=document.createElement('article');article.className='card';article.dataset.project=clip.id;
+  const video=document.createElement('video');video.src=`../motion/${clip.files.mp4}?v=${clip.bytes.mp4}`;video.poster=`../motion/${clip.files.poster}?v=${clip.bytes.mp4}`;video.muted=true;video.loop=true;video.playsInline=true;video.controls=true;video.preload='metadata';video.setAttribute('aria-label',`${clip.title}: ${clip.description}`);
+  const copy=document.createElement('div');copy.className='copy';
+  const kind=document.createElement('span');kind.className=`kind ${clip.kind==='real-ui'?'real':''}`;kind.textContent=clip.kind==='real-ui'?'Real UI recording':'Illustrative motion';
+  const title=document.createElement('h2');title.textContent=clip.title;
+  const description=document.createElement('p');description.className='description';description.textContent=clip.description;
+  const meta=document.createElement('p');meta.className='meta';meta.textContent=`${clip.duration}-second silent loop · MP4 1188 × 744 · GIF 792 × 496`;
+  const downloads=document.createElement('div');downloads.className='downloads';
+  for(const format of ['gif','mp4']){const link=document.createElement('a');link.href=`../motion/${clip.files[format]}?v=${clip.bytes[format]}`;link.download=clip.files[format];link.textContent=`Download ${format.toUpperCase()} · ${size(clip.bytes[format])}`;downloads.append(link);}
+  copy.append(kind,title,description,meta,downloads);article.append(video,copy);grid.append(article);observer.observe(video);
+ }
+ status.hidden=true;
+}catch(error){status.textContent=error.message;}
+document.querySelector('#play').addEventListener('click',()=>{playing=true;for(const video of visible)video.play().catch(()=>{});});
+document.querySelector('#pause').addEventListener('click',()=>{playing=false;for(const video of document.querySelectorAll('video'))video.pause();});
+</script>
+</body>
+</html>

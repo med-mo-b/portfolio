@@ -1,0 +1,50 @@
+[
+  {
+    "id": "portfolio-website",
+    "title": "Portfolio website \u00b7 short browsing loop",
+    "kind": "real-ui",
+    "description": "Real capture of the local portfolio preview. The view holds on the hero. It glides to the first Journey entry and opens the details. A click opens the project dialog for a short read. The Close button closes the dialog. The view restores the initial selection and glides back to the hero. First and last frames match: scrollY 0, no dialog open, the initial selection, and the pointer at its start position.",
+    "sources": [
+      "Local portfolio preview of this repository (env PORTFOLIO_URL, default http://localhost:3417/)"
+    ],
+    "duration": 12,
+    "files": {
+      "mp4": "portfolio-website.mp4",
+      "gif": "portfolio-website.gif",
+      "poster": "portfolio-website.jpg"
+    }
+  },
+  {
+    "id": "homelab-cm3588",
+    "title": "Home Assistant \u00b7 native cards and demo states",
+    "kind": "illustrative",
+    "description": "The actual Home Assistant frontend and the owner's original shutter and cleaner/media/kitchen cards. A fictional apartment replaces the floorplan, with controls repositioned for its rooms. Real clicks toggle a bulb, operate the native shutter sheet, start and dock the cleaner, and inspect the kitchen and media tabs. Every device state is synthetic. No real device commands or configuration changes.",
+    "sources": [
+      "Read-only frontend assets and original custom dashboard components; configuration inputs remain private.",
+      "public/motion/sources/home-assistant-fictional-floorplan.svg",
+      "Fresh isolated browser with a local simulated WebSocket backend; no real credentials or live device states."
+    ],
+    "duration": 16,
+    "files": {
+      "mp4": "homelab-cm3588.mp4",
+      "gif": "homelab-cm3588.gif",
+      "poster": "homelab-cm3588.jpg"
+    }
+  },
+  {
+    "id": "local-assistant",
+    "title": "Local assistant \u00b7 illustrative typing",
+    "kind": "illustrative",
+    "description": "Illustrative typing, not a live screen. A deterministic animation focuses the input on the redacted Open WebUI screenshot, types a generic sentence, and clears it again. No request is sent and no model reply is shown.",
+    "sources": [
+      "public/images/local-assistant.png (owner-authorized, redacted capture; see docs/media-sources.md)",
+      "Deterministic local canvas animation, no network activity"
+    ],
+    "duration": 4,
+    "files": {
+      "mp4": "local-assistant.mp4",
+      "gif": "local-assistant.gif",
+      "poster": "local-assistant.jpg"
+    }
+  }
+]

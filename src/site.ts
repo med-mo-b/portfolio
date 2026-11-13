@@ -8,6 +8,7 @@ import { BRANCHES, TIMELINE_DATA } from './data/timeline.js';
 import type { TimelineEvent } from './types.js';
 import { applyLanguage, detectLanguage, type Language } from './lib/language.js';
 import { escapeHtml as esc, paragraphs } from './lib/html.js';
+import { clipEnabled, initMedia, motionClip, mountMedia, setModalOpen } from './lib/project-media.js';
 
 let lang: Language = 'en';
 let selected: string | null = 'osapiens-aipe';
@@ -39,6 +40,16 @@ const shortTitle: Record<string, [string, string]> = {
 const category = (p: Project) =>
     ({ project: t('Project', 'Projekt'), publication: t('Publication', 'Publikation'), sidequest: t('Side quest', 'Nebenprojekt') })[p.category];
 const role = (p: Project) => (p.role ? ' / ' + (lang === 'de' && p.roleDe ? p.roleDe : p.role) : '');
+
+// The default image of a media box is the clip's first frame, so the static default and the clip never disagree.
+// Projects without a clip keep their own image.
+const mediaImage = (p: Project) => motionClip(p.id)?.poster ?? p.image;
+
+// Sibling play/pause control and demonstration badge for a media box. Never nested inside the media button.
+// Rendered only when the browser can play the clip; otherwise the static image stays alone.
+const mediaUi = (id: string) => clipEnabled(id)
+    ? `<span class="media-badge" hidden>${t('Demonstration (muted)', 'Demonstration (stumm)')}</span><button type="button" class="media-toggle" data-media-toggle="${id}" aria-pressed="false"><span class="when-play"><span aria-hidden="true">▶</span> ${t('Play clip', 'Clip abspielen')}</span><span class="when-pause" hidden><span aria-hidden="true">⏸</span> ${t('Pause clip', 'Clip pausieren')}</span></button>`
+    : '';
 
 // The site logo from public/images/black_logo.svg. The fill uses currentColor, so one mark works in both themes.
 const logo = `<svg viewBox="0 0 300 220" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><path id="mo-path" d="M50 160 C 40 90, 90 90, 100 140 C 110 180, 140 180, 150 140 C 160 80, 210 90, 200 130 C 210 185, 270 170, 260 120 C 250 80, 195 95, 205 135"/><mask id="mo-mask"><use href="#mo-path" stroke="white" stroke-width="28" stroke-linecap="round" stroke-linejoin="round"/><use href="#mo-path" stroke="black" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/></mask></defs><rect width="300" height="220" fill="currentColor" mask="url(#mo-mask)"/></svg>`;
@@ -106,7 +117,7 @@ function work(): string {
         .map((p, i) => {
             const title = t(p.title, p.titleDe);
             const short = shortTitle[p.id] ? t(...shortTitle[p.id]!) : title;
-            return `<article class="project project-${i}"><button class="project-image" data-project="${p.id}" aria-label="${esc(t('Open details: ', 'Details öffnen: ') + title)}"><img src="${esc(p.image)}" alt="" loading="lazy" decoding="async"><span class="open-image" aria-hidden="true">↗</span></button><div class="project-copy"><p class="eyebrow">${esc(category(p) + role(p))}</p><h3><button data-project="${p.id}">${esc(short)} <span aria-hidden="true">↗</span></button></h3><p>${esc(t(p.description, p.descriptionDe))}</p><p class="technology">${p.tech.map(esc).join(' · ')}</p></div></article>`;
+            return `<article class="project project-${i}"><div class="project-media"${clipEnabled(p.id) ? ` data-media="${p.id}"` : ''}><button class="project-image" data-project="${p.id}" aria-label="${esc(t('Open details: ', 'Details öffnen: ') + title)}"><img src="${esc(mediaImage(p))}" alt="" loading="lazy" decoding="async"><span class="open-image" aria-hidden="true">↗</span></button>${mediaUi(p.id)}</div><div class="project-copy"><p class="eyebrow">${esc(category(p) + role(p))}</p><h3><button data-project="${p.id}">${esc(short)} <span aria-hidden="true">↗</span></button></h3><p>${esc(t(p.description, p.descriptionDe))}</p><p class="technology">${p.tech.map(esc).join(' · ')}</p></div></article>`;
         })
         .join('')}</div></section>`;
 }
@@ -132,7 +143,7 @@ function projectDetail(p: Project): string {
     const links = p.links ?? {};
     const external = lang === 'de' && links.externalDe ? links.externalDe : links.external;
     const entries = Object.entries({ github: links.github, paper: links.paper, external }).filter(([, url]) => url);
-    return `<img class="detail-image" src="${esc(p.image)}" alt=""><div class="detail-copy"><p class="eyebrow">${esc(category(p) + role(p))}</p><h2 id="project-title">${esc(t(p.title, p.titleDe))}</h2>${paragraphs(t(p.details, p.detailsDe))}<p class="technology">${p.tech.map(esc).join(' · ')}</p><div class="detail-links">${entries.map(([key, url]) => `<a href="${esc(url)}" target="_blank" rel="noopener noreferrer">${label[key]} ↗</a>`).join('')}</div></div>`;
+    return `<div class="detail-media"${clipEnabled(p.id) ? ` data-media="${p.id}"` : ''}><img class="detail-image" src="${esc(mediaImage(p))}" alt="">${mediaUi(p.id)}</div><div class="detail-copy"><p class="eyebrow">${esc(category(p) + role(p))}</p><h2 id="project-title">${esc(t(p.title, p.titleDe))}</h2>${paragraphs(t(p.details, p.detailsDe))}<p class="technology">${p.tech.map(esc).join(' · ')}</p><div class="detail-links">${entries.map(([key, url]) => `<a href="${esc(url)}" target="_blank" rel="noopener noreferrer">${label[key]} ↗</a>`).join('')}</div></div>`;
 }
 
 /** The git tree from the Atlas mockup: one main line and one curved branch per lane. */
@@ -199,10 +210,14 @@ function updateIndex(): void {
 }
 
 function render(): void {
+    moveCursor(document.body);
     document.querySelector('#app')!.innerHTML = `${header()}<main id="main">${hero()}${journey()}${work()}${contact()}${footer()}</main>${sectionIndex()}${dialog()}`;
     setMeta();
     drawGitTree();
     updateIndex();
+    document.body.classList.remove('modal-open');
+    setModalOpen(false);
+    mountMedia();
 }
 
 function setTheme(theme: 'light' | 'dark', save: boolean): void {
@@ -237,6 +252,7 @@ export function initSite(): void {
     applyLanguage(lang, false);
     if (!document.documentElement.dataset.theme) document.documentElement.dataset.theme = 'light';
     render();
+    initMedia();
     // Content is rendered after load, so the browser cannot scroll to the hash itself.
     // Scroll again after the fonts load, because the fonts change the layout.
     const toHash = () => {
@@ -307,6 +323,8 @@ export function initSite(): void {
             dialogEl.showModal();
             moveCursor(dialogEl);
             document.body.classList.add('modal-open');
+            setModalOpen(true);
+            mountMedia();
         }
         const commit = target.closest<HTMLElement>('[data-event]');
         if (commit) {
@@ -331,6 +349,7 @@ export function initSite(): void {
         if ((event.target as Element).tagName === 'DIALOG') {
             document.body.classList.remove('modal-open');
             moveCursor(document.body);
+            setModalOpen(false);
         }
     }, true);
 

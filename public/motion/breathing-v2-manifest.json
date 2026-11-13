@@ -1,0 +1,44 @@
+[
+  {
+    "id": "thoraxmonitor",
+    "title": "Thoraxmonitor",
+    "kind": "illustrative",
+    "description": "Illustrative breathing over the current Thoraxmonitor card illustration. The drawn lung is isolated as a patch and scales about five percent with each breath, so the lung itself visibly expands and contracts inside the torso. Bright bounded pulses with visible tails travel along the drawn antenna cables, and each antenna flashes once per breath. The drawing, its labels and all values stay unchanged. The motion shows no measured physiology.",
+    "sources": [
+      "/images/thoraxmonitor.webp"
+    ],
+    "duration": 4,
+    "files": {
+      "mp4": "thoraxmonitor.mp4",
+      "gif": "thoraxmonitor.gif",
+      "poster": "thoraxmonitor.jpg"
+    }
+  },
+  {
+    "id": "respiratory-flow-reconstruction",
+    "title": "Respiratory Flow Reconstruction",
+    "kind": "illustrative",
+    "description": "Illustrative parallel Monte Carlo dropout over twelve shared time steps. All displayed subnetworks pulse their active layers together. Ten staged outputs arrive together and aggregate at the existing Prediction marker, which is their median. Only then does one point appear on the original predicted-flow curve. A hollow marker follows the measured reference. Original curves, uncertainty, labels and inactive neurons remain unchanged.",
+    "sources": [
+      "/images/mdpi_tm_abstract.webp"
+    ],
+    "duration": 6,
+    "files": {
+      "mp4": "respiratory-flow-reconstruction.mp4",
+      "gif": "respiratory-flow-reconstruction.gif",
+      "poster": "respiratory-flow-reconstruction.jpg"
+    },
+    "notes": [
+      "Illustrative samples, not new measured data or computed study results.",
+      "The three displayed masks plus the original ellipsis represent n=10; the existing active neurons pulse in layer order, concurrently across the networks.",
+      "For each shared input, ten outputs arrive together. Their centered sample median equals the existing printed Prediction marker.",
+      "After aggregation, exactly one point appears on the predicted-flow curve. Measured flow remains a reference, not an ensemble output.",
+      "Original curves, printed samples, uncertainty bounds, values and inactive white neurons remain unchanged.",
+      "The loop starts and ends on the same clean frame."
+    ],
+    "bytes": {
+      "mp4": 2435632,
+      "gif": 1647543
+    }
+  }
+]

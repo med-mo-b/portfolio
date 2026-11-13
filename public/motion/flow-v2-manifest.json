@@ -1,0 +1,33 @@
+[
+  {
+    "id": "tedias-ahead",
+    "title": "RAG-Chatbot \"DARIAN\" (TEDIAS)",
+    "kind": "illustrative",
+    "description": "Data packets move along the drawn connections of the unchanged DARIAN architecture diagram, with a small glow on the active service. The motion is illustrative only. The diagram, its labels, and its text stay unchanged.",
+    "sources": [
+      "https://gesundheitstechnologien.ipa.fraunhofer.de/de/unsere_projekte/rag-chatbot.html",
+      "public/motion/sources/tedias-ahead.jpg"
+    ],
+    "duration": 4,
+    "files": {
+      "mp4": "tedias-ahead.mp4",
+      "gif": "tedias-ahead.gif",
+      "poster": "tedias-ahead.jpg"
+    }
+  },
+  {
+    "id": "federated-cardiac-ct",
+    "title": "Federated Learning Cardiac CT",
+    "kind": "illustrative",
+    "description": "Model-update packets move between the four hospitals and the central server along the drawn arrows of the unchanged Federated Learning schematic. The motion is illustrative only. The figure, its labels, and its text stay unchanged.",
+    "sources": [
+      "/images/federated_paper.webp"
+    ],
+    "duration": 4,
+    "files": {
+      "mp4": "federated-cardiac-ct.mp4",
+      "gif": "federated-cardiac-ct.gif",
+      "poster": "federated-cardiac-ct.jpg"
+    }
+  }
+]

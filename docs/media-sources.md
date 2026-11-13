@@ -144,3 +144,74 @@ affiliated with, endorsed by, or sponsored by these projects.
 5. Re-inspect the results on screen against the checks listed under
    "General provenance" before publishing. The personal capture must show
    no history entries, account details, or other unknown text.
+
+## Motion release candidate: anonymised personal Home Assistant
+
+The owner approved these visuals and their integration into the portfolio.
+Deployment remains pending. The original project image files remain unchanged.
+Cards and dialogs use matching first-frame clip posters as their static fallbacks.
+Visible clips play automatically, except for reduced-motion or data-saving
+preferences and explicit pauses.
+
+The owner requested the actual dark interface, not the earlier schematic.
+After reviewing blur, the owner suggested a different apartment in the same
+visual style. The replacement plan is sharp because its geometry is fictional.
+
+At the owner's request, a read-only SSH inspection accessed the container's
+static floorplan assets. Only colours and drawing styles informed the new SVG.
+No original wall positions, room labels, dimensions, or device data were copied.
+The new single-level apartment does not describe the owner's property.
+
+The current 16-second study uses the actual Home Assistant frontend and the
+owner's original custom dashboard components, not recreated device controls.
+The original shutter icons, shutter-control sheet, and cleaner/media/kitchen
+panel run unchanged. A read-only copy of the current dashboard configuration
+provides their structure. Its entity identifiers become demo aliases. The
+floorplan image and icon positions use the fictional apartment.
+
+A fresh, isolated browser uses fake credentials and a simulated WebSocket
+backend. All states and attributes are generated locally. Only static frontend
+assets use read-only HTTP GET. The browser blocks HTTP writes, real REST APIs,
+authentication endpoints, foreign origins, and original floorplan images.
+WebSocket frames never reach a real server. No original account, device state,
+or sensor reading is copied into the recording. A privacy gate checks rendered
+text, card configuration, image sources, and state identifiers before capture.
+
+Actual clicks toggle a bulb, operate the native shutter sheet, start and dock
+the cleaner, and inspect the kitchen and media tabs. The native kitchen panel
+shows illustrative values, not invented appliance-control capabilities. The
+opening and closing frames match. No server files, settings, preferences, or
+real devices were changed. The existing browser was not used for the recording.
+
+- Fictional drawing: `public/motion/sources/home-assistant-fictional-floorplan.svg`.
+- Entry point: `scripts/motion/home-assistant.cjs`.
+- Native recorder: `scripts/motion/native-home-assistant.mjs`.
+- Simulated backend: `scripts/motion/native-ha-backend.mjs`.
+- Outputs: `public/motion/homelab-cm3588.{mp4,gif,jpg}`.
+- Reproduction requires private, authorised configuration inputs and read-only
+  frontend asset access. See `scripts/motion/README.md`. Do not commit private
+  inputs or credentials. The runtime does not use the earlier redacted PNG
+  or the retired SVG device animation.
+
+The research and patent motion studies keep a fixed camera. They add travelling
+highlights to existing diagram connections, signals, or logo strokes. The Thoraxmonitor
+study expands and contracts the original illustrated lung pixels inside the torso.
+The respiratory study uses the lower Monte Carlo dropout figure. For each time
+step, the subnetworks run together. Their outputs combine at the existing
+Prediction marker, which represents the median. Only then does one prediction
+point appear on the original predicted-flow curve. The measured-flow curve
+remains a reference. Printed curves, uncertainty bands, values, and inactive
+neurons remain unchanged. The animation explains this sequence with illustrative
+samples. These studies add no measured data, clinical results, generated model
+response, or patent-mechanism claim. Their on-image labels identify them as illustrative. Existing image,
+interface, and logo reuse uncertainties remain; the owner's approval of a local
+study does not establish third-party reuse rights.
+
+### Research-image reuse status
+
+`public/motion/sources/tedias-ahead.jpg` is a build input copied from the public
+Fraunhofer DARIAN project page linked by the portfolio. It supplies the original
+architecture diagram for the derived animation and poster. Public availability
+does not establish redistribution or adaptation permission. The applicable
+image-reuse terms remain unverified. The owner's approval does not remove
+this third-party rights uncertainty.

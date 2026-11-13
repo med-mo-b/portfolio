@@ -1,0 +1,17 @@
+[
+  {
+    "id": "patent-measuring-process",
+    "title": "Patent: Process Measurement in Objects",
+    "kind": "illustrative",
+    "description": "Fixed-camera illustrative logo animation of the current European Patent Office card image. A narrow light pulse travels around the red mark and crosses the arc bands one after another, then the mark settles back. The wordmark and the logo geometry stay unchanged. It is not an official logo animation. It does not depict the patented method.",
+    "sources": [
+      "/images/European-Patent-Office-Logo-Vector.svg-.webp"
+    ],
+    "duration": 4,
+    "files": {
+      "mp4": "patent-measuring-process.mp4",
+      "gif": "patent-measuring-process.gif",
+      "poster": "patent-measuring-process.jpg"
+    }
+  }
+]

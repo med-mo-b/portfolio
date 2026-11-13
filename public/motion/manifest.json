@@ -1,0 +1,160 @@
+{
+  "entries": [
+    {
+      "id": "local-assistant",
+      "title": "Local Agent",
+      "kind": "illustrative",
+      "description": "Illustrative typing, not a live screen. A deterministic animation focuses the input on the redacted Open WebUI screenshot, types a generic sentence, and clears it again. No request is sent and no model reply is shown.",
+      "duration": 4,
+      "files": {
+        "mp4": "local-assistant.mp4",
+        "gif": "local-assistant.gif",
+        "poster": "local-assistant.jpg"
+      },
+      "bytes": {
+        "mp4": 62809,
+        "gif": 31125
+      },
+      "sources": [
+        "public/images/local-assistant.png (owner-authorized, redacted capture; see docs/media-sources.md)",
+        "Deterministic local canvas animation, no network activity"
+      ]
+    },
+    {
+      "id": "homelab-cm3588",
+      "title": "Personal Homelab",
+      "kind": "illustrative",
+      "description": "The actual Home Assistant frontend and the owner's original shutter and cleaner/media/kitchen cards. A fictional apartment replaces the floorplan, with controls repositioned for its rooms. Real clicks toggle a bulb, operate the native shutter sheet, start and dock the cleaner, and inspect the kitchen and media tabs. Every device state is synthetic. No real device commands or configuration changes.",
+      "duration": 16,
+      "files": {
+        "mp4": "homelab-cm3588.mp4",
+        "gif": "homelab-cm3588.gif",
+        "poster": "homelab-cm3588.jpg"
+      },
+      "bytes": {
+        "mp4": 2143750,
+        "gif": 365670
+      },
+      "sources": [
+        "Read-only frontend assets and original custom dashboard components; configuration inputs remain private.",
+        "public/motion/sources/home-assistant-fictional-floorplan.svg",
+        "Fresh isolated browser with a local simulated WebSocket backend; no real credentials or live device states."
+      ]
+    },
+    {
+      "id": "tedias-ahead",
+      "title": "RAG-Chatbot \"DARIAN\" (TEDIAS)",
+      "kind": "illustrative",
+      "description": "Data packets move along the drawn connections of the unchanged DARIAN architecture diagram, with a small glow on the active service. The motion is illustrative only. The diagram, its labels, and its text stay unchanged.",
+      "duration": 4,
+      "files": {
+        "mp4": "tedias-ahead.mp4",
+        "gif": "tedias-ahead.gif",
+        "poster": "tedias-ahead.jpg"
+      },
+      "bytes": {
+        "mp4": 646697,
+        "gif": 426121
+      },
+      "sources": [
+        "https://gesundheitstechnologien.ipa.fraunhofer.de/de/unsere_projekte/rag-chatbot.html",
+        "public/motion/sources/tedias-ahead.jpg"
+      ]
+    },
+    {
+      "id": "thoraxmonitor",
+      "title": "Thoraxmonitor",
+      "kind": "illustrative",
+      "description": "Illustrative breathing over the current Thoraxmonitor card illustration. The drawn lung is isolated as a patch and scales about five percent with each breath, so the lung itself visibly expands and contracts inside the torso. Bright bounded pulses with visible tails travel along the drawn antenna cables, and each antenna flashes once per breath. The drawing, its labels and all values stay unchanged. The motion shows no measured physiology.",
+      "duration": 4,
+      "files": {
+        "mp4": "thoraxmonitor.mp4",
+        "gif": "thoraxmonitor.gif",
+        "poster": "thoraxmonitor.jpg"
+      },
+      "bytes": {
+        "mp4": 788362,
+        "gif": 769093
+      },
+      "sources": [
+        "/images/thoraxmonitor.webp"
+      ]
+    },
+    {
+      "id": "respiratory-flow-reconstruction",
+      "title": "Respiratory Flow Reconstruction",
+      "kind": "illustrative",
+      "description": "Illustrative parallel Monte Carlo dropout over twelve shared time steps. All displayed subnetworks pulse their active layers together. Ten staged outputs arrive together and aggregate at the existing Prediction marker, which is their median. Only then does one point appear on the original predicted-flow curve. A hollow marker follows the measured reference. Original curves, uncertainty, labels and inactive neurons remain unchanged.",
+      "duration": 6,
+      "files": {
+        "mp4": "respiratory-flow-reconstruction.mp4",
+        "gif": "respiratory-flow-reconstruction.gif",
+        "poster": "respiratory-flow-reconstruction.jpg"
+      },
+      "bytes": {
+        "mp4": 2435632,
+        "gif": 1647543
+      },
+      "sources": [
+        "/images/mdpi_tm_abstract.webp"
+      ]
+    },
+    {
+      "id": "federated-cardiac-ct",
+      "title": "Federated Learning Cardiac CT",
+      "kind": "illustrative",
+      "description": "Model-update packets move between the four hospitals and the central server along the drawn arrows of the unchanged Federated Learning schematic. The motion is illustrative only. The figure, its labels, and its text stay unchanged.",
+      "duration": 4,
+      "files": {
+        "mp4": "federated-cardiac-ct.mp4",
+        "gif": "federated-cardiac-ct.gif",
+        "poster": "federated-cardiac-ct.jpg"
+      },
+      "bytes": {
+        "mp4": 665759,
+        "gif": 760114
+      },
+      "sources": [
+        "/images/federated_paper.webp"
+      ]
+    },
+    {
+      "id": "portfolio-website",
+      "title": "Portfolio Website",
+      "kind": "real-ui",
+      "description": "Real capture of the local portfolio preview. The view holds on the hero. It glides to the first Journey entry and opens the details. A click opens the project dialog for a short read. The Close button closes the dialog. The view restores the initial selection and glides back to the hero. First and last frames match: scrollY 0, no dialog open, the initial selection, and the pointer at its start position.",
+      "duration": 12,
+      "files": {
+        "mp4": "portfolio-website.mp4",
+        "gif": "portfolio-website.gif",
+        "poster": "portfolio-website.jpg"
+      },
+      "bytes": {
+        "mp4": 9321337,
+        "gif": 7513173
+      },
+      "sources": [
+        "Local portfolio preview of this repository (env PORTFOLIO_URL, default http://localhost:3417/)"
+      ]
+    },
+    {
+      "id": "patent-measuring-process",
+      "title": "Patent: Process Measurement in Objects",
+      "kind": "illustrative",
+      "description": "Fixed-camera illustrative logo animation of the current European Patent Office card image. A narrow light pulse travels around the red mark and crosses the arc bands one after another, then the mark settles back. The wordmark and the logo geometry stay unchanged. It is not an official logo animation. It does not depict the patented method.",
+      "duration": 4,
+      "files": {
+        "mp4": "patent-measuring-process.mp4",
+        "gif": "patent-measuring-process.gif",
+        "poster": "patent-measuring-process.jpg"
+      },
+      "bytes": {
+        "mp4": 662067,
+        "gif": 485805
+      },
+      "sources": [
+        "/images/European-Patent-Office-Logo-Vector.svg-.webp"
+      ]
+    }
+  ]
+}
